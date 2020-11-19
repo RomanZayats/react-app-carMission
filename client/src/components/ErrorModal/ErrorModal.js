@@ -13,7 +13,7 @@ const ErrorModal = ({ error }) => {
   return (
     isErrorModal && (
       <div
-        data-testid="modal"
+        data-testid="error-modal"
         className="error-modal"
         onClick={(event) => closeErrorModal(event)}
       >
