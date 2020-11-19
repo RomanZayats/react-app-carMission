@@ -5,28 +5,18 @@
 
   //to be changed when header and footer will be ready
   height: 98vh;
-
-  //to be changed when variables will be merged
-  background: #282832;
-
+  background: $Rectangle67;
 
   &__head {
     margin-top: 50px;
-
-    //to be changed when variables will be merged
-    color: #C6D1DE;
-
+    color: $Rectangle48;
     font-weight: 700;
     font-size: 64px;
-
   }
 
   &__text {
     margin-top: 20px;
-
-    //to be changed when variables will be merged
-    color: #C6D1DE;
-
+    color: $Rectangle48;
     font-weight: 400;
     font-size: 18px;
   }
