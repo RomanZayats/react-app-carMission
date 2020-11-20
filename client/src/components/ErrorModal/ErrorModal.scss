@@ -9,6 +9,7 @@
   height: 100vh;
   background-color: rgba(151, 150, 162, 0.8);
 
+
   &__window {
     position: absolute;
     width: 50%;
@@ -30,8 +31,9 @@
   }
 
   &__btn {
-    margin: 10px;
-    font-size: 22px;
+    margin: 20px;
+    font-size: 18px;
+    background-color: $Rectangle65;
     border: 1px solid #d44637;
   }
 

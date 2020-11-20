@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-// import Button from "../Button/Button";
+import Button from "../generalComponents/Button/Button";
 import "./ErrorModal.scss";
 
 const ErrorModal = ({ error }) => {
@@ -13,7 +13,7 @@ const ErrorModal = ({ error }) => {
   return (
     isErrorModal && (
       <div
-        data-testid="error-modal"
+        data-testid="git"
         className="error-modal"
         onClick={(event) => closeErrorModal(event)}
       >
@@ -22,12 +22,7 @@ const ErrorModal = ({ error }) => {
             <p className="error-modal__heading-text">{`an error ${error.name} occurred`}</p>
           </div>
           <p className="error-modal__text">{error.message}</p>
-          <button
-            className="error-modal__btn"
-            onClick={(event) => closeErrorModal(event)}
-          >
-            Ok
-          </button>
+          <Button text="Ok" className="button-modal error-modal__btn" onClick={(event) => closeErrorModal(event)} />
         </div>
       </div>
     )
