@@ -1,11 +1,10 @@
 import React from "react";
-import SectionHeading from "./components/generalComponents/SectionHeading/SectionHeading";
-import {FilterFieldTitle} from "./components/generalComponents/FilterFieldTitle/FilterFieldTitle";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
     <div className="App">
-      <p>carMission</p>
+      <AppRoutes />
     </div>
   );
 }
