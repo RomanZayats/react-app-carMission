@@ -18,8 +18,10 @@
     box-sizing: border-box;
     width: 13px;
     height: 13px;
-    border: 1px solid $checkbox-disabled;
+    background: linear-gradient(#282832, #282832) padding-box, linear-gradient(274.95deg, #BEBFC0 2.76%, #7D7E80 32.64%, #DDDEDF 60.28%, #646567 97.25%) border-box;
+    border: 1px solid transparent;
     border-radius: 4px;
+    opacity: .5;
     transition: all .3s;
   }
 
@@ -39,7 +41,7 @@
   }
 
   &__native:checked ~ &__custom {
-    border: 1px solid $checkbox-active;
+    opacity: 1;
   }
 
 }
