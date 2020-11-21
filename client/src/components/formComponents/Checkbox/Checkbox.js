@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Checkbox.scss";
 
-const Checkbox = ({ name, setValue }) => {
+const Checkbox = ({ name, setValue, labelText }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = () => {
@@ -10,7 +10,7 @@ const Checkbox = ({ name, setValue }) => {
   };
 
   return (
-    <div className="checkbox">
+    <label className="checkbox">
       <input
         type="checkbox"
         checked={isChecked}
@@ -19,7 +19,8 @@ const Checkbox = ({ name, setValue }) => {
         onChange={handleCheckboxChange}
       />
       <div className="checkbox__custom" />
-    </div>
+      <span className="checkbox__text">{labelText}</span>
+    </label>
   );
 };
 

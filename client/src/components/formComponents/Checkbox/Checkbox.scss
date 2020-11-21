@@ -2,6 +2,8 @@
 
 .checkbox {
   position: relative;
+  display: flex;
+  align-items: center;
   cursor: pointer;
 
   &__native {
@@ -25,6 +27,13 @@
     transition: all .3s;
   }
 
+  &__text {
+    margin-left: 6px;
+    color: rgba(198, 209, 222, 0.3);
+    font-weight: 400;
+    font-size: 18px;
+  }
+
   &__native:checked ~ &__custom::before {
     position: absolute;
     top: 0;
@@ -42,6 +51,10 @@
 
   &__native:checked ~ &__custom {
     opacity: 1;
+  }
+
+  &__native:checked ~ &__text {
+    color: rgba(198, 209, 222, 1);
   }
 
 }
