@@ -4,7 +4,7 @@ import "./SectionHeading.scss";
 
 export const SectionHeading = ({text}) => {
     return (
-        <h2 className="section__heading">{text}</h2>
+        <h2 data-testid="section-heading" className="section__heading">{text}</h2>
     );
 };
 
