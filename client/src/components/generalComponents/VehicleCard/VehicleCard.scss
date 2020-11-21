@@ -1,0 +1,95 @@
+@import "../../../theme/styles/variables";
+
+.card__wrapper{
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+  background: #383841;
+  border-radius: 5px;
+}
+.card__title{
+  padding: 17px 69px 11px 45px;
+  color: $Rectangle48;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: sans-serif;
+  line-height: 26px;
+  text-align: center;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  }
+.card__img {
+  display: block;
+  width: 100%;
+}
+.card__info-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 9.9px 15px 0 15px;
+  }
+.card__fuel, .card__transmission, .card__year, .card__speed, .card__auction {
+  display: flex;
+  flex-basis: 45%;
+  align-items: center;
+  margin-bottom: 15px;
+  }
+.card__fuel-img, .card__speed-img, .card__auction-img{
+  margin-right: 7px;
+}
+.card__transmission-img{
+  margin-right: 8px;
+}
+.card__year-img{
+  margin-right: 9px;
+}
+.card__info-text{
+  color: $Rectangle48;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+  }
+.card__line {
+  height: 1px;
+  margin-right: 15px;
+  margin-left: 15px;
+  background-image: linear-gradient(274.95deg, #BEBFC0 2.76%, #7D7E80 32.64%, #DDDEDF 60.28%, #646567 97.25%);
+  border: none;
+ }
+.card__price{
+  display: flex;
+  justify-content: center;
+  padding-top: 13px;
+  padding-bottom: 15px;
+  color: $Rectangle48;
+  font-size: 18px;
+  line-height: 25px;
+  }
+.card__price-text{
+  margin-right: 20px;
+}
+.card__details, .card__additionally-primary, .card__additionally-highlits, .card__additionally-seller{
+  display: flex;
+  justify-content: space-between;
+  }
+.card__details{
+  padding: 13px 15px 14px 15px;
+}
+.card__details-title, .card__additionally-title{
+  color: $Rectangle48;
+  font-size: 12px;
+  line-height: 16px;
+}
+.card__details-name, .card__additionally-name{
+  color: $Rectangle48;
+  font-size: 14px;
+  line-height: 19px;
+ }
+.card__additionally-primary{
+  padding: 12px 15px 5px 15px;
+}
+.card__additionally-highlits{
+  padding: 0 15px 5px 15px;
+}
+.card__additionally-seller{
+  padding: 0 15px 14px 15px;
+}
