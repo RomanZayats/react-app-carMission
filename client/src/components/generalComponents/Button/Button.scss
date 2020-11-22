@@ -40,6 +40,7 @@
   border: 2px solid $Rectangle51;
   border-radius: 18px;
 }
+
 .button-callBack-bigger{
   max-width: 196px;
   padding-top: 9px;
@@ -54,6 +55,7 @@
   border-radius: 25px;
   outline: none;
 }
+
 .button-callBack-bigger:hover{
   background: linear-gradient($Rectangle65, $Rectangle65) padding-box, linear-gradient(274.95deg, #BEBFC0 2.76%, #7D7E80 32.64%, #DDDEDF 60.28%, #646567 97.25%) border-box;
 }

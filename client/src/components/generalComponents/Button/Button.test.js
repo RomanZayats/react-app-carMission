@@ -13,7 +13,6 @@ test("Function onClick is called when was clicked on button", () => {
     const { getByTestId } = render(
         <Button text={mockText} onClick={btnClickMock} />
     );
-
     const btn = getByTestId("btn");
     expect(btnClickMock).not.toHaveBeenCalled();
     fireEvent.click(btn);
@@ -32,3 +31,4 @@ test("Simple Button snapshot", () => {
     </button>
   `);
 });
+
