@@ -1,0 +1,14 @@
+@import "src/theme/styles/variables";
+@import "src/theme/styles/mixins";
+
+.work-stages {
+  width: 100%;
+  background-color: $Rectangle67;
+
+  &__content {
+    @include content-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
