@@ -25,6 +25,10 @@ const paymentMethods = require('./routes/paymentMethods');
 const partners = require('./routes/partners');
 const reviews = require('./routes/reviews');
 const mainRoute = require('./routes/index');
+const navbar = require('./routes/navbar');
+const logo = require('./routes/logo');
+
+
 
 const app = express();
 
@@ -67,6 +71,10 @@ app.use('/api/shipping-methods', shippingMethods);
 app.use('/api/payment-methods', paymentMethods);
 app.use('/api/partners', partners);
 app.use('/api/reviews', reviews);
+app.use('/api/navbar', navbar);
+app.use('/api/logo', logo);
+
+
 app.use('/', mainRoute);
 
 // Server static assets if in production

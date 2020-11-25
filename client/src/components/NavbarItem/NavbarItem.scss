@@ -1,0 +1,19 @@
+@import "src/theme/styles/_variables";
+
+
+.navbar, .footer {
+    &--item:hover &--link {
+        opacity: 0.5;
+    }
+    &--link {
+        color: $Rectangle48;
+        text-decoration: none;
+    }
+}
+
+.navbar {
+    &--item:hover &--link {
+        padding-bottom: 41px;
+        border-bottom: 1px solid $Rectangle48;
+    }
+}

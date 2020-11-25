@@ -1,0 +1,26 @@
+@import "src/theme/styles/_mixins";
+@import "src/theme/styles/_variables";
+
+.navbar {
+    &__bg {
+        &-main{
+            padding-top: 10px;
+            // background-color: #2a2e31;
+            background: linear-gradient(180deg, rgba(43,47,50,1) 33%, rgba(43,47,49,1) 67%);
+        }
+        &-minor, &-main {
+            padding-top: 10px;
+        }
+        &-minor {
+            background-color: $Rectangle66;
+        }
+    }
+    &__container {
+        @include content-block();
+        max-width: 1350px;
+    }
+    &__block {
+        display: grid;
+        grid-template-columns: calc(100%/3) calc(100%/3) calc(100%/3);
+    }
+}

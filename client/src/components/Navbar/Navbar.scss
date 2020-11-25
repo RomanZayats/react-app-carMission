@@ -1,0 +1,25 @@
+@import "src/theme/styles/_variables";
+
+.navbar, .footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.navbar {
+    align-items: center;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    &--left-side {
+        align-items: flex-start;
+    }
+    &--right-side {
+        align-items: flex-end;
+        text-align: right;
+    }
+
+}
+
