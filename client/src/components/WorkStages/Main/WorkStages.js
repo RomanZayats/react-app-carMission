@@ -4,12 +4,12 @@ import Button from "../../generalComponents/Button/Button";
 
 const WorkStages = () => {
   return (
-    <section>
-      <div>
-        <div>
+    <section className="work-stages">
+      <div className="work-stages__content">
+        <div className="work-stages__items-wrapper">
           <WorkStagesList />
         </div>
-        <p>description</p>
+        <p className="work-stages__description">description</p>
         <Button text="ololo" />
       </div>
     </section>
