@@ -6,6 +6,9 @@
     &__bg {
         padding-top: 30px;
         background-color: $Rectangle66;
+        @media screen and (max-width: $xs-size) {
+            display: none;
+        }
     }
     &__container {
         @include content-block();
@@ -20,6 +23,10 @@
         margin-top: 20px;
         margin-bottom: 20px;
         background: $Rectangle45;
+        @media screen and (max-width: $md-size) {
+            width: 190px;
+        }
+
     }
     &__info-block {
         display: flex;

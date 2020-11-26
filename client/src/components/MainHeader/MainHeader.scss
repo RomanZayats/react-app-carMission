@@ -22,5 +22,16 @@
     &__block {
         display: grid;
         grid-template-columns: calc(100%/3) calc(100%/3) calc(100%/3);
+        @media screen and (max-width: $md-size) { 
+            position: relative;
+            display: flex;
+        
+        }
+        &:first-child, :last-child {
+        @media screen and (max-width: $sm-size) { 
+                // position: absolute;
+            }
+        }
+    
     }
 }

@@ -17,7 +17,7 @@ const NavbarSchema = new Schema(
         onClick: {
             type: String,
         }, 
-        additionalContent: {
+        contacts: {
             type: String,
         }
     }

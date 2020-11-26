@@ -1,4 +1,12 @@
+@import "src/theme/styles/_variables";
+
+
 .logo {
     height: 100px;
     margin: 0 auto;
+    @media screen and (max-width: $sm-size) { 
+        display: inline-block;
+        height: 75px;
+    }
+
 }

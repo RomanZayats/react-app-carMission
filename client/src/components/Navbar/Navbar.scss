@@ -8,6 +8,10 @@
 
 .navbar {
     align-items: center;
+    @media screen and (max-width: $md-size) {
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
 }
 
 .footer {
