@@ -10,7 +10,9 @@ const WorkStageItem = ({ stageNum, stageName }) => {
         <Gear />
         <div className="work-stages__icon-wrapper" />
       </div>
-      <span className="work-stages__stage-number">{stageNum}</span>
+      <span className="work-stages__stage-number">
+        {stageNum < 10 ? `0${stageNum}` : stageNum}
+      </span>
     </div>
   );
 };

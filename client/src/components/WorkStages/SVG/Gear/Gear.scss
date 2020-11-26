@@ -2,7 +2,7 @@
   transition: .3s;
 }
 
-.gear:hover .gear-outer {
+.work-stages__item:hover .gear-outer {
   stroke: rgba(221, 222, 223, 1);
 }
 
@@ -10,7 +10,7 @@
   transition: .3s;
 }
 
-.gear:hover .gear-inner {
+.work-stages__item:hover .gear-inner {
   fill: url(#gear-gradient);
 ;
 }

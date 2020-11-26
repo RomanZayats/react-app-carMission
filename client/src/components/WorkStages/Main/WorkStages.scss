@@ -11,4 +11,77 @@
     flex-direction: column;
     align-items: center;
   }
+
+  &__head {
+    @include section-heading;
+    margin-bottom: 208px;
+    color: $Rectangle48;
+  }
+
+  &__items-wrapper {
+    display: grid;
+    grid-column-gap: 4.5%;
+    grid-template-columns: repeat(6, 1fr);
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 155px;
+  }
+
+  &__item {
+    position: relative;
+  }
+
+  &__item-name {
+    position: absolute;
+    left: 50%;
+    //box-sizing: border-box;
+    width: calc(100% + 45px);
+    max-width: 190px;
+    margin: auto;
+    padding: 18px 10px;
+    color: $Rectangle48;
+    font-size: 14px;
+    text-align: center;
+    background: rgba(196, 196, 196, 0.1);
+    border-radius: 3px;
+    transform: translateX(-50%);
+  }
+
+  &__item:nth-child(odd) &__item-name {
+    top: calc(100% + 55px);
+  }
+
+  &__item:nth-child(odd) &__item-number {
+    position: absolute;
+    bottom: 0;
+  }
+
+  &__item:nth-child(even) &__item-name {
+    bottom: calc(100% + 55px);
+  }
+
+  &__item:nth-child(even) &__item-number {
+    position: absolute;
+    top: 0;
+  }
+
+  &__graphic-wrapper {
+    position: relative;
+  }
+
+  &__icon-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    margin: auto;
+  }
+
+  &__description {
+    margin-bottom: 54px;
+  }
+
 }
