@@ -4,8 +4,8 @@ const passport = require("passport");
 
 //Import controllers
 const {
-  addService,
-  getServices
+  addServicePackage,
+  getServicePackages
 } = require("../controllers/servicePackages");
 
 // @route   POST /catalog
@@ -13,12 +13,13 @@ const {
 // @access  Private
 router.post(
   "/",
-  addService
+  addServicePackage
 );
 
 // @route   GET /catalog
 // @desc    GET existing categories
 // @access  Public
-router.get("/", getServices);
+router.get("/",
+  getServicePackages);
 
 module.exports = router;

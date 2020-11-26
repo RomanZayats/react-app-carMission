@@ -1,10 +1,10 @@
 const ServicePackage = require("../models/ServicePackage");
 
-exports.addService = (req, res, next) => {
+exports.addServicePackage = (req, res, next) => {
 
-  const newService = new Service(req.body);
+  const newServicePackage = new ServicePackage(req.body);
 
-  newService
+  newServicePackage
     .save()
     .then(data => res.json(data))
     .catch(err =>
@@ -14,8 +14,8 @@ exports.addService = (req, res, next) => {
     );
 };
 
-exports.getServices = (req, res, next) => {
-  ServicePaсkage.find()
+exports.getServicePackages = (req, res, next) => {
+  ServicePackage.find()
     .then(data => res.send(data))
     .catch(err =>
       res.status(400).json({

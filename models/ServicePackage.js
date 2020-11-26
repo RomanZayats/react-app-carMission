@@ -3,15 +3,25 @@ const Schema = mongoose.Schema;
 
 const ServicePackageSchema = new Schema(
   {
-    titlePrice: {
+    name: {
       type: String,
       required: true
     },
 
-    serviceList: {
+    price: {
+      type: Number,
+      required: true
+    },
+
+    currency: {
       type: String,
       required: true
     },
+
+    serviceList: [{
+      type: String,
+      required: true
+    }],
 
     date: {
       type: Date,
