@@ -13,7 +13,7 @@
     &__block {
         position: relative;
         display: grid;
-        grid-template-columns: calc(100%/3) calc(100%/3) calc(100%/3)
+        grid-template-columns: 40% 20% 40%;
     }
 }
 
