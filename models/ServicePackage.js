@@ -8,10 +8,10 @@ const ServicePackageSchema = new Schema(
       required: true
     },
 
-    serviceList: {
+    serviceList: [{
       type: String,
       required: true
-    },
+    }],
 
     date: {
       type: Date,
