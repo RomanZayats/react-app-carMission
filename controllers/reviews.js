@@ -16,7 +16,6 @@ exports.addReview = (req, res, next) => {
 };
 
 
-
 exports.getReviews = (req, res, next) => {
   Review.find()
     .then(data => res.send(data))
