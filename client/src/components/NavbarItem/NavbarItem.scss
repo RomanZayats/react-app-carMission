@@ -1,4 +1,6 @@
 @import "src/theme/styles/_variables";
+@import "src/theme/styles/mixins";
+
 
 
 .navbar, .footer {
@@ -12,8 +14,17 @@
 }
 
 .navbar {
-    &--item:hover &--link {
-        padding-bottom: 41px;
-        border-bottom: 1px solid $Rectangle48;
+    &--item {
+        margin: 0 auto;
+        padding: 15px;
     }
+}
+
+@media screen and (max-width: 640px){ 
+    .navbar {
+        &--item {
+            margin: 0;
+        }
+    }
+    
 }
