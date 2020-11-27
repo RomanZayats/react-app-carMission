@@ -7,9 +7,7 @@
             padding-top: 10px;
             background: linear-gradient(180deg, rgba(43,47,50,1) 33%, rgba(43,47,49,1) 67%);
             //color without linear gardient  
-            // background-color: #2a2e31; 
-
-            
+            // background-color: #2a2e31;           
         }
         &-minor, &-main {
             padding-top: 10px;
@@ -17,13 +15,13 @@
         &-minor {
             background-color: $Rectangle66;
         }
-
     }
     &__container {
         @include content-block();
         max-width: 1350px;
     }
 }
+
 @media screen and (max-width: 640px) {
     .header {
         &__bg{
@@ -32,27 +30,6 @@
                 background: $Rectangle67;
             }
         }
-    }
-    .open-navbar {
-        position: absolute;
-        top: 40%;
-        left: 6%;
-        width: 28px;
-        height: 2px;
-        // background-color: $Rectangle45;
-        background-color: white;
-        border: 0px solid transparent;
-        cursor: pointer;   
-        &::after {
-            position: absolute;
-            top: 250%;
-            left: 0;
-            width: 28px;
-            height: 2px;
-            background-color: white;
-            // background-color: $Rectangle45;
-            content: "";
-            }
     }
 }
 

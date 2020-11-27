@@ -7,15 +7,14 @@ const NavbarItem = ({
     className, textContent, contacts, sectionId
 }) => {
     return (
-    <li className={`${className}--item`}>
-        <HashLink to={sectionId} className={`${className}--link`}>
-            {/* {sectionId === "#footer" ? contacts : textContent} */}
-            {textContent}
-        </HashLink>
-    </li>
-)
+        <li className={`${className}--item`}>
+            <HashLink to={sectionId} className={`${className}--link`}>
+                {/* {sectionId === "#footer" ? contacts : textContent} */}
+                {textContent}
+            </HashLink>
+        </li>
+    )
 };
-
 
 NavbarItem.propTypes = {
     className: PropTypes.string,

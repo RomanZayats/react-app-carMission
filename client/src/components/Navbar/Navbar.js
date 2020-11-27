@@ -4,30 +4,19 @@ import PropTypes from "prop-types";
 import "./Navbar.scss"
 
 const Navbar = ({
-    items, className, mainNavBar, onClick, mobileNavbar
+    items, className, onClick, mobileNavbar
 }) => {
 
     const navbarItems = items.map((e) =>
         !e.disabled ? <NavbarItem
-            onClick={onClick}
             className={className}
             textContent={e.textContent}
             contacts={e.contacts}
             sectionId={e.sectionId}
-            onClick={e.onClick}
             id={e.id}
             key={e.id}
         /> : null
     )
-
-    if (mainNavBar) {
-        return (
-            <ul className={className} onClick={onClick}>
-                {navbarItems}
-            </ul>
-
-        )
-    }
 
     if(mobileNavbar) {
         return (

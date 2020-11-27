@@ -1,11 +1,15 @@
 @import "src/theme/styles/_variables";
 
-
+// Styles for LOGO
 .logo {
     height: 90px;
-    margin: 0 auto;   
+    margin: 0 auto; 
+    &__block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
-
 @media screen and (min-width: $sm-size) and (max-width: 960px) { 
     .logo{
         height: 80px;

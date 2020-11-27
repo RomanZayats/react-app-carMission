@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./Logo.scss";
+import "./Image.scss";
 
-const Logo = ({
+const Image = ({
     className, src, id, alt
 }) => {
     return (
@@ -10,20 +10,19 @@ const Logo = ({
     );
 };
 
-Logo.propTypes = {
+Image.propTypes = {
     className: PropTypes.string,
     src: PropTypes.string,
     id: PropTypes.string,
     alt: PropTypes.string
-
 }
 
-Logo.defaultProps = {
+Image.defaultProps = {
     className: "",
     src: "",
     id: "",
-    alt: ""
+    alt: "noname-img"
 
 }
 
-export default Logo;
+export default Image;
