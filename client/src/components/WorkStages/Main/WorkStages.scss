@@ -3,6 +3,7 @@
 
 .work-stages {
   width: 100%;
+  padding: 0 0 119px 0;
   background-color: $Rectangle67;
 
   &__content {
@@ -14,59 +15,89 @@
 
   &__head {
     @include section-heading;
-    margin-bottom: 208px;
+    margin-bottom: 103px;
     color: $Rectangle48;
   }
 
   &__items-wrapper {
     display: grid;
-    grid-column-gap: 4.5%;
     grid-template-columns: repeat(6, 1fr);
     justify-content: center;
+    justify-items: center;
     width: 100%;
+    height: 342px;
     margin-bottom: 155px;
   }
 
   &__item {
     position: relative;
+    width: 100%;
+    height: 235px;
+
+    &:nth-child(odd) {
+      align-self: end;
+    }
+
+    &:nth-child(even) {
+      align-self: start;
+    }
   }
 
   &__item-name {
-    position: absolute;
-    left: 50%;
     //box-sizing: border-box;
-    width: calc(100% + 45px);
+    display: inline-block;
+    width: 100%;
     max-width: 190px;
-    margin: auto;
-    padding: 18px 10px;
+    padding: 18px 0;
     color: $Rectangle48;
     font-size: 14px;
     text-align: center;
     background: rgba(196, 196, 196, 0.1);
     border-radius: 3px;
+
+    &--odd {
+      margin-top: 55px;
+    }
+
+    &--even {
+      margin-bottom: 55px;
+      //235 107
+    }
+  }
+
+  &__stage-number {
+    position: absolute;
+    left: 50%;
+    color: #C4C4C4;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 22px;
     transform: translateX(-50%);
   }
 
-  &__item:nth-child(odd) &__item-name {
-    top: calc(100% + 55px);
+  //&__item:nth-child(odd) &__item-name {
+  //  top: calc(100% + 55px);
+  //}
+
+  &__item:nth-child(odd) &__stage-number {
+    top: calc(100% + 8px);
   }
 
-  &__item:nth-child(odd) &__item-number {
-    position: absolute;
-    bottom: 0;
+  //&__item:nth-child(even) &__item-name {
+  //  bottom: calc(100% + 55px);
+  //}
+
+  &__item:nth-child(even) &__stage-number {
+    bottom: calc(100% + 8px);
   }
 
-  &__item:nth-child(even) &__item-name {
-    bottom: calc(100% + 55px);
-  }
-
-  &__item:nth-child(even) &__item-number {
-    position: absolute;
-    top: 0;
-  }
-
-  &__graphic-wrapper {
+  &__graphics-wrapper {
     position: relative;
+    box-sizing: border-box;
+    max-width: max-content;
+    margin: 0 auto;
+    //width: 124px;
+    //height: 124px;
   }
 
   &__icon-wrapper {
