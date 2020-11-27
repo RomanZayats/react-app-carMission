@@ -30,7 +30,7 @@ const servicePackages = require("./routes/servicePackages");
 const mainRoute = require("./routes/index");
 const navbar = require('./routes/navbar');
 const logo = require('./routes/logo');
-
+const feedbacks = require("./routes/feedbacks");
 const app = express();
 
 // Body parser middleware
@@ -77,7 +77,7 @@ app.use("/api/work-stages", workStages);
 app.use('/api/navbar', navbar);
 app.use('/api/logo', logo);
 app.use("/api/service-packages", servicePackages);
-
+app.use("/feedbacks", feedbacks);
 app.use("/", mainRoute);
 
 // Server static assets if in production
