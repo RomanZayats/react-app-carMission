@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import axios from "axios";
+//import axios from "axios";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import "./ReviewCarousel.scss";
@@ -10,22 +10,22 @@ const ReviewCarousel = () => {
 
     const [reviews, setReviews] = useState([]);
 
-//     useEffect(() => {
-//     fetch("/api/reviews/").then(r => r.json())
-//         .then(data => setReviews(data));
-// }, []);
-
     useEffect(() => {
-       getReviews();
-    }, []);
+    fetch("/api/reviews/").then(r => r.json())
+        .then(data => setReviews(data));
+}, []);
 
-    const getReviews = async () => {
-        const reviewsDb = await axios("/api/reviews/").then(
-            (r) => r.data
-        );
-
-        setReviews(reviewsDb);
-    };
+    // useEffect(() => {
+    //    getReviews();
+    // }, []);
+    //
+    // const getReviews = async () => {
+    //     const reviewsDb = await axios("/api/reviews/").then(
+    //         (r) => r.data
+    //     );
+    //
+    //     setReviews(reviewsDb);
+    // };
 
     const allReviews = reviews.map(el => <ReviewItem
             reviewCard={el}
