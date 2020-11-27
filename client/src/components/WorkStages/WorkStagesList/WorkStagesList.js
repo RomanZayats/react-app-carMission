@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import WorkStageItem from "../WorkStageItem/WorkStageItem";
+import Loader from "../../Loader/Loader";
 
 const WorkStagesList = () => {
   const [workStagesList, setWorkStagesList] = useState([]);
@@ -18,17 +19,22 @@ const WorkStagesList = () => {
   };
 
   const listToRender = workStagesList.map((stage) => {
-    const { stageNum, stageText, _id: id } = stage;
+    const { num, name, _id: id, iconSrc } = stage;
 
     return (
       <WorkStageItem
-        stageName={stageText}
-        stageNum={stageNum}
+        stageName={name}
+        stageNum={num}
         stageLength={workStagesList.length}
+        src={iconSrc}
         key={id}
       />
     );
   });
+
+  if (!workStagesList.length) {
+    return <Loader />;
+  }
 
   return <>{listToRender}</>;
 };

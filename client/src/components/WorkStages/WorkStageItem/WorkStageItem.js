@@ -2,10 +2,13 @@ import React from "react";
 import Gear from "../SVG/Gear/Gear";
 import WorkStageName from "../WorkStageName/WorkStageName";
 import Arrow from "../SVG/Arrow/Arrow";
+import Image from "../../Image/Image";
 
-const WorkStageItem = ({ stageNum, stageName, stageLength }) => {
+const WorkStageItem = ({ stageNum, stageName, stageLength, src }) => {
   return (
-    <div className="work-stages__item">
+    <div
+      className={`work-stages__item work-stages__slide work-stages__slide--${stageNum}`}
+    >
       {stageNum % 2 === 0 && (
         <WorkStageName
           stageName={stageName}
@@ -14,7 +17,7 @@ const WorkStageItem = ({ stageNum, stageName, stageLength }) => {
       )}
       <div className="work-stages__graphics-wrapper">
         <Gear />
-        <div className="work-stages__icon-wrapper" />
+        <Image src={src} alt="stage icon" className="work-stages__icon" />
         {stageNum < stageLength && (
           <Arrow className="work-stages__icon-arrow" />
         )}
