@@ -2,12 +2,13 @@ import React from "react";
 import "./WorkStages.scss";
 import WorkStagesList from "../WorkStagesList/WorkStagesList";
 import Button from "../../generalComponents/Button/Button";
+import SectionHeading from "../../generalComponents/SectionHeading/SectionHeading";
 
 const WorkStages = () => {
   return (
     <section className="work-stages">
       <div className="work-stages__content">
-        <h3 className="work-stages__head">Этапы Сотрудничества</h3>
+        <SectionHeading text="Этапы Сотрудничества" />
         <div className="work-stages__items-wrapper">
           <WorkStagesList />
         </div>
