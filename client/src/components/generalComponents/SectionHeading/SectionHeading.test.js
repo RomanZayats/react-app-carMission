@@ -10,7 +10,7 @@ test("SectionHeading is rendered is correctly", () => {
 test("Simple SectionHeading snapshot", () => {
   const { container } = render(<SectionHeading text={mockText} />);
   expect(container.innerHTML).toMatchInlineSnapshot(
-    `"<h2 data-testid=\\"section-heading\\" class=\\"section__heading\\">Title</h2>"`
+    "\"<h2 data-testid=\\\"section-heading\\\" class=\\\"section__heading\\\">Title</h2>\""
   );
 });
 

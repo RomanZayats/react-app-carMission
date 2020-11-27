@@ -1,0 +1,53 @@
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  margin: 0 auto;
+  background-color: rgba(131, 149, 170, 0.1);
+  border-radius: 3px;
+
+  &__name-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25px;
+    color: #C6D1DE;
+    font-size: 13px;
+    width: 100%;
+
+  }
+
+  &__phone-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    color: #C6D1DE;
+    font-size: 13px;
+    width: 100%;
+
+  }
+
+  &__button-label {
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+  }
+
+  &__field {
+    margin-top: 5px;
+    background: rgba(185, 185, 193, 0.2);
+    border-color: transparent;
+    border-radius: 5px;
+    width: 40%;
+  }
+
+  &__button {
+    color: #C6D1DE;
+    font-size: 12px;
+    background-color: transparent;
+    border: none;
+  }
+
+}
