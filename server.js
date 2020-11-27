@@ -23,8 +23,10 @@ const comments = require("./routes/comments");
 const shippingMethods = require("./routes/shippingMethods");
 const paymentMethods = require("./routes/paymentMethods");
 const partners = require("./routes/partners");
+const sectionsMainPage = require("./routes/sectionsMainPages");
 const reviews = require("./routes/reviews");
 const workStages = require("./routes/workStages");
+const servicePackages = require("./routes/servicePackages");
 const mainRoute = require("./routes/index");
 
 const app = express();
@@ -67,8 +69,11 @@ app.use("/api/comments", comments);
 app.use("/api/shipping-methods", shippingMethods);
 app.use("/api/payment-methods", paymentMethods);
 app.use("/api/partners", partners);
+app.use("/api/sections-main", sectionsMainPage);
 app.use("/api/reviews", reviews);
 app.use("/api/work-stages", workStages);
+app.use("/api/service-packages", servicePackages);
+
 app.use("/", mainRoute);
 
 // Server static assets if in production
