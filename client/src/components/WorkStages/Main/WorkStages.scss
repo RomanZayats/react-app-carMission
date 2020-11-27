@@ -44,11 +44,12 @@
   }
 
   &__item-name {
-    //box-sizing: border-box;
     display: inline-block;
+    justify-self: center;
+    box-sizing: border-box;
     width: 100%;
     max-width: 190px;
-    padding: 18px 0;
+    padding: 18px 5px;
     color: $Rectangle48;
     font-size: 14px;
     text-align: center;
@@ -79,7 +80,7 @@
   //  top: calc(100% + 55px);
   //}
 
-  &__item:nth-child(odd) &__stage-number {
+  &__item:nth-child(odd) &__graphics-wrapper &__stage-number {
     top: calc(100% + 8px);
   }
 
@@ -87,7 +88,7 @@
   //  bottom: calc(100% + 55px);
   //}
 
-  &__item:nth-child(even) &__stage-number {
+  &__item:nth-child(even) &__graphics-wrapper &__stage-number {
     bottom: calc(100% + 8px);
   }
 
@@ -113,6 +114,14 @@
 
   &__description {
     margin-bottom: 54px;
+  }
+
+  &__icon-arrow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(100% + 15px);
+    margin: auto;
   }
 
 }

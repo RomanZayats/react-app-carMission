@@ -17,17 +17,20 @@ const WorkStagesList = () => {
     setWorkStagesList(stagesFromServer);
   };
 
-  const mapActualList = () => {
-    return workStagesList.map((stage) => {
-      const { stageNum, stageText, _id: id } = stage;
+  const listToRender = workStagesList.map((stage) => {
+    const { stageNum, stageText, _id: id } = stage;
 
-      return (
-        <WorkStageItem stageName={stageText} stageNum={stageNum} key={id} />
-      );
-    });
-  };
+    return (
+      <WorkStageItem
+        stageName={stageText}
+        stageNum={stageNum}
+        stageLength={workStagesList.length}
+        key={id}
+      />
+    );
+  });
 
-  return <>{mapActualList()}</>;
+  return <>{listToRender}</>;
 };
 
 export default WorkStagesList;
