@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import UseWinSize from "../../utils/hooks/UseWinSize";
 import Navbar from "../Navbar/Navbar";
 import Image from "../Image/Image";
@@ -8,11 +8,8 @@ import Button from "../generalComponents/Button/Button";
 import "./MainHeader.scss";
 import { getLogoData } from "../../store/selectors/logoSelectors";
 import { getNavbarData } from "../../store/selectors/navbarSelectors";
-// import { loadLogoData } from "../../store/logo/operations";
-// import { loadNavbarData } from "../../store/navbar/operations";
 
 const MainHeader = () => {
-  // const dispatch = useDispatch();
   const location = useLocation();
   const logoInfo = useSelector(getLogoData);
   const navbarData = useSelector(getNavbarData);
@@ -31,13 +28,6 @@ const MainHeader = () => {
   const checkClick = (e) => {
     setIsMobileNavbar(!isMobileNavbar)
   }
-
-  // useEffect(() => {
-  //   dispatch(loadNavbarData)
-  //   dispatch(loadLogoData)
-
-  // })
-
 
   return (
     <div className={headerBgClassName}>
@@ -78,7 +68,7 @@ const MainHeader = () => {
           }
           {isMobileWindowSize &&
             !isMobileNavbar ?
-              <Button className="open-navbar" onClick={setIsMobileNavbar} /> :
+              <Button className="open-navbar" onClick={setIsMobileNavbar} text=""/> :
               null
           }
           {isMobileWindowSize &&
