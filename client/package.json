@@ -88,5 +88,6 @@
     "stylelint-prettier-check": "stylelint-config-prettier-check",
     "eslint": "eslint ./src/**/*.js",
     "eslint-fix-js": "eslint --fix ./src/**/*.js"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }
