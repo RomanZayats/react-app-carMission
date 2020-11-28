@@ -47,7 +47,6 @@ const SocialNetworks = ({
             /> : console.log("wtf?")
     )
 
-
     return (
         <ul className={className}>
             {linkItems}

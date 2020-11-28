@@ -1,9 +1,9 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const passport = require("passport");
-const path = require("path");
-require("dotenv").config();
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const passport = require('passport');
+const path = require('path');
+require('dotenv').config();
 
 const globalConfigs = require("./routes/globalConfigs");
 const customers = require("./routes/customers");
@@ -27,6 +27,7 @@ const sectionsMainPage = require("./routes/sectionsMainPages");
 const reviews = require("./routes/reviews");
 const workStages = require("./routes/workStages");
 const servicePackages = require("./routes/servicePackages");
+const features = require("./routes/features");
 const mainRoute = require("./routes/index");
 const navbar = require("./routes/navbar");
 const logo = require("./routes/logo");
@@ -81,6 +82,7 @@ app.use("/api/work-stages", workStages);
 app.use("/api/navbar", navbar);
 app.use("/api/logo", logo);
 app.use("/api/service-packages", servicePackages);
+app.use("/api/features", features);
 app.use("/api/loader", loader);
 app.use("/api/social-networks", socialNetworks);
 
