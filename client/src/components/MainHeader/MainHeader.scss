@@ -6,8 +6,8 @@
         &-main{
             padding-top: 10px;
             background: linear-gradient(180deg, rgba(43,47,50,1) 33%, rgba(43,47,49,1) 67%);
-            //color without linear gardient  
-            // background-color: #2a2e31;           
+            //color without linear gardient
+            // background-color: #2a2e31;
         }
         &-minor, &-main {
             padding-top: 10px;
@@ -26,7 +26,7 @@
     .header {
         &__bg{
             &-main {
-                // background: transparent; 
+                // background: transparent;
                 background: $Rectangle67;
             }
         }

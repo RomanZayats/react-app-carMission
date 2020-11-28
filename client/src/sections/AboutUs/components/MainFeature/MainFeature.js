@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import "./MainFeature.scss";
 import useWinSize from "../../../../utils/hooks/UseWinSize";
 import PropTypes from "prop-types";
+import Image from "../../../../components/Image/Image";
 
 const MainFeature = (props) => {
   const { className, imgPath, altText, text } = props;
@@ -26,7 +27,7 @@ const MainFeature = (props) => {
       {winWidth > 640 && (
         <div className={className}>
           <div className="about-us__content-box-img">
-            <img src={imgPath} alt={altText} />
+            <Image src={imgPath} alt="staff-photo" />
           </div>
 
           <div className="about-us__content-box-text">
