@@ -2,9 +2,9 @@ const Feedback = require("../models/Feedback");
 const mailSender = require("../commonHelpers/mailSender");
 
 exports.createFeedback = (req, res, next) => {
-
-  mailSender("av_zayats@ukr.net", "testing mail sender",
-    "<div> <p>req.body.name</p> <p>req.body.phone</p></div>" );
+  console.log("req body  - - - ", req.body);
+  mailSender("db.carsmission@gmail.com", "Вам пришел запрос от клиента",
+    `<p style="font-size: 20px">Вам пришел запрос от клиента: имя клиента ${req.body.name}, контактный номер телефона ${req.body.phone}.</p>`);
 
   const newFeedback = new Feedback(req.body);
 
@@ -37,6 +37,6 @@ exports.deleteFeedbacks = (req, res, next) => {
         message: `Error happened on server: "${err}" `
       })
     );
- };
+};
 
 

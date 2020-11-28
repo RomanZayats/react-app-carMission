@@ -11,7 +11,6 @@ function App() {
   return (
 
     <div className="App">
-      <FeedbackForm />
       <MainHeader />
       <AppRoutes />
       {winWidth > 640 && <Footer />}

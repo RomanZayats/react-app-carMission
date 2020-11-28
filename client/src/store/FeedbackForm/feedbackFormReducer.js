@@ -1,7 +1,7 @@
 import { SHOW_FEEDBACK_FORM, HIDE_FEEDBACK_FORM, CONFIRM_FEEDBACK_FORM } from "./actionTypes";
 
 const initialStore = {
-  feedbackForm: "open"
+  feedbackForm: "closed"
 };
 
 export default function reducer (store = initialStore, { type, payload }) {
