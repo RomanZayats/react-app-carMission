@@ -5,7 +5,7 @@ const SocialNetworksItem = ({
 }) => {
     return (
         <li className={listClassName}>
-            <a className={className} href={url} id={id} target="_blank">
+            <a className={className} href={url} id={id} target="_blank" rel="noreferrer">
                 {src()}
             </a>
         </li>
