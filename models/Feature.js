@@ -2,15 +2,21 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const FeatureSchema = new Schema({
-  featureImg: {
+  imgPath: {
     type: String,
     required: true,
   },
-  featureText: {
+  title: {
     type: String,
     required: true,
   },
-  main: { type: Boolean },
+  isMain: {
+    type: Boolean,
+    required: true,
+  },
+  text: {
+    type: String,
+  },
   date: {
     type: Date,
     default: Date.now,

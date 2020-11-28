@@ -27,6 +27,7 @@ const sectionsMainPage = require("./routes/sectionsMainPages");
 const reviews = require("./routes/reviews");
 const workStages = require("./routes/workStages");
 const servicePackages = require("./routes/servicePackages");
+const features = require("./routes/features");
 const mainRoute = require("./routes/index");
 
 const app = express();
@@ -73,6 +74,7 @@ app.use("/api/sections-main", sectionsMainPage);
 app.use("/api/reviews", reviews);
 app.use("/api/work-stages", workStages);
 app.use("/api/service-packages", servicePackages);
+app.use("/api/features", features);
 
 app.use("/", mainRoute);
 
