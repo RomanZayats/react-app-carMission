@@ -46,7 +46,6 @@ const MainFeature = (props) => {
 
 MainFeature.propTypes = {
   className: PropTypes.string.isRequired,
-  imgPath: PropTypes.string.isRequired,
   altText: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
 };
