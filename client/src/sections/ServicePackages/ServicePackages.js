@@ -4,57 +4,65 @@ import SectionHeading from "../../components/generalComponents/SectionHeading/Se
 import "./servicePackages.scss";
 import Button from "../../components/generalComponents/Button/Button";
 
+
 const ServicePackages = ({name, price, currency, serviceList}) => {
 
-
   return (
-    <div className="service-packages__wrapper">
+    <div className="servicePackages">
       <SectionHeading text="Пакеты услуг"/>
-      <div className="servicePackages__item">
-        <h3 className="servicePackages__name">{name}</h3>
-        <p className="servicePackages__currency">{currency}</p>
-        <p className="servicePackages__price">{price}</p>
-        <ul className="servicePackages__serviceList">
-          <li>Подбор авто на аукционе</li>
-          <li>Участие в аукционе</li>
-          <li>Доставка авто в Одессу</li>
-          <li>Таможенное оформление</li>
-          <li>Доставка авто в Киев</li>
-          <li>Сертификация</li>
-        </ul>
+      <div className="servicePackages__wrapper">
+        <div className="servicePackages__item">
+          <div className="servicePackages__item-title">
+            <h3 className="servicePackages__name">Light{name}</h3>
+            <span className="servicePackages__currency">${currency}</span>
+            <span className="servicePackages__price">300{price}</span>
+          </div>
+          <ul className="servicePackages__serviceList">
+            <li>Подбор авто на аукционе</li>
+            <li>Участие в аукционе</li>
+            <li>Доставка авто в Одессу</li>
+            <li>Таможенное оформление</li>
+            <li>Доставка авто в Киев</li>
+            <li>Сертификация</li>
+          </ul>
+        </div>
+        <div className="servicePackages__item">
+          <div className="servicePackages__item-title">
+            <h3 className="servicePackages__name">Medium{name}</h3>
+            <span className="servicePackages__currency">${currency}</span>
+            <span className="servicePackages__price">600{price}</span>
+          </div>
+          <ul className="servicePackages__serviceList">
+            <li>Подбор авто на аукционе</li>
+            <li>Участие в аукционе</li>
+            <li>Доставка авто в Одессу</li>
+            <li>Таможенное оформление</li>
+            <li>Доставка авто в Киев</li>
+            <li>Сертификация</li>
+            <li>Полировка и химчистка авто</li>
+          </ul>
+        </div>
+        <div className="servicePackages__item">
+          <div className="servicePackages__item-title">
+            <h3 className="servicePackages__name">Premium{name}</h3>
+            <span className="servicePackages__currency">${currency}</span>
+            <span className="servicePackages__price">1000{price}</span>
+          </div>
+          <ul className="servicePackages__serviceList">
+            <li>Подбор авто на аукционе</li>
+            <li>Участие в аукционе</li>
+            <li>Доставка авто в Одессу</li>
+            <li>Таможенное оформление</li>
+            <li>Доставка авто в Киев</li>
+            <li>Сертификация</li>
+            <li>Полировка и химчистка авто</li>
+          </ul>
+        </div>
       </div>
-      <div className="servicePackages__item">
-        <h3 className="servicePackages__name">{name}</h3>
-        <p className="servicePackages__currency">{currency}</p>
-        <p className="servicePackages__price">{price}</p>
-        <ul className="servicePackages__serviceList">
-          <li>Подбор авто на аукционе</li>
-          <li>Участие в аукционе</li>
-          <li>Доставка авто в Одессу</li>
-          <li>Таможенное оформление</li>
-          <li>Доставка авто в Киев</li>
-          <li>Сертификация</li>
-          <li>Полировка и химчистка авто</li>
-        </ul>
-      </div>
-      <div className="servicePackages__item">
-        <h3 className="servicePackages__name">{name}</h3>
-        <p className="servicePackages__currency">{currency}</p>
-        <p className="servicePackages__price">{price}</p>
-        <ul className="servicePackages__serviceList">
-          <li>Подбор авто на аукционе</li>
-          <li>Участие в аукционе</li>
-          <li>Доставка авто в Одессу</li>
-          <li>Таможенное оформление</li>
-          <li>Доставка авто в Киев</li>
-          <li>Сертификация</li>
-          <li>Полировка и химчистка авто</li>
-        </ul>
-      </div>
-      <p className="service-packages__description">
+      <p className="servicePackages__description">
         Оставьте заявку и мы поможем вам выбрать подходящий для вас пакет услуг
       </p>
-      <Button text="Отправить заявку" onClick={}/>
+      <Button className="button2-sendRequest" text="Отправить заявку"/>
     </div>
   );
 };
