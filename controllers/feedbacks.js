@@ -1,6 +1,10 @@
 const Feedback = require("../models/Feedback");
+const mailSender = require("../commonHelpers/mailSender");
 
-exports.addFeedback = (req, res, next) => {
+exports.createFeedback = (req, res, next) => {
+
+  mailSender("av_zayats@ukr.net", "testing mail sender",
+    "<div> <p>req.body.name</p> <p>req.body.phone</p></div>" );
 
   const newFeedback = new Feedback(req.body);
 
@@ -26,7 +30,7 @@ exports.getFeedbacks = (req, res, next) => {
 };
 
 exports.deleteFeedbacks = (req, res, next) => {
-  Feedback.delete()
+  Feedback.deleteMany({})
     .then(data => res.send(data))
     .catch(err =>
       res.status(400).json({

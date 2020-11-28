@@ -25,7 +25,7 @@ const FeedbackForm = () => {
 
   const postFeedback = (feedbackObj) => {
     console.log(feedbackObj);
-    axios.post("/feedbacks", feedbackObj)
+    axios.post("/api/feedbacks", feedbackObj)
       .catch((err) => console.error(err));
   };
 
@@ -47,7 +47,7 @@ const FeedbackForm = () => {
 
         {({ errors, touched }) => (
           <Form className='feedback-form'>
-            <button onClick={() => {
+            <button className="feedback-form__exit-btn" onClick={() => {
               hideFeedbackForm();
             }}>&#215;</button>
             <label className="feedback-form__name-label">
@@ -68,7 +68,7 @@ const FeedbackForm = () => {
 
             <label className="feedback-form__button-label">
               <Field name='send-button'
-                     type='submit' value='Отправить' className='feedback-form__button'
+                     type='submit' value='Отправить' className='feedback-form__conf-button'
               />
             </label>
           </Form>
@@ -76,11 +76,11 @@ const FeedbackForm = () => {
       </Formik>
       : (isFeedbackFormOpen === "confirm") ?
       <div className='feedback-form'>
-        <button onClick={() => {
+        <button className="feedback-form__exit-btn" onClick={() => {
           hideFeedbackForm();
         }}>&#215;</button>
-        <p>Спасибо :)</p>
-        <p> Мы свяжемся с вами в течении 5 минут !</p>
+        <p className="feedback-form__conf-text1">Спасибо :)</p>
+        <p className="feedback-form__conf-text2"> Мы свяжемся с вами в течении 5 минут !</p>
       </div>
       : null
   );
