@@ -6,7 +6,7 @@ import MainPage from "../pages/MainPage/MainPage";
 const AppRoutes = () => {
   return (
     <Switch>
-      <Route exact path="/" render={() => <MainPage />} />
+      <Route exact path="/" component={MainPage} />
       <Route exact path="/catalog-usa" render={() => <p>cars from usa</p>} />
       <Route
         exact
