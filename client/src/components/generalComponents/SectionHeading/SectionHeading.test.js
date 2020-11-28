@@ -21,6 +21,7 @@ test("Simple SectionHeading snapshot", () => {
   `);
 });
 
+
 test("SectionHeading contains text", () => {
     const {getByTestId, getByText} = render(<SectionHeading text={mockText}/>);
     const title = getByTestId("section-heading");
