@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import axios from "axios";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import "./ReviewCarousel.scss";
@@ -10,18 +11,24 @@ const ReviewCarousel = () => {
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
-    fetch("/api/reviews/").then(r => r.json())
-        .then(data => setReviews(data));
-}, []);
+        getReviews();
+    }, []);
+
+    const getReviews = async () => {
+        const reviewsDb = await axios("/api/reviews/").then(
+            (r) => r.data
+        );
+        setReviews(reviewsDb);
+    };
 
     const allReviews = reviews.map(el => <ReviewItem
-            reviewCard={el}
-            key={el._id}
-            src={el.customerPhoto}
-            nameReviewer={el.customerName}
-            nameCar={el.carInfo}
-            review={el.reviewText}
-            />);
+        reviewCard={el}
+        key={el._id}
+        src={el.customerPhoto}
+        nameReviewer={el.customerName}
+        nameCar={el.carInfo}
+        review={el.reviewText}
+    />);
 
     return (
         <div className="carouse-wrapper">

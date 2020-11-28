@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getIsLogoLoading } from "./store/selectors/logoSelectors";
 import { getIsNavbarLoading } from "./store/selectors/navbarSelectors";
 import { loadNavbarData } from "./store/navbar/operations";
+import ReviewCarousel from "./components/ReviewCarousel/ReviewCarousel";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const App = () => {
   return (
     <div className="App">
     <MainHeader />
+      <ReviewCarousel />
     <AppRoutes />
     {winWidth > 640 && <Footer />}
   </div>
