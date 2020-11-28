@@ -10,33 +10,34 @@ import { getIsLogoLoading } from "./store/selectors/logoSelectors";
 import { getIsNavbarLoading } from "./store/selectors/navbarSelectors";
 import { loadNavbarData } from "./store/navbar/operations";
 
+
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadNavbarData ())
-    dispatch(loadLogoData())
-  }, [dispatch])
+    dispatch(loadNavbarData());
+    dispatch(loadLogoData());
+  }, [dispatch]);
 
   const isLogoLoading = useSelector(getIsLogoLoading);
   const isNavbarLoading = useSelector(getIsNavbarLoading);
-  const {width: winWidth} = UseWinSize();
+  const { width: winWidth } = UseWinSize();
 
   if (isNavbarLoading || isLogoLoading) {
     return (
       <div className="App">
         <Loader />
       </div>
-    )
+    );
   }
 
   return (
     <div className="App">
-    <MainHeader />
-    <AppRoutes />
-    {winWidth > 640 && <Footer />}
-  </div>
+      <MainHeader />
+      <AppRoutes />
+      {winWidth > 640 && <Footer />}
+    </div>
   );
-}
+};
 
 export default App;
