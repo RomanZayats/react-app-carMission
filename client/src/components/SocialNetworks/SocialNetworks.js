@@ -46,12 +46,12 @@ const SocialNetworks = ({
                 key={e._id || e.id}
             /> : console.log("wtf?")
     )
-
     return (
         <ul className={className}>
             {linkItems}
         </ul>
     );
+
 };
 
 export default SocialNetworks;
