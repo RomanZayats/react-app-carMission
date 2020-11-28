@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import Image from "../../../../components/Image/Image";
 
 const MainFeature = (props) => {
-  const { className, imgPath, altText, text } = props;
+  const { className, imgPath, text } = props;
   const { width: winWidth } = useWinSize();
   const textContent = text.split("/");
 
