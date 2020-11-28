@@ -8,6 +8,8 @@ export const loadMainSection = () => async (dispatch) => {
     (r) => r.data
   );
 
+  sectionsFromServer.sort((a, b) => a.index - b.index);
+
   dispatch(setMainSections(sectionsFromServer));
   dispatch(setIsLoading(false));
 };
