@@ -81,7 +81,6 @@ app.use("/api/logo", logo);
 app.use("/api/service-packages", servicePackages);
 app.use("/api/loader", loader);
 
-
 app.use("/", mainRoute);
 
 // Server static assets if in production
