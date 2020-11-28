@@ -3,6 +3,7 @@ import "./WorkStages.scss";
 import WorkStagesList from "../WorkStagesList/WorkStagesList";
 import Button from "../../generalComponents/Button/Button";
 import SectionHeading from "../../generalComponents/SectionHeading/SectionHeading";
+import PropTypes from "prop-types";
 
 const WorkStages = ({ description, heading, anchorName }) => {
   return (
@@ -17,6 +18,12 @@ const WorkStages = ({ description, heading, anchorName }) => {
       </div>
     </section>
   );
+};
+
+WorkStages.propTypes = {
+  description: PropTypes.string,
+  heading: PropTypes.string,
+  anchorName: PropTypes.string
 };
 
 export default WorkStages;
