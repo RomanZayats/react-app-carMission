@@ -4,7 +4,6 @@ import Image from "../../../../components/Image/Image";
 
 const RegularFeature = (props) => {
   const { className, title, imgPath } = props;
-
   return (
     <div className={className}>
       <Image

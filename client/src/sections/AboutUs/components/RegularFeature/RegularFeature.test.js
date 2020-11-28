@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import RegularFeature from "./RegularFeature";
+import { RegularFeature } from "./RegularFeature";
 import Image from "../../../../components/Image/Image";
 
 const mockComponentClassName = "about-us__feature-box";
