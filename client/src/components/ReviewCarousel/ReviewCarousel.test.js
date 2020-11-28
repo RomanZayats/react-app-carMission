@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 import  ReviewCarousel from "./ReviewCarousel";
 
 
-test("ReviewItem is rendered is correctly", () => {
+test("ReviewCarousel is rendered is correctly", () => {
     render(< ReviewCarousel />
     )
 });
