@@ -21,7 +21,7 @@ const Footer = () => {
         <div className="footer__block" id="footer">
           <Navbar className="footer--left-side footer" items={leftSideItems}/>
           <div className="footer__info-block">
-            <Link to="/">
+            <Link to="/" className="footer__logo-link">
               <Image
                 className="logo"
                 src={logoInfo.path}
@@ -30,8 +30,7 @@ const Footer = () => {
               />
             </Link>
             <div className="footer__line"></div>
-            <SocialNetworks className="social-netwroks__footer" />
-            {/* <div className="footer__social-networks">facebook instagram telegram youtube</div> */}
+            <SocialNetworks className="footer__networks" />
           </div>
           <Navbar className="footer--right-side footer" items={rightSideItems}/>
         </div>

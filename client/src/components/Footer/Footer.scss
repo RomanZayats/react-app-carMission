@@ -7,8 +7,9 @@
 .footer {
 
     &__bg {
-        padding-top: 30px;
+        padding: 30px 0 50px;
         background-color: $Rectangle66;
+        
     }
     &__container {
         @include content-block();
@@ -20,6 +21,7 @@
     &__line {
         width: 290px;
         height: 1px;
+        margin: 0 auto;
         margin-top: 20px;
         margin-bottom: 20px;
         background: $Rectangle45;
@@ -27,7 +29,9 @@
     &__info-block {
         display: flex;
         flex-direction: column;
-        align-items: center;
+    }
+    &__logo-link {
+        margin: 0 auto;
     }
 }
 
