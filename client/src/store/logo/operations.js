@@ -1,10 +1,10 @@
 import axios from "axios";
-import { setLogoData } from "./actions";
-
+import { setLogoData, logoDataLoading } from "./actions";
 
 export const loadLogoData = () => (dispatch) => {
-    axios("/api/logo")
-        .then(res => {
-        dispatch(setLogoData(res.data))
-    })
-}
+  dispatch(logoDataLoading(true));
+  axios("/api/logo").then((res) => {
+    dispatch(setLogoData(...res.data));
+    dispatch(logoDataLoading(false));
+  });
+};

@@ -27,10 +27,13 @@ const sectionsMainPage = require("./routes/sectionsMainPages");
 const reviews = require("./routes/reviews");
 const workStages = require("./routes/workStages");
 const servicePackages = require("./routes/servicePackages");
+const features = require("./routes/features");
 const mainRoute = require("./routes/index");
-const navbar = require('./routes/navbar');
-const logo = require('./routes/logo');
-const feedbacks = require("./routes/feedbacks");
+const navbar = require("./routes/navbar");
+const logo = require("./routes/logo");
+const loader = require("./routes/loader");
+
+
 const app = express();
 
 // Body parser middleware
@@ -42,8 +45,8 @@ const db = require("./config/keys").mongoURI;
 
 // Connect to MongoDB
 mongoose
-  .connect(db, { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true })
-.then(() => console.log("MongoDB Connected"))
+  .connect(db, { useNewUrlParser: true, useFindAndModify: false })
+  .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
 // Passport middleware
@@ -74,10 +77,12 @@ app.use("/api/partners", partners);
 app.use("/api/sections-main", sectionsMainPage);
 app.use("/api/reviews", reviews);
 app.use("/api/work-stages", workStages);
-app.use('/api/navbar', navbar);
-app.use('/api/logo', logo);
+app.use("/api/navbar", navbar);
+app.use("/api/logo", logo);
 app.use("/api/service-packages", servicePackages);
-app.use("/api/feedbacks", feedbacks);
+app.use("/api/features", features);
+app.use("/api/loader", loader);
+
 app.use("/", mainRoute);
 
 // Server static assets if in production
