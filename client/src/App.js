@@ -11,7 +11,6 @@ import { getIsNavbarLoading } from "./store/selectors/navbarSelectors";
 import { loadNavbarData } from "./store/navbar/operations";
 import { loadMainSection } from "./store/appMainSections/operations";
 
-
 const App = () => {
   const dispatch = useDispatch();
 
@@ -37,7 +36,7 @@ const App = () => {
     <div className="App">
       <MainHeader />
       <AppRoutes />
-    {winWidth > 640 && <Footer />}
+      {winWidth > 640 && <Footer />}
     </div>
   );
 };
