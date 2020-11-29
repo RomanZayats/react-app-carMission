@@ -2,12 +2,22 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { getMainSections } from "../../store/selectors/appMainSections";
 import WorkStages from "../../components/WorkStages/Main/WorkStages";
+import AutoFromUsa from "../../sections/AutoFromUSA/AutoFromUSA";
+import AboutUs from "../../sections/AboutUs/AboutUs";
+import ReviewCarousel from "../../components/ReviewCarousel/ReviewCarousel";
+import ServicePackages from "../../sections/ServicePackages/ServicePackages";
 
 const MainPage = () => {
   const sectionsFromDB = useSelector(getMainSections).filter(
     (section) => !section.disabled
   );
-  const sectionsComponents = [WorkStages];
+  const sectionsComponents = [
+    WorkStages,
+    AutoFromUsa,
+    AboutUs,
+    ReviewCarousel,
+    ServicePackages,
+  ];
 
   const mapComponentsToRender = () => {
     return sectionsFromDB.map((section) => {
