@@ -5,7 +5,7 @@ import Button from "../../components/generalComponents/Button/Button";
 import axios from "axios";
 import ServicePackage from "./components/ServicePackage";
 
-const ServicePackages = ({ heading }) => {
+const ServicePackages = ({ heading, anchorName, description }) => {
   const [servicePackages, setServicePackages] = useState([]);
 
   useEffect(() => {
@@ -34,22 +34,13 @@ const ServicePackages = ({ heading }) => {
   });
 
   return (
-    <section className="servicePackages">
+    <section className="servicePackages" id={anchorName}>
       <SectionHeading text={heading} />
       <div className="servicePackages__wrapper">{servicePackagesToRender}</div>
-      <p className="servicePackages__description">
-        Оставьте заявку и мы поможем вам выбрать подходящий для вас пакет услуг
-      </p>
+      <p className="servicePackages__description">{description}</p>
       <Button className="button2-sendRequest" text="Отправить заявку" />
     </section>
   );
 };
 
-// ServicePackages.propTypes = {
-//   onClick: PropTypes.func,
-//   name: PropTypes.string.isRequired,
-//   currency: PropTypes.string.isRequired,
-//   price: PropTypes.number,
-//   serviceList: PropTypes.array.isRequired,
-// };
 export default ServicePackages;
