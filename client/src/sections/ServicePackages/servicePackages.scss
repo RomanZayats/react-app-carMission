@@ -12,7 +12,7 @@
   background-color: $Rectangle67;
 
   & ul {
-    font: $content-font;
+    font-family: $content-font;
   }
 
   & h2 {
@@ -27,7 +27,7 @@
   &__item-title {
     padding-top: 18px;
     padding-bottom: 12px;
-    font: $headings-font;
+    font-family: $headings-font;
     text-align: center;
 
     &:after {
@@ -73,7 +73,7 @@
 
   &__wrapper {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-around;
     margin-top: 80px;
     margin-right: 21px;
@@ -82,14 +82,15 @@
 
   &__item {
     width: 320px;
+    margin: 5px;
     text-align: left;
     background: linear-gradient(
-      325.31deg,
-      rgba(124, 125, 127, 0.1) -54.96%,
-      rgba(190, 191, 192, 0.1) -39.28%,
-      rgba(125, 126, 128, 0.1) -2.72%,
-      rgba(221, 222, 223, 0.1) 44.09%,
-      rgba(100, 101, 103, 0.1) 78.43%
+                    325.31deg,
+                    rgba(124, 125, 127, 0.1) -54.96%,
+                    rgba(190, 191, 192, 0.1) -39.28%,
+                    rgba(125, 126, 128, 0.1) -2.72%,
+                    rgba(221, 222, 223, 0.1) 44.09%,
+                    rgba(100, 101, 103, 0.1) 78.43%
     );
     border-radius: 3px;
 
@@ -114,8 +115,9 @@
   }
 
   &__description {
-    padding-top: 48px;
-    padding-bottom: 50px;
+    padding: 50px 20px;
+    //padding-top: 48px;
+    //padding-bottom: 50px;
     color: #c6d1de;
     font-weight: normal;
     font-size: 18px;
@@ -124,3 +126,24 @@
     text-align: center;
   }
 }
+
+@media screen and (min-width: $sm-size) and (max-width: 960px) {
+  .servicePackages__description {
+    padding: 35px 20px;
+    font-size: 13px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .servicePackages__description {
+    padding: 28px 20px;
+    font-size: 10px;
+    line-height: 14px;
+  }
+}
+
+//@media screen and (min-width: $sm-size) {
+//}
+//@media screen and (min-width: $sm-size) {
+//}
