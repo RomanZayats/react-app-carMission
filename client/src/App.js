@@ -11,6 +11,7 @@ import { getIsNavbarLoading } from "./store/selectors/navbarSelectors";
 import { loadNavbarData } from "./store/navbar/operations";
 import { loadMainSection } from "./store/appMainSections/operations";
 
+
 const App = () => {
   const dispatch = useDispatch();
 
