@@ -5,7 +5,7 @@ import Button from "../../components/generalComponents/Button/Button";
 import axios from "axios";
 import ServicePackage from "./components/ServicePackage";
 
-const ServicePackages = ({ heading, anchorName, description }) => {
+const ServicePackages = ({ anchorName, description }) => {
   const [servicePackages, setServicePackages] = useState([]);
 
   useEffect(() => {
