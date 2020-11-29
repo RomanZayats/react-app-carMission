@@ -34,10 +34,11 @@ const ReviewCarousel = () => {
       <SectionHeading text="Отзывы" />
       <Carousel
         showThumbs={false}
+        transitionTime="150"
         showStatus={false}
         infiniteLoop={true}
         centerMode
-        centerSlidePercentage="100"
+        centerSlidePercentage="33.33"
       >
         {allReviews}
       </Carousel>
