@@ -35,7 +35,7 @@ const ServicePackages = ({ heading, anchorName, description }) => {
 
   return (
     <section className="servicePackages" id={anchorName}>
-      <SectionHeading text={heading} />
+      <SectionHeading text="Пакеты услуг" />
       <div className="servicePackages__wrapper">{servicePackagesToRender}</div>
       <p className="servicePackages__description">{description}</p>
       <Button className="button2-sendRequest" text="Отправить заявку" />
