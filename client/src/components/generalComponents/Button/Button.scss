@@ -1,150 +1,210 @@
 @import "../../../theme/styles/variables";
 
-.button-callBack{
-  max-width: 175px;
-  padding-top: 8px;
-  padding-bottom: 9px;
+.button-callBack {
+  padding: 9.44px 33.18px;
   color: $Rectangle48;
   font-size: 12px;
-  font-family: sans-serif;
+  font-family: $content-font;
   line-height: 16px;
   text-align: center;
-  background: linear-gradient($Rectangle67, $Rectangle67) padding-box, linear-gradient(274.95deg, #BEBFC0 2.76%, #7D7E80 32.64%, #DDDEDF 60.28%, #646567 97.25%) border-box;
-  border: 3px solid transparent;
+  background: linear-gradient($Rectangle67, $Rectangle67) padding-box,
+    linear-gradient(
+        274.95deg,
+        #bebfc0 2.76%,
+        #7d7e80 32.64%,
+        #dddedf 60.28%,
+        #646567 97.25%
+      )
+      border-box;
+  border: 2px solid transparent;
   border-radius: 18px;
   outline: none;
-  transition: .3s;
+  transition: 0.3s;
 }
 .button-callBack:hover {
-  max-width: 174px;
-  background: linear-gradient($Rectangle65, $Rectangle65) padding-box, linear-gradient(274.95deg, #BEBFC0 2.76%, #7D7E80 32.64%, #DDDEDF 60.28%, #646567 97.25%) border-box;
-  border: 2px solid transparent;
+  background: linear-gradient($Rectangle65, $Rectangle65) padding-box,
+    linear-gradient(
+        274.95deg,
+        #bebfc0 2.76%,
+        #7d7e80 32.64%,
+        #dddedf 60.28%,
+        #646567 97.25%
+      )
+      border-box;
 }
 
-.button-modal{
-  box-sizing: border-box;
-  max-width: 141px;
-  padding-top: 4px;
-  padding-bottom: 7px;
+.button-modal {
+  padding: 5.5px 36.72px;
   color: $Rectangle48;
   font-size: 12px;
-  font-family: sans-serif;
+  font-family: $content-font;
   line-height: 16px;
   text-align: center;
   background: $Rectangle67;
   border: 2px solid $Rectangle51;
   border-radius: 18px;
   outline: none;
-  transition: .3s;
+  transition: 0.3s;
 }
-.button-modal:hover{
+.button-modal:hover {
   background: $Rectangle64;
-  border: 2px solid $Rectangle51;
-  border-radius: 18px;
 }
 
-.button-callBack-bigger{
-  max-width: 196px;
-  padding-top: 9px;
-  padding-bottom: 12px;
+.button-callBack-bigger {
+  padding: 11px 43.67px;
   color: $Rectangle48;
   font-size: 12px;
-  font-family: sans-serif;
+  font-family: $content-font;
   line-height: 16px;
   text-align: center;
-  background: linear-gradient($Rectangle67, $Rectangle67) padding-box, linear-gradient(274.95deg, #BEBFC0 2.76%, #7D7E80 32.64%, #DDDEDF 60.28%, #646567 97.25%) border-box;
+  background: linear-gradient($Rectangle67, $Rectangle67) padding-box,
+    linear-gradient(
+        274.95deg,
+        #bebfc0 2.76%,
+        #7d7e80 32.64%,
+        #dddedf 60.28%,
+        #646567 97.25%
+      )
+      border-box;
   border: 2px solid transparent;
   border-radius: 25px;
   outline: none;
-  transition: .3s;
+  transition: 0.3s;
 }
 
-.button-callBack-bigger:hover{
-  background: linear-gradient($Rectangle65, $Rectangle65) padding-box, linear-gradient(274.95deg, #BEBFC0 2.76%, #7D7E80 32.64%, #DDDEDF 60.28%, #646567 97.25%) border-box;
+.button-callBack-bigger:hover {
+  background: linear-gradient($Rectangle65, $Rectangle65) padding-box,
+    linear-gradient(
+        274.95deg,
+        #bebfc0 2.76%,
+        #7d7e80 32.64%,
+        #dddedf 60.28%,
+        #646567 97.25%
+      )
+      border-box;
 }
-.button-callBack-bigger:active{
-  background: linear-gradient($Rectangle64, $Rectangle64) padding-box, linear-gradient(274.95deg, #BEBFC0 2.76%, #7D7E80 32.64%, #DDDEDF 60.28%, #646567 97.25%) border-box;
- }
-.button2-sendRequest{
-  max-width: 221px;
-  padding-top: 11px;
-  padding-bottom: 14px;
+.button-callBack-bigger:active {
+  background: linear-gradient($Rectangle64, $Rectangle64) padding-box,
+    linear-gradient(
+        274.95deg,
+        #bebfc0 2.76%,
+        #7d7e80 32.64%,
+        #dddedf 60.28%,
+        #646567 97.25%
+      )
+      border-box;
+}
+.button2-sendRequest {
+  padding: 12.5px 44.3px;
   color: $Rectangle48;
   font-weight: 600;
   font-size: 14px;
-  font-family: sans-serif;
+  font-family: $content-font;
   line-height: 19px;
   text-align: center;
-  background: linear-gradient($Rectangle67, $Rectangle67) padding-box, linear-gradient(274.95deg, #BEBFC0 2.76%, #7D7E80 32.64%, #DDDEDF 60.28%, #646567 97.25%) border-box;
+  background: linear-gradient($Rectangle67, $Rectangle67) padding-box,
+    linear-gradient(
+        274.95deg,
+        #bebfc0 2.76%,
+        #7d7e80 32.64%,
+        #dddedf 60.28%,
+        #646567 97.25%
+      )
+      border-box;
   border: 2px solid transparent;
   border-radius: 25px;
   outline: none;
-  transition: .3s;
+  transition: 0.3s;
 }
 .button2-sendRequest:hover {
-  max-width: 196px;
-  padding-top: 9px;
-  padding-bottom: 12px;
-  font-size: 12px;
-  line-height: 16px;
-  background: linear-gradient($Rectangle65, $Rectangle65) padding-box, linear-gradient(274.95deg, #BEBFC0 2.76%, #7D7E80 32.64%, #DDDEDF 60.28%, #646567 97.25%) border-box;
+  background: linear-gradient($Rectangle65, $Rectangle65) padding-box,
+    linear-gradient(
+        274.95deg,
+        #bebfc0 2.76%,
+        #7d7e80 32.64%,
+        #dddedf 60.28%,
+        #646567 97.25%
+      )
+      border-box;
 }
-.button2-sendRequest:active{
-  max-width: 196px;
-  padding-top: 9px;
-  padding-bottom: 12px;
-  font-size: 12px;
-  line-height: 16px;
-  background: linear-gradient($Rectangle64, $Rectangle64) padding-box, linear-gradient(274.95deg, #BEBFC0 2.76%, #7D7E80 32.64%, #DDDEDF 60.28%, #646567 97.25%) border-box;
+.button2-sendRequest:active {
+  background: linear-gradient($Rectangle64, $Rectangle64) padding-box,
+    linear-gradient(
+        274.95deg,
+        #bebfc0 2.76%,
+        #7d7e80 32.64%,
+        #dddedf 60.28%,
+        #646567 97.25%
+      )
+      border-box;
 }
 
-.button-chooseCar{
-  max-width: 216px;
-  padding-top: 11px;
-  padding-bottom: 13px;
+.button-chooseCar {
+  padding: 12px 49.54px;
   color: $Rectangle48;
   font-weight: 600;
   font-size: 14px;
-  font-family: sans-serif;
+  font-family: $content-font;
   line-height: 19px;
   text-align: center;
-  background: linear-gradient($Rectangle67, $Rectangle67) padding-box, linear-gradient(274.95deg, #BEBFC0 2.76%, #7D7E80 32.64%, #DDDEDF 60.28%, #646567 97.25%) border-box;
+  background: linear-gradient($Rectangle67, $Rectangle67) padding-box,
+    linear-gradient(
+        274.95deg,
+        #bebfc0 2.76%,
+        #7d7e80 32.64%,
+        #dddedf 60.28%,
+        #646567 97.25%
+      )
+      border-box;
   border: 2px solid transparent;
   border-radius: 25px;
   outline: none;
-  transition: .3s;
+  transition: 0.3s;
 }
-.button-chooseCar:hover{
-  background: linear-gradient($Rectangle65, $Rectangle65) padding-box, linear-gradient(274.95deg, #BEBFC0 2.76%, #7D7E80 32.64%, #DDDEDF 60.28%, #646567 97.25%) border-box;
+.button-chooseCar:hover {
+  background: linear-gradient($Rectangle65, $Rectangle65) padding-box,
+    linear-gradient(
+        274.95deg,
+        #bebfc0 2.76%,
+        #7d7e80 32.64%,
+        #dddedf 60.28%,
+        #646567 97.25%
+      )
+      border-box;
 }
-.button-subscribe{
-  box-sizing: border-box;
-  max-width: 165px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+.button-subscribe {
+  padding: 4px 37.52px;
   color: rgba(198, 209, 222, 0.5);
   font-size: 14px;
-  font-family: sans-serif;
+  font-family: $content-font;
   line-height: 19px;
   text-align: center;
   background: #282832;
   border: 1px solid rgba(198, 209, 222, 0.5);
   border-radius: 3px;
   outline: none;
-  transition: .3s;
+  transition: 0.3s;
 }
-.button-subscribe:hover{
+.button-subscribe:hover {
   color: rgba(198, 209, 222, 0.8);
 }
-.button-subscribe:active{
+.button-subscribe:active {
   color: rgba(198, 209, 222, 0.8);
-  background: linear-gradient($Rectangle65, $Rectangle65) padding-box, linear-gradient(325.31deg, rgba(124, 125, 127, 0.1) -54.96%, rgba(190, 191, 192, 0.1) -39.28%, rgba(125, 126, 128, 0.1) -2.72%, rgba(221, 222, 223, 0.1) 44.09%, rgba(100, 101, 103, 0.1) 78.43%) border-box;
+  background: linear-gradient($Rectangle65, $Rectangle65) padding-box,
+    linear-gradient(
+        325.31deg,
+        rgba(124, 125, 127, 0.1) -54.96%,
+        rgba(190, 191, 192, 0.1) -39.28%,
+        rgba(125, 126, 128, 0.1) -2.72%,
+        rgba(221, 222, 223, 0.1) 44.09%,
+        rgba(100, 101, 103, 0.1) 78.43%
+      )
+      border-box;
   border: 1px solid transparent;
 }
 
 // burger-button for mobile navbar
 @media screen and (max-width: 640px) {
-
   .open-navbar {
     position: absolute;
     top: 45%;
@@ -155,7 +215,8 @@
     background-color: white;
     border: 0px solid transparent;
     cursor: pointer;
-    &::after, &::before {
+    &::after,
+    &::before {
       position: absolute;
       left: 0;
       width: 28px;
@@ -172,6 +233,3 @@
     }
   }
 }
-
-
-
