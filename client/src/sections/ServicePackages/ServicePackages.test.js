@@ -10,11 +10,11 @@ test("ServicePackages is rendered correctly", () => {
 
 test("ServicePackages contains sections", () => {
   const mockHeadingText = "Test heading";
-  const mockFeatureClassName = "servicePackages";
+  const mockPackageClassName = "servicePackages";
   const { getByTestId } = render(
     <ServicePackages>
       <SectionHeading text={mockHeadingText} />
-      <div className={mockFeatureClassName} />
+      <div className={mockPackageClassName} />
     </ServicePackages>
   );
   const headingText = getByTestId("section-heading");
