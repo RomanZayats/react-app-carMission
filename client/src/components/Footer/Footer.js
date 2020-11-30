@@ -1,13 +1,16 @@
 import React from "react";
 import "./Footer.scss";
 import Navbar from "../Navbar/Navbar";
-import Image from "../Image/Image";
+import Logo from "../Logo/Logo";
 import SocialNetworks from "../SocialNetworks/SocialNetworks";
 import { useSelector } from "react-redux";
 import { getLogoData } from "../../store/selectors/logoSelectors";
 import { getNavbarData } from "../../store/selectors/navbarSelectors";
 import { Link } from "react-router-dom";
-
+Image
+Image
+Image
+Image
 const Footer = () => {
   const logoInfo = useSelector(getLogoData);
   const navbarItems = useSelector(getNavbarData);
@@ -28,7 +31,7 @@ const Footer = () => {
           <Navbar className="footer--left-side footer" items={leftSideItems} />
           <div className="footer__info-block">
             <Link to="/" className="footer__logo-link">
-              <Image
+              <Logo
                 className="logo"
                 src={logoInfo.path}
                 id={logoInfo.id}
