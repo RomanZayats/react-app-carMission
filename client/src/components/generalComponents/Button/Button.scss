@@ -1,6 +1,6 @@
 @import "../../../theme/styles/variables";
 
-.button-callBack {
+.button-callback {
   padding: 9.44px 33.18px;
   color: $Rectangle48;
   font-size: 12px;
@@ -21,7 +21,7 @@
   outline: none;
   transition: 0.3s;
 }
-.button-callBack:hover {
+.button-callback:hover {
   background: linear-gradient($Rectangle65, $Rectangle65) padding-box,
     linear-gradient(
         274.95deg,
@@ -50,7 +50,7 @@
   background: $Rectangle64;
 }
 
-.button-callBack-bigger {
+.button-callback-bigger {
   padding: 11px 43.67px;
   color: $Rectangle48;
   font-size: 12px;
@@ -72,7 +72,7 @@
   transition: 0.3s;
 }
 
-.button-callBack-bigger:hover {
+.button-callback-bigger:hover {
   background: linear-gradient($Rectangle65, $Rectangle65) padding-box,
     linear-gradient(
         274.95deg,
@@ -83,7 +83,7 @@
       )
       border-box;
 }
-.button-callBack-bigger:active {
+.button-callback-bigger:active {
   background: linear-gradient($Rectangle64, $Rectangle64) padding-box,
     linear-gradient(
         274.95deg,
@@ -94,7 +94,7 @@
       )
       border-box;
 }
-.button2-sendRequest {
+.button2-send-request {
   padding: 12.5px 44.3px;
   color: $Rectangle48;
   font-weight: 600;
@@ -116,7 +116,7 @@
   outline: none;
   transition: 0.3s;
 }
-.button2-sendRequest:hover {
+.button2-send-request:hover {
   background: linear-gradient($Rectangle65, $Rectangle65) padding-box,
     linear-gradient(
         274.95deg,
@@ -127,7 +127,7 @@
       )
       border-box;
 }
-.button2-sendRequest:active {
+.button2-send-request:active {
   background: linear-gradient($Rectangle64, $Rectangle64) padding-box,
     linear-gradient(
         274.95deg,
@@ -139,7 +139,7 @@
       border-box;
 }
 
-.button-chooseCar {
+.button-choose-car {
   padding: 12px 49.54px;
   color: $Rectangle48;
   font-weight: 600;
@@ -161,7 +161,7 @@
   outline: none;
   transition: 0.3s;
 }
-.button-chooseCar:hover {
+.button-choose-car:hover {
   background: linear-gradient($Rectangle65, $Rectangle65) padding-box,
     linear-gradient(
         274.95deg,
