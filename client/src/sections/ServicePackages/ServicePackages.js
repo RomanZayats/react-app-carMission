@@ -5,7 +5,7 @@ import Button from "../../components/generalComponents/Button/Button";
 import axios from "axios";
 import ServicePackage from "./components/ServicePackage";
 
-const ServicePackages = ({ anchorName, description }) => {
+const ServicePackages = ({heading, anchorName, description }) => {
   const [servicePackages, setServicePackages] = useState([]);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const ServicePackages = ({ anchorName, description }) => {
 
   return (
     <section className="servicePackages" id={anchorName}>
-      <SectionHeading text="Пакеты услуг" />
+      <SectionHeading text={heading} />
       <div className="servicePackages__wrapper">{servicePackagesToRender}</div>
       <p className="servicePackages__description">{description}</p>
       <Button className="button2-sendRequest" text="Отправить заявку" />
