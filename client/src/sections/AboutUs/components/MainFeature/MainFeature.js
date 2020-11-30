@@ -13,7 +13,7 @@ const MainFeature = (props) => {
     <>
       {winWidth <= 640 && (
         <div className={className}>
-          <div className="about-us__content-box-text">
+          <div className="about-us__main-feature-box-text">
             <p>{textContent[0]}</p>
             <p>
               {textContent[1]}
@@ -26,11 +26,11 @@ const MainFeature = (props) => {
 
       {winWidth > 640 && (
         <div className={className}>
-          <div className="about-us__content-box-img">
+          <div className="about-us__main-feature-box-img">
             <Image src={imgPath} alt="staff-photo" />
           </div>
 
-          <div className="about-us__content-box-text">
+          <div className="about-us__main-feature-box-text">
             <p>{textContent[0]}</p>
             <p>
               {textContent[1]}

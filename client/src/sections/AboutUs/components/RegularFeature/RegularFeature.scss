@@ -1,21 +1,6 @@
 @import "../../../../theme/styles/variables";
 @import "../../../../theme/styles/mixins";
 
-.about-us__features-box {
-  @include content-block;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.about-us__features-box div {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 .about-us__feature-box {
   width: 90px;
   margin: 16px;

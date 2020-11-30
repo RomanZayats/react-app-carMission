@@ -28,7 +28,7 @@ const AutoFromUsa = () => {
     >
       <div className="auto-from-usa__wrapper">
         <h1 className="auto-from-usa__heading">{heading}</h1>
-        <p className="auto-from-usa__sub-heading">{description}</p>
+        <p className="auto-from-usa__description">{description}</p>
         <Button
           className="button-chooseCar"
           text="Подобрать авто"

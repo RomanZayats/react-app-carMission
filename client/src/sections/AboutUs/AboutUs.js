@@ -41,7 +41,7 @@ const AboutUs = ({ heading, anchorName }) => {
     const { imgPath, title, text, _id: id } = mf;
     return (
       <MainFeature
-        className="about-us__content-box"
+        className="about-us__main-feature-box"
         imgPath={imgPath}
         title={title}
         text={text}

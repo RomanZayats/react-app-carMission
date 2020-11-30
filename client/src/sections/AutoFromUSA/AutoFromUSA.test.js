@@ -18,7 +18,7 @@ test("AutoFromUsa contains elements", () => {
     <AutoFromUsa className={mockSectionClassName} heading={mockHeadingText}>
       <div className="auto-from-usa__wrapper">
         <h1 className="auto-from-usa__heading">{mockHeadingText}</h1>
-        <p className="auto-from-usa__sub-heading">{mockSectionDescription}</p>
+        <p className="auto-from-usa__description">{mockSectionDescription}</p>
         <Button text="testBtn" />
       </div>
     </AutoFromUsa>
