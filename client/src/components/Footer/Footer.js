@@ -7,10 +7,7 @@ import { useSelector } from "react-redux";
 import { getLogoData } from "../../store/selectors/logoSelectors";
 import { getNavbarData } from "../../store/selectors/navbarSelectors";
 import { Link } from "react-router-dom";
-Image
-Image
-Image
-Image
+
 const Footer = () => {
   const logoInfo = useSelector(getLogoData);
   const navbarItems = useSelector(getNavbarData);
