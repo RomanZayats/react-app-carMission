@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import WorkStageItem from "../WorkStageItem/WorkStageItem";
-import Loader from "../../Loader/Loader";
+import Loader from "../../../components/Loader/Loader";
 
 const WorkStagesList = () => {
     const [workStagesList, setWorkStagesList] = useState([]);

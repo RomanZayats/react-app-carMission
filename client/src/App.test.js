@@ -8,13 +8,13 @@ import store from "./store/store";
 
 test("app render", () => {
     const {container} = render(
-        <BrowserRouter>
-            <Provider store={store}>
+        <Provider store={store}>
+            <BrowserRouter>
                 <HelmetProvider>
                     <App/>
                 </HelmetProvider>
-            </Provider>
-        </BrowserRouter>
+            </BrowserRouter>
+        </Provider>
     );
 
     expect(container.firstChild).toHaveClass("App");

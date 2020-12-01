@@ -1,8 +1,8 @@
 import React from "react";
 import "./WorkStages.scss";
 import WorkStagesList from "../WorkStagesList/WorkStagesList";
-import Button from "../../generalComponents/Button/Button";
-import SectionHeading from "../../generalComponents/SectionHeading/SectionHeading";
+import Button from "../../../components/generalComponents/Button/Button";
+import SectionHeading from "../../../components/generalComponents/SectionHeading/SectionHeading";
 import PropTypes from "prop-types";
 import {useDispatch} from "react-redux";
 
@@ -17,7 +17,7 @@ const WorkStages = ({ description, heading, anchorName }) => {
           <WorkStagesList />
         </div>
         <p className="work-stages__description">{description}</p>
-        <Button text="Обратный звонок" className="button-callBack-bigger" onClick={() => dispatch()} />
+        <Button text="Обратный звонок" className="button-callback-bigger" onClick={() => dispatch()} />
       </div>
     </section>
   );
