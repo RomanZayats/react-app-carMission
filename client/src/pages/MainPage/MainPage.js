@@ -1,6 +1,6 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import {getMainSections} from "../../store/selectors/appMainSections";
+import {getMainSections} from "../../store/appMainSections/selectors";
 import WorkStages from "../../components/WorkStages/Main/WorkStages";
 import AutoFromUsa from "../../sections/AutoFromUSA/AutoFromUsa";
 import AboutUs from "../../sections/AboutUs/AboutUs";
@@ -48,12 +48,12 @@ const MainPage = () => {
         (i) => i !== null
     );
 
-    return <div>
+    return <>
         <Helmet>
             <title>Main Page</title>
         </Helmet>
         {filteredReadySections}
-    </div>;
+    </>;
 };
 
 export default MainPage;
