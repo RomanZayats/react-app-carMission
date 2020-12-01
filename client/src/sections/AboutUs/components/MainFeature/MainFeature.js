@@ -1,61 +1,46 @@
-import React, { memo } from "react";
+import React, {memo} from "react";
 import "./MainFeature.scss";
 import useWinSize from "../../../../utils/hooks/UseWinSize";
 import PropTypes from "prop-types";
-import Image from "../../../../components/Image/Image";
+import MainFeatureImage from "./components/MainFeatureImage/MainFeatureImage";
+import MainFeatureText from "./components/MainFeatureText/MainFeatureText";
 
 const MainFeature = (props) => {
-  const { className, imgPath, text } = props;
-  const { width: winWidth } = useWinSize();
-  const textContent = text.split("/");
+    const {className, imgPath, text} = props;
+    const {width: winWidth} = useWinSize();
 
-  return (
-    <>
-      {winWidth <= 640 && (
-        <div className={className}>
-          <div className="about-us__main-feature-text-box">
-            <p className="about-us__main-feature-text">{textContent[0]}</p>
-            <p className="about-us__main-feature-text">
-              {textContent[1]}
-              {textContent[2]}
-            </p>
-            <p className="about-us__main-feature-text">{textContent[3]}</p>
-          </div>
-        </div>
-      )}
+    const mainFeatureChecker = (windowWidth) => {
+        if (windowWidth <= 640) {
+            return (
+                <div className={className}>
+                    <MainFeatureText text={text}/>
+                </div>
+            )
+        } else if (windowWidth > 640) {
+            return (
+                <div className={className}>
+                    <MainFeatureImage imgPath={imgPath}/>
+                    <MainFeatureText text={text}/>
+                </div>
+            )
+        }
+    }
 
-      {winWidth > 640 && (
-        <div className={className}>
-          <div className="about-us__main-feature-image-box">
-            <Image
-              className="about-us__main-feature-image"
-              src={imgPath}
-              alt="staff-photo"
-            />
-          </div>
-
-          <div className="about-us__main-feature-text-box">
-            <p className="about-us__main-feature-text">{textContent[0]}</p>
-            <p className="about-us__main-feature-text">
-              {textContent[1]}
-              {textContent[2]}
-            </p>
-            <p className="about-us__main-feature-text">{textContent[3]}</p>
-          </div>
-        </div>
-      )}
-    </>
-  );
+    return (
+        <>
+            {mainFeatureChecker(winWidth)}
+        </>
+    );
 };
 
 MainFeature.propTypes = {
-  className: PropTypes.string.isRequired,
-  altText: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
+    className: PropTypes.string.isRequired,
+    altText: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
 };
 
 MainFeature.defaultProps = {
-  altText: "featureImage",
+    altText: "featureImage",
 };
 
 export default memo(MainFeature);

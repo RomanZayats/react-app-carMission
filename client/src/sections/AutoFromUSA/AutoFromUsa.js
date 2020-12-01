@@ -8,7 +8,7 @@ import axios from "axios";
 const AutoFromUsa = () => {
   const [heading, setHeading] = useState("");
   const [description, setDescription] = useState("");
-  const [imgPath, setImgPath] = useState("");
+  // const [imgPath, setImgPath] = useState("");
 
   // const dispatch = useDispatch();
   // const showForm = () => {
@@ -25,7 +25,7 @@ const AutoFromUsa = () => {
     });
     setHeading(dataFromServer[0].heading);
     setDescription(dataFromServer[0].description);
-    setImgPath(dataFromServer[0].imgPath);
+    // setImgPath(dataFromServer[0].imgPath);
   };
 
   return (

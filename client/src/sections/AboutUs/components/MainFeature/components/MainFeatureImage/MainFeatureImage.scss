@@ -1,0 +1,19 @@
+@import "../../../../../../theme/styles/variables";
+
+.about-us__main-feature-image {
+  height: 323px;
+
+  &-box {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: $sm-size) and (max-width: 960px) {
+  .about-us__main-feature-image {
+    width: 100%;
+
+    &-box {
+      width: 100%;
+    }
+  }
+}
