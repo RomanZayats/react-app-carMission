@@ -4,11 +4,9 @@ import WorkStagesList from "../WorkStagesList/WorkStagesList";
 import Button from "../../../components/generalComponents/Button/Button";
 import SectionHeading from "../../../components/generalComponents/SectionHeading/SectionHeading";
 import PropTypes from "prop-types";
-import {useDispatch} from "react-redux";
+
 
 const WorkStages = ({ description, heading, anchorName }) => {
-  const dispatch = useDispatch();
-
   return (
     <section id={anchorName} className="work-stages">
       <div className="work-stages__content">
