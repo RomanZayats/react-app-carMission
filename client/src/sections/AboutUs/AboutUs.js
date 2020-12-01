@@ -55,11 +55,11 @@ const AboutUs = ({ heading, anchorName }) => {
       <SectionHeading className="about-us__heading" text={heading} />
 
       <div className="about-us__features-box">
-        <div>
+        <div className="about-us__features-sub-box">
           {regularFeaturesToRender[0]}
           {regularFeaturesToRender[1]}
         </div>
-        <div>
+        <div className="about-us__features-sub-box">
           {regularFeaturesToRender[2]}
           {regularFeaturesToRender[3]}
         </div>

@@ -37,7 +37,7 @@ const AutoFromUsa = () => {
         <h1 className="auto-from-usa__heading">{heading}</h1>
         <p className="auto-from-usa__description">{description}</p>
         <Button
-          className="button-chooseCar"
+          className="button-choose-car"
           text="Подобрать авто"
           onClick={() => {}}
         />
