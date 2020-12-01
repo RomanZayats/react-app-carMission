@@ -4,13 +4,9 @@ import WorkStagesList from "../WorkStagesList/WorkStagesList";
 import Button from "../../generalComponents/Button/Button";
 import SectionHeading from "../../generalComponents/SectionHeading/SectionHeading";
 import PropTypes from "prop-types";
-import FeedbackForm from "../../FeedbackForm/Main/FeedbackForm";
-import { useDispatch} from "react-redux";
-import {showFeedbackFormAction} from "../../../store/FeedbackForm/showFeedbackFormAction";
 
 
 const WorkStages = ({ description, heading, anchorName }) => {
-  const dispatch = useDispatch();
   return (
     <section id={anchorName} className="work-stages">
       <div className="work-stages__content">
@@ -19,8 +15,7 @@ const WorkStages = ({ description, heading, anchorName }) => {
           <WorkStagesList />
         </div>
         <p className="work-stages__description">{description}</p>
-        <Button text="Обратный звонок" className="button-callBack-bigger" onClick={()=>{dispatch(showFeedbackFormAction)}} />
-        <FeedbackForm/>
+        <Button text="Обратный звонок" className="button-callBack-bigger"/>
       </div>
     </section>
   );
