@@ -11,6 +11,7 @@ import { getIsNavbarLoading } from "./store/selectors/navbarSelectors";
 import { loadNavbarData } from "./store/navbar/operations";
 import { loadMainSection } from "./store/appMainSections/operations";
 import "./theme/styles/App.scss";
+import FeedbackForm from "./components/FeedbackForm/Main/FeedbackForm";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const App = () => {
   return (
     <div className="App">
       <MainHeader />
+      <FeedbackForm/>
       <AppRoutes />
       {winWidth > 640 && <Footer />}
     </div>

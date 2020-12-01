@@ -19,7 +19,7 @@ const ErrorModal = ({ error }) => {
       >
         <div className="error-modal__window">
           <div className="error-modal__heading">
-            <p className="error-modal__heading-text">{`an error ${error.name} occurred`}</p>
+            <p className="error-modal__heading-text">{`${error.name}`}</p>
           </div>
           <p className="error-modal__text">{error.message}</p>
           <Button
