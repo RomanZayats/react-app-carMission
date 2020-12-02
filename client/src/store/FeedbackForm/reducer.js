@@ -5,10 +5,10 @@ import {
 } from "./actionTypes";
 
 const initialStore = {
-  feedbackForm: "closed",
+  selfState: "closed",
 };
 
-export default function reducer(store = initialStore, { type, payload }) {
+const reducer = (store = initialStore, { type, payload }) => {
   switch (type) {
     case SHOW_FEEDBACK_FORM:
       return payload;
@@ -22,4 +22,6 @@ export default function reducer(store = initialStore, { type, payload }) {
     default:
       return store;
   }
-}
+};
+
+export default reducer;

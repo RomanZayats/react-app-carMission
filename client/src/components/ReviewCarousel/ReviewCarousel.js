@@ -3,6 +3,7 @@ import axios from "axios";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import "./ReviewCarousel.scss";
+
 import ReviewItem from "../ReviewItem/ReviewItem";
 import SectionHeading from "../generalComponents/SectionHeading/SectionHeading";
 
