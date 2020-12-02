@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const path = require("path");
-require("dotenv').config();
+require("dotenv").config();
 
 const globalConfigs = require("./routes/globalConfigs");
 const customers = require("./routes/customers");
