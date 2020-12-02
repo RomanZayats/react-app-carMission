@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { quotes } from "./quotes.jsx";
 import "./ReviewItem.scss";
-import Image from "../Image/Image";
+import Image from "../../Image/Image";
 
 const ReviewItem = ({ src, nameReviewer, nameCar, review }) => {
   return (

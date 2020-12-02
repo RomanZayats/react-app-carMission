@@ -22,7 +22,7 @@ const App = () => {
 
   const isLogoLoading = useSelector(getIsLogoLoading);
   const isNavbarLoading = useSelector(getIsNavbarLoading);
-  const { width: winWidth } = UseWinSize();
+  const {width: winWidth} = UseWinSize();
 
   if (isNavbarLoading || isLogoLoading) {
     return (
