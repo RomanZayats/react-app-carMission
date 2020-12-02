@@ -9,6 +9,7 @@ import "./ReviewCarousel.scss";
 import SampleNextArrow from "./CarouselArrows/SampleNextArrow";
 import SamplePrevArrow from "./CarouselArrows/SamplePrevArrow";
 
+
 const ReviewCarousel = ({ heading, anchorName }) => {
     const [reviews, setReviews] = useState([]);
 
