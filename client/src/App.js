@@ -34,10 +34,14 @@ const App = () => {
   }
 
   return (
-    <div className="App">
-      <MainHeader />
-      <AppRoutes />
-      {winWidth > 640 && <Footer />}
+    <div className="App__main-bg">
+      <div className="App__main-page">
+        <div className="App">
+          <MainHeader />
+          <AppRoutes />
+          {winWidth > 640 && <Footer />}
+        </div>
+      </div>
     </div>
   );
 };

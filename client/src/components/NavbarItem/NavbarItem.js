@@ -6,7 +6,7 @@ import "./NavbarItem.scss";
 const NavbarItem = ({ className, textContent, contacts, sectionId, id }) => {
   return (
     <li className={`${className}--item`}>
-      <HashLink to={sectionId} className={`${className}--link`} id={id}>
+      <HashLink smooth to={sectionId} className={`${className}--link`} id={id}>
         {/* {sectionId === "#footer" ? contacts : textContent} */}
         {textContent}
       </HashLink>
