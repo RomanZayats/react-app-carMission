@@ -6,6 +6,7 @@ import { number, object, string } from "yup";
 import { useDispatch } from "react-redux";
 import { postFeedback } from "../../../store/FeedbackForm/operations";
 import { hideFeedbackFormAction } from "../../../store/FeedbackForm/actions";
+import Button from "../../generalComponents/Button/Button";
 
 const FeedbackFormElement = () => {
   const dispatch = useDispatch();
@@ -36,12 +37,11 @@ const FeedbackFormElement = () => {
     >
       {({ errors, touched }) => (
         <Form className="feedback-form">
-          <button
+          <Button
             className="feedback-form__exit-btn"
+            text="&#215;"
             onClick={hideFeedbackForm}
-          >
-            &#215;
-          </button>
+          />
           <label className="feedback-form__name-label">
             Имя
             <Field name="name" className="feedback-form__field" />
