@@ -58,7 +58,8 @@
       width: 100%;
       height: 100vh;
       background-color: #51515539;
-      &::before, &::after {
+      &::before,
+      &::after {
         position: absolute;
         top: 15%;
         right: 10%;
@@ -72,7 +73,7 @@
       }
       &::after {
         transform: rotate(135deg);
-      } 
+      }
     }
     &__block {
       grid-template-columns: 1fr;
@@ -83,7 +84,8 @@
 @media screen and (max-width: 640px) {
   .navbar {
     &__window {
-      &::before, &::after {
+      &::before,
+      &::after {
         top: 8%;
       }
     }
