@@ -1,0 +1,9 @@
+.dot {
+
+  width: 300px;
+  background-color: red;
+
+  &--active {
+    background-color: forestgreen;
+  }
+}
