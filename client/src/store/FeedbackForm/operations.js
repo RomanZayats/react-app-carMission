@@ -5,7 +5,7 @@ import { confirmFeedbackFormAction, hideFeedbackFormAction } from "./actions";
 
 export const postFeedback = (feedbackObj) => async (dispatch) => {
   const response = await axios
-    .post("/api/feedback", feedbackObj)
+    .post("/api/feedbacks", feedbackObj)
     .catch((err) => {
       dispatch(openErrModal);
       dispatch(saveErrObjAction(err));
