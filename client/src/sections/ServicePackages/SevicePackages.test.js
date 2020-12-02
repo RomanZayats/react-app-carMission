@@ -2,7 +2,6 @@ import React from "react";
 import { render } from "@testing-library/react";
 import ServicePackages from "./ServicePackages";
 import SectionHeading from "../../components/generalComponents/SectionHeading/SectionHeading";
-import { useDispatch } from "react-redux";
 
 test("ServicePackages is rendered correctly", () => {
   const mockSectionClassName = "service-packages";
