@@ -3,7 +3,7 @@ import "./AutoFromUSA.scss";
 import Button from "../../components/generalComponents/Button/Button";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { showFeedbackFormAction } from "../../store/FeedbackForm/showFeedbackFormAction";
+import { showFeedbackFormAction } from "../../store/FeedbackForm/actions";
 
 const AutoFromUsa = () => {
   const [heading, setHeading] = useState("");
@@ -11,7 +11,6 @@ const AutoFromUsa = () => {
   // const [imgPath, setImgPath] = useState("");
 
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     getData();
@@ -27,16 +26,16 @@ const AutoFromUsa = () => {
   };
 
   return (
-    <section
-      className="auto-from-usa__container"
-    >
+    <section className="auto-from-usa__container">
       <div className="auto-from-usa__wrapper">
         <h1 className="auto-from-usa__heading">{heading}</h1>
         <p className="auto-from-usa__description">{description}</p>
         <Button
           className="button-choose-car"
           text="Подобрать авто"
-          onClick={() => {dispatch(showFeedbackFormAction)}}
+          onClick={() => {
+            dispatch(showFeedbackFormAction);
+          }}
         />
       </div>
     </section>
