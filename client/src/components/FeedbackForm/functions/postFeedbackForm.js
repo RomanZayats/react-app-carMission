@@ -1,6 +1,13 @@
-const axios = require("axios");
+import { openErrModal } from "../../../store/ErrorModal/openErrModalAction"
+import { saveErrObjAction } from "../../../store/errorObject/saveErrObjAction"
 
-export default function postFeedback (feedbackObj) {
-    axios.post("/api/feedbacks", feedbackObj)
-        .catch((err) => console.error(err));
+const axios = require("axios")
+
+export default function postFeedback (feedbackObj, dispatch) {
+  axios.post("/api/fedbacks", feedbackObj)
+    .catch((err) => {
+      console.error(err)
+      dispatch(openErrModal)
+      dispatch(saveErrObjAction(err))
+    })
 };

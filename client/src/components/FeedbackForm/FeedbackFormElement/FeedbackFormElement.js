@@ -3,14 +3,22 @@ import { Formik, Form, Field } from "formik";
 import { initialValues } from "./initialValues";
 import "../Main/FeedbackForm.scss";
 import { number, object, string } from "yup";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector } from "react-redux"
 import hideFeedbackForm from "../functions/hideFeedbackForm";
 import postFeedback from "../functions/postFeedbackForm";
 import confirmFeedbackForm from "../functions/confirmFeedbackForm";
+import { errObjSelector } from "../../../store/selectors/errObjSelector"
 
 const FeedbackFormElement = () => {
 
     const dispatch = useDispatch();
+    const err = useSelector(errObjSelector)
+
+    const postFeedbackAndConfirm = (values, dispatch, err) => {
+      postFeedback(values, dispatch);
+     if (err) dispatch(hideFeedbackForm)
+     else confirmFeedbackForm(dispatch);
+    }
 
     return (
 
@@ -23,8 +31,7 @@ const FeedbackFormElement = () => {
                 }
                 initialValues={initialValues}
                 onSubmit={(values) => {
-                    postFeedback(values);
-                    confirmFeedbackForm(dispatch);
+                    postFeedbackAndConfirm(values, dispatch,err)
                 }}
             >
 
