@@ -1,4 +1,5 @@
 import React from "react";
+import "./SocialNetworksItem.scss";
 
 const SocialNetworksItem = ({ className, url, id, listClassName, src }) => {
   return (
