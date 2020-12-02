@@ -1,51 +1,14 @@
-@import "src/theme/styles/_variables";
-
 .App {
-  &__main-page {
-    background-image: url("../img//bg-img//main-bg.png");
-    background-repeat: no-repeat;
-    background-position: top center;
-    background-attachment: scroll;
-    
-  }
-  &__main-bg {
-    background-color: $Rectangle67;
-  }
-}
-@media screen and (min-width: 1441px) {
-  .App {
-    &__main-page {
-      background-size: cover;
-      background-attachment: fixed;
-    }
-
-  }
+  background-image: url("../img//bg-img//main-bg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
-@media screen and (min-width: 769px) and (max-width: 960px) {
-  .App {
-    &__main-page {
-      background-size: contain;
-    }
-  }
-}
-
-@media screen and (min-width: $sm-size) and (max-width: 760px) {
-  .App {
-    &__main-page {
-      background-size: contain;
-    }
-  }
-}
 
 @media screen and (max-width: 640px) {
   .App {
-    &__main-page {
-      background-position: left top;
-      background-size: auto 100vh;
-    }
+    background-position: left;
   }
 }
-
-
-
