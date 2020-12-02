@@ -24,5 +24,4 @@ const AutoFromUsa = ({ heading, description, anchorName }) => {
     </section>
   );
 };
-
 export default AutoFromUsa;
