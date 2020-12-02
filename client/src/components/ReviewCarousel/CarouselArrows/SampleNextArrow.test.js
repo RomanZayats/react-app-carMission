@@ -1,9 +1,8 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import ReviewCarousel from "./ReviewCarousel";
+import SampleNextArrow from "./SampleNextArrow";
+
 
 test("ReviewCarousel is rendered is correctly", () => {
-  render(
-      <ReviewCarousel />
-      );
+    render(<SampleNextArrow />);
 });
