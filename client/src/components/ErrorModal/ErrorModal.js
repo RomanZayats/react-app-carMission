@@ -1,5 +1,4 @@
 import React from "react"
-import PropTypes from "prop-types"
 import Button from "../generalComponents/Button/Button"
 import "./ErrorModal.scss"
 import { useDispatch, useSelector } from "react-redux"
@@ -29,8 +28,5 @@ const ErrorModal = () => {
   )
 }
 
-ErrorModal.propTypes = {
-  error: PropTypes.object.isRequired,
-}
 
 export default ErrorModal

@@ -39,7 +39,7 @@ const App = () => {
     <div className="App">
       <MainHeader />
       <FeedbackForm/>
-      <ErrorModal error={{name:"test error", message: "test message"}}/>
+      <ErrorModal />
       <AppRoutes />
       {winWidth > 640 && <Footer />}
     </div>
