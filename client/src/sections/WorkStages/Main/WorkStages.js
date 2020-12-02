@@ -10,6 +10,10 @@ import { showFeedbackFormAction } from "../../../store/FeedbackForm/actions";
 const WorkStages = ({ description, heading, anchorName }) => {
   const dispatch = useDispatch();
 
+  const showFeedbackModal = () => {
+    dispatch(showFeedbackFormAction);
+  };
+
   return (
     <section id={anchorName} className="work-stages">
       <div className="work-stages__content">
@@ -21,7 +25,7 @@ const WorkStages = ({ description, heading, anchorName }) => {
         <Button
           text="Обратный звонок"
           className="button-callback-bigger"
-          onClick={() => dispatch(showFeedbackFormAction)}
+          onClick={showFeedbackModal}
         />
       </div>
     </section>
