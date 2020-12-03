@@ -4,13 +4,20 @@ import "./servicePackages.scss";
 import Button from "../../components/generalComponents/Button/Button";
 import axios from "axios";
 import ServicePackage from "./components/ServicePackage";
+import { showFeedbackFormAction } from "../../store/FeedbackForm/actions";
+import { useDispatch } from "react-redux";
 
 const ServicePackages = ({ heading, anchorName, description }) => {
   const [servicePackages, setServicePackages] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getServicePackages();
   }, []);
+
+  const showFeedbackModal = () => {
+    dispatch(showFeedbackFormAction);
+  };
 
   const getServicePackages = async () => {
     const servicePackagesFromServer = await axios(
@@ -23,7 +30,7 @@ const ServicePackages = ({ heading, anchorName, description }) => {
     const { price, currency, serviceList, name, _id: id } = servicePackage;
     return (
       <ServicePackage
-        className="servicePackages__item"
+        className="service-packages__item"
         name={name}
         price={price}
         currency={currency}
@@ -34,11 +41,15 @@ const ServicePackages = ({ heading, anchorName, description }) => {
   });
 
   return (
-    <section className="servicePackages" id={anchorName}>
+    <section className="service-packages" id={anchorName}>
       <SectionHeading text={heading} />
-      <div className="servicePackages__wrapper">{servicePackagesToRender}</div>
-      <p className="servicePackages__description">{description}</p>
-      <Button className="button2-sendRequest" text="Отправить заявку" />
+      <div className="service-packages__wrapper">{servicePackagesToRender}</div>
+      <p className="service-packages__description">{description}</p>
+      <Button
+        className="button2-send-request"
+        text="Отправить заявку"
+        onClick={showFeedbackModal}
+      />
     </section>
   );
 };
