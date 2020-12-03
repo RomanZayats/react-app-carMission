@@ -76,12 +76,11 @@ const MainHeader = () => {
       </>
     )
 
+
   return (
     <div className="header__bg">
       <div className="header__container">
-        <div className="navbar__block">
-          {header}
-        </div>
+        <div className="navbar__block">{header}</div>
       </div>
     </div>
   );
