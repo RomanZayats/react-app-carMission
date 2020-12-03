@@ -33,6 +33,7 @@ const navbar = require("./routes/navbar");
 const logo = require("./routes/logo");
 const loader = require("./routes/loader");
 const socialNetworks = require("./routes/socialNetworks");
+const feedbacks = require("./routes/feedbacks");
 
 
 const app = express();
@@ -46,7 +47,7 @@ const db = require("./config/keys").mongoURI;
 
 // Connect to MongoDB
 mongoose
-  .connect(db, { useNewUrlParser: true, useFindAndModify: false })
+  .connect(db, { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology:true })
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
@@ -85,6 +86,7 @@ app.use("/api/service-packages", servicePackages);
 app.use("/api/features", features);
 app.use("/api/loader", loader);
 app.use("/api/social-networks", socialNetworks);
+app.use("/api/feedbacks", feedbacks);
 
 
 app.use("/", mainRoute);
