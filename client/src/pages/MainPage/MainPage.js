@@ -7,10 +7,8 @@ import AboutUs from "../../sections/AboutUs/AboutUs";
 import ReviewCarousel from "../../components/ReviewCarousel/ReviewCarousel";
 import ServicePackages from "../../sections/ServicePackages/ServicePackages";
 import { Helmet } from "react-helmet-async";
-import PaginationDots from "../../components/PaginationDots/PaginationDots";
 
-const MainPage = ({ location }) => {
-  console.log(location);
+const MainPage = () => {
   const sectionsFromDB = useSelector(getMainSections).filter(
     (section) => !section.disabled
   );
@@ -23,7 +21,7 @@ const MainPage = ({ location }) => {
   ];
 
   const mapComponentsToRender = () => {
-    return sectionsFromDB.map((section, i) => {
+    return sectionsFromDB.map((section) => {
       const { description, _id: id, heading, name, reactComponent } = section;
       const Component = sectionsComponents.find((component) => {
         if (component.type) {
@@ -55,7 +53,6 @@ const MainPage = ({ location }) => {
       <Helmet>
         <title>Main Page</title>
       </Helmet>
-      <PaginationDots componentsList={filteredReadySections} />
       {filteredReadySections}
     </>
   );
