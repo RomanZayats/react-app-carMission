@@ -15,21 +15,21 @@ const AboutUs = ({ heading, anchorName }) => {
   const errObj = useSelector(errObjSelector);
 
   useEffect(() => {
-    getFeatures();
-  }, []);
+    const getFeatures = async () => {
+      const featuresFromServer = await axios({
+        method: "GET",
+        url: "/api/features/",
+      })
+        .then((res) => res.data)
+        .catch((err) => {
+          dispatch(saveErrObjAction(err));
+          dispatch(openErrModal);
+        });
+      setFeaturesList(featuresFromServer);
+    };
 
-  const getFeatures = async () => {
-    const featuresFromServer = await axios({
-      method: "GET",
-      url: "/api/features/",
-    })
-      .then((res) => res.data)
-      .catch((err) => {
-        dispatch(saveErrObjAction(err));
-        dispatch(openErrModal);
-      });
-    setFeaturesList(featuresFromServer);
-  };
+    getFeatures();
+  }, [dispatch]);
 
   const featuresRender = () => {
     const regularFeaturesArr = featuresList.filter((f) => !f.isMain);
