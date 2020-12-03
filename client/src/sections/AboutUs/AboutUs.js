@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import "./AboutUs.scss";
 import RegularFeature from "./components/RegularFeature/RegularFeature";
 import MainFeature from "./components/MainFeature/MainFeature";
@@ -9,10 +9,21 @@ import {
   getFeaturesIsLoading,
 } from "../../store/aboutUs/selectors";
 import Loader from "../../components/Loader/Loader";
+import { useInView } from "react-intersection-observer";
+import { useHistory } from "react-router-dom";
+import { pushHashToHistory } from "../../utils/functions/pushHashToHistory";
 
 const AboutUs = ({ heading, anchorName }) => {
   const featuresList = useSelector(getFeatures);
   const isLoading = useSelector(getFeaturesIsLoading);
+  const { ref, inView } = useInView({ threshold: 0.75 });
+  const history = useHistory();
+
+  useEffect(() => {
+    if (inView) {
+      pushHashToHistory(history, anchorName);
+    }
+  }, [inView, anchorName, history]);
 
   const featuresRender = () => {
     const regularFeaturesArr = featuresList.filter((f) => !f.isMain);
@@ -52,7 +63,7 @@ const AboutUs = ({ heading, anchorName }) => {
   };
 
   return (
-    <section className="about-us__container" id={anchorName}>
+    <section className="about-us__container" id={anchorName} ref={ref}>
       <SectionHeading className="about-us__heading" text={heading} />
       {isLoading ? <Loader /> : featuresRender(featuresList)}
     </section>

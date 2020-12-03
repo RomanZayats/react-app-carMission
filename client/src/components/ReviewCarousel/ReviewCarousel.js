@@ -8,13 +8,22 @@ import "slick-carousel/slick/slick-theme.css";
 import "./ReviewCarousel.scss";
 import SampleNextArrow from "./CarouselArrows/SampleNextArrow";
 import SamplePrevArrow from "./CarouselArrows/SamplePrevArrow";
+import { useInView } from "react-intersection-observer";
+import { useHistory } from "react-router-dom";
+import { pushHashToHistory } from "../../utils/functions/pushHashToHistory";
 
 const ReviewCarousel = ({ heading, anchorName }) => {
   const [reviews, setReviews] = useState([]);
+  const { ref, inView } = useInView({ threshold: 0.75 });
+  const history = useHistory();
 
   useEffect(() => {
+    if (inView) {
+      pushHashToHistory(history, anchorName);
+    }
+
     getReviews();
-  }, []);
+  }, [inView, anchorName, history]);
 
   const getReviews = async () => {
     const reviewsDb = await axios("/api/reviews/").then((r) => r.data);
@@ -86,7 +95,7 @@ const ReviewCarousel = ({ heading, anchorName }) => {
   };
 
   return (
-    <div className="carousel__section" id={anchorName}>
+    <section className="carousel__section" id={anchorName} ref={ref}>
       <SectionHeading text={heading} />
       <div className="carousel__wrapper">
         <Slider {...settings}>
@@ -94,7 +103,7 @@ const ReviewCarousel = ({ heading, anchorName }) => {
           {allReviews}
         </Slider>
       </div>
-    </div>
+    </section>
   );
 };
 

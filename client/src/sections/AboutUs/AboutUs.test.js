@@ -4,6 +4,7 @@ import AboutUs from "./AboutUs";
 import SectionHeading from "../../components/generalComponents/SectionHeading/SectionHeading";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
+import { mockAllIsIntersecting } from "react-intersection-observer/test-utils";
 
 const mockHeadingText = "Test heading";
 const mockSectionClassName = "about-us__container";
@@ -15,6 +16,13 @@ const store = mockStore({
   errModalReducer: { isErrModalOpen: false },
   aboutUs: { features: [] },
 });
+const mockHistoryReplace = jest.fn();
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useHistory: () => ({
+    replace: () => mockHistoryReplace,
+  }),
+}));
 
 test("AboutUs is rendered correctly", () => {
   const mockDispatch = jest.fn();
@@ -22,6 +30,11 @@ test("AboutUs is rendered correctly", () => {
   jest.mock("react-redux", () => ({
     useDispatch: () => mockDispatch,
     useSelector: () => mockSelector,
+  }));
+  jest.mock("react-router-dom", () => ({
+    useHistory: () => ({
+      replace: jest.fn(),
+    }),
   }));
 
   render(
@@ -51,6 +64,7 @@ test("AboutUs contains elements", () => {
       </AboutUs>
     </Provider>
   );
+  mockAllIsIntersecting(true);
   const headingText = getByTestId("section-heading");
   expect(headingText).toBeDefined();
 });

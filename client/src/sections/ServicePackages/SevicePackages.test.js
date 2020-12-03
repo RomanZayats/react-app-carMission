@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import ServicePackages from "./ServicePackages";
 import SectionHeading from "../../components/generalComponents/SectionHeading/SectionHeading";
+import { mockAllIsIntersecting } from "react-intersection-observer/test-utils";
 
 test("ServicePackages is rendered correctly", () => {
   const mockSectionClassName = "service-packages";
@@ -11,6 +12,13 @@ test("ServicePackages is rendered correctly", () => {
 const mockDispatch = jest.fn();
 jest.mock("react-redux", () => ({
   useDispatch: () => mockDispatch,
+}));
+const mockHistoryReplace = jest.fn();
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useHistory: () => ({
+    replace: () => mockHistoryReplace,
+  }),
 }));
 
 test("ServicePackages contains sections", () => {
@@ -22,6 +30,7 @@ test("ServicePackages contains sections", () => {
       <div className={mockPackageClassName} />
     </ServicePackages>
   );
+  mockAllIsIntersecting(true);
   const headingText = getByTestId("section-heading");
   expect(headingText).toBeDefined();
 });
