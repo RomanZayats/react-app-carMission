@@ -13,7 +13,7 @@ const Navbar = ({ items, className, onClick, mobileNavbar, isFooter }) => {
         sectionId={e.sectionId}
         id={e.id || e._id}
         key={e.id || e._id}
-        isFooter={isFooter}
+        isFooter={e.contacts && isFooter}
       />
     ) : null
   );
