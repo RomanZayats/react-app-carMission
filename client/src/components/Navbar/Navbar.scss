@@ -35,7 +35,6 @@
     &__block {
       grid-template-columns: 45% 10% 45%;
     }
-  
   }
 }
 
@@ -86,7 +85,8 @@
 @media screen and (max-width: 640px) {
   .navbar {
     &__window {
-      &::before, &::after {
+      &::before,
+      &::after {
         top: 8%;
       }
     }
