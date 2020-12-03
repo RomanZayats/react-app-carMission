@@ -1,9 +1,9 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const passport = require('passport');
-const path = require('path');
-require('dotenv').config();
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const passport = require("passport");
+const path = require("path");
+require("dotenv").config();
 
 const globalConfigs = require("./routes/globalConfigs");
 const customers = require("./routes/customers");
@@ -85,7 +85,6 @@ app.use("/api/service-packages", servicePackages);
 app.use("/api/features", features);
 app.use("/api/loader", loader);
 app.use("/api/social-networks", socialNetworks);
-
 
 app.use("/", mainRoute);
 
