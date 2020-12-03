@@ -27,7 +27,7 @@ const MainHeader = () => {
       ? quantOfNavbaItems.slice(5)
       : quantOfNavbaItems.slice(3);
 
-  const checkClick = (e) => {
+  const checkClick = () => {
     setIsMobileNavbar(!isMobileNavbar);
   };
 
@@ -64,7 +64,7 @@ const MainHeader = () => {
             items={navbarData}
             id="navbar"
             mobileNavbar={true}
-            onClick={(e) => checkClick(e)}
+            onClick={() => checkClick()}
           />
         :
           <Button
