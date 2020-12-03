@@ -1,5 +1,11 @@
 .pagination-dots {
   position: fixed;
-  top: 500px;
-  left: 0;
+  //top: calc((100vh - 205px) / 2);
+  top: 250px;
+  left: 5px;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  justify-content: space-between;
+  height: 25vh;
 }
