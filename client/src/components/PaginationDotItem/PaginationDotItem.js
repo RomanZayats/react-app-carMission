@@ -1,12 +1,17 @@
 import React from "react";
-import { HashLink } from "react-router-hash-link";
+import { NavHashLink } from "react-router-hash-link";
 import "./PaginationDotItem.scss";
 
 const PaginationDotItem = ({ anchor, isVisible }) => {
   return (
-    <HashLink className="dot__link" smooth to={`#${anchor}`}>
+    <NavHashLink
+      activeClassName="dot__link--active"
+      className="dot__link"
+      smooth
+      to={`#${anchor}`}
+    >
       <div className={isVisible ? "dot dot--active" : "dot"} />
-    </HashLink>
+    </NavHashLink>
   );
 };
 
