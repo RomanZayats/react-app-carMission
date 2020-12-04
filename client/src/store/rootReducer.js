@@ -4,6 +4,7 @@ import navbar from "./navbar/reducer";
 import appMainSections from "./appMainSections/reducer";
 import feedbackForm from "./FeedbackForm/reducer";
 import aboutUs from "./aboutUs/reducer";
+import servicePackages from "./servicePackages/reducer";
 import paginationDotClick from "./paginationDotClick/reducer";
 import errModalReducer from "./ErrorModal/errModalReducer";
 import errObjReducer from "./errorObject/errObjReducer";
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   navbar,
   feedbackForm,
   aboutUs,
+  servicePackages,
   paginationDotClick,
   errModalReducer,
   errObjReducer,

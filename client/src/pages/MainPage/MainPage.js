@@ -9,6 +9,7 @@ import ServicePackages from "../../sections/ServicePackages/ServicePackages";
 import { Helmet } from "react-helmet-async";
 import { loadFeatures } from "../../store/aboutUs/operations";
 import PaginationDots from "../../components/PaginationDots/PaginationDots";
+import { loadPackages } from "../../store/servicePackages/operations";
 
 const MainPage = () => {
   const sectionsFromDB = useSelector(getMainSections).filter(
@@ -18,6 +19,7 @@ const MainPage = () => {
 
   useEffect(() => {
     dispatch(loadFeatures());
+    dispatch(loadPackages());
   }, [dispatch]);
 
   const sectionsComponents = [
