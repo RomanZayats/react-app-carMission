@@ -1,23 +1,18 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
 import "./AboutUs.scss";
-import axios from "axios";
 import RegularFeature from "./components/RegularFeature/RegularFeature";
 import MainFeature from "./components/MainFeature/MainFeature";
 import SectionHeading from "../../components/generalComponents/SectionHeading/SectionHeading";
+import { useSelector } from "react-redux";
+import {
+  getFeatures,
+  getFeaturesIsLoading,
+} from "../../store/aboutUs/selectors";
+import Loader from "../../components/Loader/Loader";
 
 const AboutUs = ({ heading, anchorName }) => {
-  const [featuresList, setFeaturesList] = useState([]);
-
-  useEffect(() => {
-    getFeatures();
-  }, []);
-
-  const getFeatures = async () => {
-    const featuresFromServer = await axios("/api/features/").then(
-      (res) => res.data
-    );
-    setFeaturesList(featuresFromServer);
-  };
+  const featuresList = useSelector(getFeatures);
+  const isLoading = useSelector(getFeaturesIsLoading);
 
   const featuresRender = () => {
     const regularFeaturesArr = featuresList.filter((f) => !f.isMain);
@@ -59,7 +54,7 @@ const AboutUs = ({ heading, anchorName }) => {
   return (
     <section className="about-us__container" id={anchorName}>
       <SectionHeading className="about-us__heading" text={heading} />
-      {featuresRender(featuresList)}
+      {isLoading ? <Loader /> : featuresRender(featuresList)}
     </section>
   );
 };
