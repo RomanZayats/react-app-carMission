@@ -8,6 +8,9 @@ import ReviewCarousel from "../../components/ReviewCarousel/ReviewCarousel";
 import ServicePackages from "../../sections/ServicePackages/ServicePackages";
 import { Helmet } from "react-helmet-async";
 import { loadFeatures } from "../../store/aboutUs/operations";
+import PaginationDots from "../../components/PaginationDots/PaginationDots";
+import { loadPackages } from "../../store/servicePackages/operations";
+import { loadWorkStages } from "../../store/workStages/operations";
 import {loadReviews} from "../../store/ReviewCarousel/operations";
 
 const MainPage = () => {
@@ -18,9 +21,10 @@ const MainPage = () => {
 
   useEffect(() => {
     dispatch(loadFeatures());
+    dispatch(loadPackages());
+    dispatch(loadWorkStages());
     dispatch(loadReviews());
   }, [dispatch]);
-
 
   const sectionsComponents = [
     WorkStages,
@@ -63,6 +67,7 @@ const MainPage = () => {
       <Helmet>
         <title>Main Page</title>
       </Helmet>
+      <PaginationDots componentsList={filteredReadySections} />
       {filteredReadySections}
     </>
   );

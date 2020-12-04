@@ -1,22 +1,22 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import ReviewCarousel from "./ReviewCarousel";
+import { mockAllIsIntersecting } from "react-intersection-observer/test-utils";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
-//
-// jest.mock("./ReviewItem/ReviewItem", () => (props) => (
-//     <>ReviewItem</>
-// ));
-
-
-const mockHeadingText = "Test heading";
-const mockSectionClassName = "about-us__container";
-const mockId = "testId";
 
 const mockStore = configureStore();
 const store = mockStore({
-    reviewCarousel: { reviews: [] },
+  paginationDotClick: { click: false, targetSection: "" },
+  reviewCarousel: { reviews: [] },
 });
+
+jest.mock("react-router-dom", () => ({
+  useHistory: () => ({
+    replace: jest.fn(),
+  }),
+}));
+
 
 test("ReviewCarousel is rendered is correctly", () =>{
 const mockDispatch = jest.fn();
@@ -28,12 +28,8 @@ jest.mock("react-redux", () => ({
 
 render(
     <Provider store={store}>
-        <ReviewCarousel
-            className={mockSectionClassName}
-            heading={mockHeadingText}
-            anchorName={mockId}
-       />
-
+      <ReviewCarousel heading="test" />
     </Provider>
 );
+  mockAllIsIntersecting(true);
 });

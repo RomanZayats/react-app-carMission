@@ -2,26 +2,58 @@ import React from "react";
 import { render } from "@testing-library/react";
 import ServicePackages from "./ServicePackages";
 import SectionHeading from "../../components/generalComponents/SectionHeading/SectionHeading";
+import { mockAllIsIntersecting } from "react-intersection-observer/test-utils";
+import configureStore from "redux-mock-store";
+import { Provider } from "react-redux";
 
-test("ServicePackages is rendered correctly", () => {
-  const mockSectionClassName = "service-packages";
-  render(<ServicePackages className={mockSectionClassName} />);
+const mockStore = configureStore();
+const store = mockStore({
+  paginationDotClick: { click: false, targetSection: "" },
+  servicePackages: { packages: [] },
 });
 
-const mockDispatch = jest.fn();
-jest.mock("react-redux", () => ({
-  useDispatch: () => mockDispatch,
+test("ServicePackages is rendered correctly", () => {
+  const mockDispatch = jest.fn();
+  const mockSelector = jest.fn();
+  jest.mock("react-redux", () => ({
+    useDispatch: () => mockDispatch,
+    useSelector: () => mockSelector,
+  }));
+  const mockSectionClassName = "service-packages";
+  render(
+    <Provider store={store}>
+      <ServicePackages className={mockSectionClassName} heading="test" />
+    </Provider>
+  );
+});
+
+const mockHistoryReplace = jest.fn();
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useHistory: () => ({
+    replace: () => mockHistoryReplace,
+  }),
 }));
 
+const mockHeadingText = "Test heading";
+const mockPackageClassName = "service-packages";
+
 test("ServicePackages contains sections", () => {
-  const mockHeadingText = "Test heading";
-  const mockPackageClassName = "service-packages";
+  const mockDispatch = jest.fn();
+  const mockSelector = jest.fn();
+  jest.mock("react-redux", () => ({
+    useDispatch: () => mockDispatch,
+    useSelector: () => mockSelector,
+  }));
   const { getByTestId } = render(
-    <ServicePackages>
-      <SectionHeading text={mockHeadingText} />
-      <div className={mockPackageClassName} />
-    </ServicePackages>
+    <Provider store={store}>
+      <ServicePackages heading={mockHeadingText}>
+        <SectionHeading text={mockHeadingText} />
+        <div className={mockPackageClassName} />
+      </ServicePackages>
+    </Provider>
   );
+  mockAllIsIntersecting(true);
   const headingText = getByTestId("section-heading");
   expect(headingText).toBeDefined();
 });
