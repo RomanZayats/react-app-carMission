@@ -10,7 +10,10 @@ const mockHeadingText = "Test heading";
 const mockSectionClassName = "auto-from-usa__container";
 const mockSectionDescription = "Test description";
 const mockStore = configureStore();
-const store = mockStore({ feedbackFormOpen: "closed" });
+const store = mockStore({
+  feedbackFormOpen: "closed",
+  paginationDotClick: { click: false, targetSection: "" },
+});
 const mockHistoryReplace = jest.fn();
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),

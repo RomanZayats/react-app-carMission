@@ -11,19 +11,37 @@ import SamplePrevArrow from "./CarouselArrows/SamplePrevArrow";
 import { useInView } from "react-intersection-observer";
 import { useHistory } from "react-router-dom";
 import { pushHashToHistory } from "../../utils/functions/pushHashToHistory";
+import {
+  resetDotClick,
+  resetTargetSection,
+} from "../../store/paginationDotClick/actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getDotClick,
+  getTargetSection,
+} from "../../store/paginationDotClick/selectors";
 
 const ReviewCarousel = ({ heading, anchorName }) => {
+  const dispatch = useDispatch();
   const [reviews, setReviews] = useState([]);
-  const { ref, inView } = useInView({ threshold: 0.75 });
+
+  const dotTargetSection = useSelector(getTargetSection);
+  const dotClick = useSelector(getDotClick);
+  const { ref, inView } = useInView({ threshold: 0.65 });
   const history = useHistory();
 
   useEffect(() => {
     if (inView) {
-      pushHashToHistory(history, anchorName);
+      if (dotTargetSection === anchorName && dotClick) {
+        dispatch(resetTargetSection());
+        dispatch(resetDotClick());
+      } else if (!dotClick) {
+        pushHashToHistory(history, anchorName);
+      }
     }
 
     getReviews();
-  }, [inView, anchorName, history]);
+  }, [inView, anchorName, history, dotTargetSection, dispatch, dotClick]);
 
   const getReviews = async () => {
     const reviewsDb = await axios("/api/reviews/").then((r) => r.data);

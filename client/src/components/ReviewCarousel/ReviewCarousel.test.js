@@ -2,6 +2,13 @@ import React from "react";
 import { render } from "@testing-library/react";
 import ReviewCarousel from "./ReviewCarousel";
 import { mockAllIsIntersecting } from "react-intersection-observer/test-utils";
+import configureStore from "redux-mock-store";
+import { Provider } from "react-redux";
+
+const mockStore = configureStore();
+const store = mockStore({
+  paginationDotClick: { click: false, targetSection: "" },
+});
 
 jest.mock("react-router-dom", () => ({
   useHistory: () => ({
@@ -10,6 +17,10 @@ jest.mock("react-router-dom", () => ({
 }));
 
 test("ReviewCarousel is rendered is correctly", () => {
-  render(<ReviewCarousel heading="test" />);
+  render(
+    <Provider store={store}>
+      <ReviewCarousel heading="test" />
+    </Provider>
+  );
   mockAllIsIntersecting(true);
 });

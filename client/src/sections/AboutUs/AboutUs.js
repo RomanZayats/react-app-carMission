@@ -3,7 +3,7 @@ import "./AboutUs.scss";
 import RegularFeature from "./components/RegularFeature/RegularFeature";
 import MainFeature from "./components/MainFeature/MainFeature";
 import SectionHeading from "../../components/generalComponents/SectionHeading/SectionHeading";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getFeatures,
   getFeaturesIsLoading,
@@ -12,18 +12,35 @@ import Loader from "../../components/Loader/Loader";
 import { useInView } from "react-intersection-observer";
 import { useHistory } from "react-router-dom";
 import { pushHashToHistory } from "../../utils/functions/pushHashToHistory";
+import {
+  getDotClick,
+  getTargetSection,
+} from "../../store/paginationDotClick/selectors";
+import {
+  resetDotClick,
+  resetTargetSection,
+} from "../../store/paginationDotClick/actions";
 
 const AboutUs = ({ heading, anchorName }) => {
+  const dispatch = useDispatch();
   const featuresList = useSelector(getFeatures);
   const isLoading = useSelector(getFeaturesIsLoading);
-  const { ref, inView } = useInView({ threshold: 0.75 });
+
+  const dotTargetSection = useSelector(getTargetSection);
+  const dotClick = useSelector(getDotClick);
+  const { ref, inView } = useInView({ threshold: 0.65 });
   const history = useHistory();
 
   useEffect(() => {
     if (inView) {
-      pushHashToHistory(history, anchorName);
+      if (dotTargetSection === anchorName && dotClick) {
+        dispatch(resetTargetSection());
+        dispatch(resetDotClick());
+      } else if (!dotClick) {
+        pushHashToHistory(history, anchorName);
+      }
     }
-  }, [inView, anchorName, history]);
+  }, [inView, anchorName, history, dotTargetSection, dispatch, dotClick]);
 
   const featuresRender = () => {
     const regularFeaturesArr = featuresList.filter((f) => !f.isMain);

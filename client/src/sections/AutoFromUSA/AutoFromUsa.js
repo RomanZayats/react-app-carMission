@@ -1,23 +1,39 @@
 import React, { useEffect } from "react";
 import "./AutoFromUSA.scss";
 import Button from "../../components/generalComponents/Button/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showFeedbackFormAction } from "../../store/FeedbackForm/actions";
 import SocialNetworks from "../../components/SocialNetworks/SocialNetworks";
 import { useInView } from "react-intersection-observer";
 import { useHistory } from "react-router-dom";
 import { pushHashToHistory } from "../../utils/functions/pushHashToHistory";
+import {
+  resetDotClick,
+  resetTargetSection,
+} from "../../store/paginationDotClick/actions";
+import {
+  getDotClick,
+  getTargetSection,
+} from "../../store/paginationDotClick/selectors";
 
 const AutoFromUsa = ({ heading, description, anchorName }) => {
   const dispatch = useDispatch();
-  const { ref, inView } = useInView({ threshold: 0.75 });
+
+  const { ref, inView } = useInView({ threshold: 0.65 });
   const history = useHistory();
+  const dotTargetSection = useSelector(getTargetSection);
+  const dotClick = useSelector(getDotClick);
 
   useEffect(() => {
     if (inView) {
-      pushHashToHistory(history, anchorName);
+      if (dotTargetSection === anchorName && dotClick) {
+        dispatch(resetTargetSection());
+        dispatch(resetDotClick());
+      } else if (!dotClick) {
+        pushHashToHistory(history, anchorName);
+      }
     }
-  }, [inView, anchorName, history]);
+  }, [inView, anchorName, history, dispatch, dotTargetSection, dotClick]);
 
   return (
     <section className="auto-from-usa__container" id={anchorName} ref={ref}>

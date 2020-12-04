@@ -5,24 +5,39 @@ import Button from "../../components/generalComponents/Button/Button";
 import axios from "axios";
 import ServicePackage from "./components/ServicePackage";
 import { showFeedbackFormAction } from "../../store/FeedbackForm/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import { useHistory } from "react-router-dom";
 import { pushHashToHistory } from "../../utils/functions/pushHashToHistory";
+import {
+  getDotClick,
+  getTargetSection,
+} from "../../store/paginationDotClick/selectors";
+import {
+  resetDotClick,
+  resetTargetSection,
+} from "../../store/paginationDotClick/actions";
 
 const ServicePackages = ({ heading, anchorName, description }) => {
   const [servicePackages, setServicePackages] = useState([]);
   const dispatch = useDispatch();
-  const { ref, inView } = useInView({ threshold: 0.75 });
+
+  const { ref, inView } = useInView({ threshold: 0.65 });
   const history = useHistory();
+  const dotTargetSection = useSelector(getTargetSection);
+  const dotClick = useSelector(getDotClick);
 
   useEffect(() => {
     if (inView) {
-      pushHashToHistory(history, anchorName);
+      if (dotTargetSection === anchorName && dotClick) {
+        dispatch(resetTargetSection());
+        dispatch(resetDotClick());
+      } else if (!dotClick) {
+        pushHashToHistory(history, anchorName);
+      }
     }
-
     getServicePackages();
-  }, [inView, anchorName, history]);
+  }, [inView, anchorName, history, dispatch, dotTargetSection, dotClick]);
 
   const showFeedbackModal = () => {
     dispatch(showFeedbackFormAction);
