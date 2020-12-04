@@ -25,6 +25,7 @@ const NavbarItem = ({
   return (
     <li className={`${className}--item`}>
       <HashLink
+        smooth
         to={sectionId}
         className={`${className}--link`}
         id={id}
