@@ -6,13 +6,13 @@ import Loader from "./components/Loader/Loader";
 import UseWinSize from "./utils/hooks/UseWinSize";
 import { loadLogoData } from "./store/logo/operations";
 import { useDispatch, useSelector } from "react-redux";
-import { getIsLogoLoading } from "./store/selectors/logoSelectors";
-import { getIsNavbarLoading } from "./store/selectors/navbarSelectors";
+import { getIsLogoLoading } from "./store/logo/selectors";
+import { getIsNavbarLoading } from "./store/navbar/selectors";
 import { loadNavbarData } from "./store/navbar/operations";
 import { loadMainSection } from "./store/appMainSections/operations";
 import "./theme/styles/App.scss";
 import FeedbackForm from "./components/FeedbackForm/Main/FeedbackForm";
-import ErrorModal from "./components/ErrorModal/ErrorModal"
+import ErrorModal from "./components/ErrorModal/ErrorModal";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const App = () => {
   return (
     <div className="App">
       <MainHeader />
-      <FeedbackForm/>
+      <FeedbackForm />
       <ErrorModal />
       <AppRoutes />
       {winWidth > 640 && <Footer />}

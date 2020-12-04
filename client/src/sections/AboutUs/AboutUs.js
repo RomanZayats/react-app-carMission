@@ -1,23 +1,46 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect } from "react";
 import "./AboutUs.scss";
-import axios from "axios";
 import RegularFeature from "./components/RegularFeature/RegularFeature";
 import MainFeature from "./components/MainFeature/MainFeature";
 import SectionHeading from "../../components/generalComponents/SectionHeading/SectionHeading";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getFeatures,
+  getFeaturesIsLoading,
+} from "../../store/aboutUs/selectors";
+import Loader from "../../components/Loader/Loader";
+import { useInView } from "react-intersection-observer";
+import { useHistory } from "react-router-dom";
+import { pushHashToHistory } from "../../utils/functions/pushHashToHistory";
+import {
+  getDotClick,
+  getTargetSection,
+} from "../../store/paginationDotClick/selectors";
+import {
+  resetDotClick,
+  resetTargetSection,
+} from "../../store/paginationDotClick/actions";
 
 const AboutUs = ({ heading, anchorName }) => {
-  const [featuresList, setFeaturesList] = useState([]);
+  const dispatch = useDispatch();
+  const featuresList = useSelector(getFeatures);
+  const isLoading = useSelector(getFeaturesIsLoading);
+
+  const dotTargetSection = useSelector(getTargetSection);
+  const dotClick = useSelector(getDotClick);
+  const { ref, inView } = useInView({ threshold: 0.6 });
+  const history = useHistory();
 
   useEffect(() => {
-    getFeatures();
-  }, []);
-
-  const getFeatures = async () => {
-    const featuresFromServer = await axios("/api/features/").then(
-      (res) => res.data
-    );
-    setFeaturesList(featuresFromServer);
-  };
+    if (inView) {
+      if (dotTargetSection === anchorName && dotClick) {
+        dispatch(resetTargetSection());
+        dispatch(resetDotClick());
+      } else if (!dotClick) {
+        pushHashToHistory(history, anchorName);
+      }
+    }
+  }, [inView, anchorName, history, dotTargetSection, dispatch, dotClick]);
 
   const featuresRender = () => {
     const regularFeaturesArr = featuresList.filter((f) => !f.isMain);
@@ -57,9 +80,13 @@ const AboutUs = ({ heading, anchorName }) => {
   };
 
   return (
-    <section className="about-us__container" id={anchorName}>
+    <section className="about-us__container" id={anchorName} ref={ref}>
       <SectionHeading className="about-us__heading" text={heading} />
-      {featuresRender(featuresList)}
+      {isLoading || !featuresList.length ? (
+        <Loader className="about-us__loader" />
+      ) : (
+        featuresRender(featuresList)
+      )}
     </section>
   );
 };

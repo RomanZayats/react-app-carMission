@@ -2,8 +2,9 @@ import React from "react";
 import NavbarItem from "../NavbarItem/NavbarItem";
 import PropTypes from "prop-types";
 import "./Navbar.scss";
+import { v4 as uuidv4 } from "uuid";
 
-const Navbar = ({ items, className, onClick, mobileNavbar }) => {
+const Navbar = ({ items, className, onClick, mobileNavbar, isFooter }) => {
   const navbarItems = items.map((e) =>
     !e.disabled ? (
       <NavbarItem
@@ -11,8 +12,9 @@ const Navbar = ({ items, className, onClick, mobileNavbar }) => {
         textContent={e.textContent}
         contacts={e.contacts}
         sectionId={e.sectionId}
-        id={e._id || e.id}
-        key={e._id || e.id}
+        id={uuidv4()}
+        key={uuidv4()}
+        isFooter={e.contacts && isFooter}
       />
     ) : null
   );
@@ -31,11 +33,18 @@ const Navbar = ({ items, className, onClick, mobileNavbar }) => {
 Navbar.propTypes = {
   items: PropTypes.array,
   className: PropTypes.string,
+  onClick: PropTypes.func,
+  mobileNavbar: PropTypes.bool,
+  isFooter: PropTypes.bool
 };
 
 Navbar.defaultProps = {
   items: [],
   className: "",
+  onClick: () => {},
+  mobileNavbar: false,
+  isFooter: false
+
 };
 
 export default Navbar;
