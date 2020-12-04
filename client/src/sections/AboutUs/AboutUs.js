@@ -28,7 +28,7 @@ const AboutUs = ({ heading, anchorName }) => {
 
   const dotTargetSection = useSelector(getTargetSection);
   const dotClick = useSelector(getDotClick);
-  const { ref, inView } = useInView({ threshold: 0.65 });
+  const { ref, inView } = useInView({ threshold: 0.6 });
   const history = useHistory();
 
   useEffect(() => {

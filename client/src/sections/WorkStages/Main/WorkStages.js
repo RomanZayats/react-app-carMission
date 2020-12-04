@@ -20,7 +20,7 @@ import {
 
 const WorkStages = ({ description, heading, anchorName }) => {
   const dispatch = useDispatch();
-  const { ref, inView } = useInView({ threshold: 0.65 });
+  const { ref, inView } = useInView({ threshold: 0.6 });
   const history = useHistory();
   const dotTargetSection = useSelector(getTargetSection);
   const dotClick = useSelector(getDotClick);

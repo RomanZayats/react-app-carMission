@@ -22,7 +22,7 @@ const ServicePackages = ({ heading, anchorName, description }) => {
   const [servicePackages, setServicePackages] = useState([]);
   const dispatch = useDispatch();
 
-  const { ref, inView } = useInView({ threshold: 0.65 });
+  const { ref, inView } = useInView({ threshold: 0.3 });
   const history = useHistory();
   const dotTargetSection = useSelector(getTargetSection);
   const dotClick = useSelector(getDotClick);
