@@ -67,6 +67,7 @@ const MainPage = () => {
       <Helmet>
         <title>Main Page</title>
       </Helmet>
+      <WorkStages heading="fgjf" anchorName="fgopihjg" description="guhdfouig"/>
       <PaginationDots componentsList={filteredReadySections} />
       {filteredReadySections}
     </>
