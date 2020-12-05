@@ -46,7 +46,7 @@
     padding: 15px 20px;
     font-size: 24px;
     background-color: $Rectangle67;
-    border-radius: 5px;z
+    border-radius: 5px;
     &::before, &::after {
       position: absolute;
       top: 8%;
@@ -69,6 +69,7 @@
       right: 0;
       bottom: 0;
       left: 0;
+      z-index: 10;
       display: flex;
       align-items: center;
       justify-content: center;
