@@ -8,21 +8,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 34%;
-  height: 44%;
   margin: 0 auto;
   background-color: rgba(131, 149, 170, 1);
   border-radius: 3px;
 
-  &__conf{
-    height: 24%;
-  }
 
   &__name-label {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 34vw;
     margin-top: 15%;
     color: #c6d1de;
     font-size: 13px;
@@ -32,8 +27,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    margin-top: 10px;
+    width: 34vw;
+    margin-top: 15px;
     color: #c6d1de;
     font-size: 13px;
   }
@@ -44,7 +39,7 @@
   }
 
   &__field {
-    width: 40%;
+    width: 60%;
     margin-top: 5px;
     background: rgba(185, 185, 193, 0.2);
     border-color: transparent;
@@ -87,28 +82,32 @@
   .feedback-form {
     top: 15%;
     right: 25%;
-    width: 50%;
-    height: 70%;
 
-    &__conf{
-      height: 30%;
+    &__name-label {
+      width: 50vw;
+    }
+
+    &__phone-label {
+      width: 50vw;
     }
 
     &__field {
-      width: 60%;
+      width: 70%;
     }
   }
 }
 
 @media screen and (max-width: $sm-size) {
   .feedback-form {
-    top: 33%;
-    right: 15%;
-    width: 70%;
-    height: 34%;
+    top: 15%;
+    right: 15vw;
 
-    &__conf{
-      height: 20%;
+    &__name-label {
+      width: 70vw;
+    }
+
+    &__phone-label {
+      width: 70vw;
     }
 
     &__field {
