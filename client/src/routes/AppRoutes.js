@@ -5,7 +5,7 @@ import MainPage from "../pages/MainPage/MainPage";
 import AdminPage from "../pages/AdminPage/AdminPage";
 
 const AppRoutes = () => {
-  const isAuth = false;
+  const isAuth = true;
 
   return (
     <Switch>

@@ -1,10 +1,13 @@
 import React from "react";
+import AdminHeader from "../../components/admin/AdminHeader/AdminHeader";
+import SideBar from "../../components/admin/SideBar/SideBar";
 
 const AdminPage = () => {
   return (
-    <div>
-      <p>admin page</p>
-    </div>
+    <>
+      <AdminHeader />
+      <SideBar/>
+    </>
   );
 };
 
