@@ -6,8 +6,8 @@ import Navbar from "../Navbar/Navbar";
 import Logo from "../Logo/Logo";
 import Button from "../generalComponents/Button/Button";
 import "./MainHeader.scss";
-import { getLogoData } from "../../store/selectors/logoSelectors";
-import { getNavbarData } from "../../store/selectors/navbarSelectors";
+import { getLogoData } from "../../store/logo/selectors";
+import { getNavbarData } from "../../store/navbar/selectors";
 
 const MainHeader = () => {
   const logoInfo = useSelector(getLogoData);
@@ -17,19 +17,8 @@ const MainHeader = () => {
 
   const firstMobileSize = 768;
   const isMobileWindowSize = winWidth <= firstMobileSize;
-  const quantOfNavbaItems = navbarData.filter((e) => !e.disabled);
-  const leftSideItems =
-    quantOfNavbaItems.length > 6
-      ? quantOfNavbaItems.slice(0, 5)
-      : quantOfNavbaItems.slice(0, 3);
-  const rightSideItems =
-    quantOfNavbaItems.length > 6
-      ? quantOfNavbaItems.slice(5)
-      : quantOfNavbaItems.slice(3);
-
-  const checkClick = () => {
-    setIsMobileNavbar(!isMobileNavbar);
-  };
+  const leftSideItems = navbarData.filter((e) => e.headerLocation === "left-side");
+  const rightSideItems = navbarData.filter((e) => e.headerLocation === "right-side");
 
   const header = !isMobileWindowSize ? (
       <>
@@ -64,7 +53,7 @@ const MainHeader = () => {
             items={navbarData}
             id="navbar"
             mobileNavbar={true}
-            onClick={() => checkClick()}
+            onClick={() => setIsMobileNavbar(!isMobileNavbar)}
           />
         :
           <Button

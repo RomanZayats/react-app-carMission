@@ -11,6 +11,7 @@ import { loadFeatures } from "../../store/aboutUs/operations";
 import PaginationDots from "../../components/PaginationDots/PaginationDots";
 import { loadPackages } from "../../store/servicePackages/operations";
 import { loadWorkStages } from "../../store/workStages/operations";
+import { loadReviews } from "../../store/ReviewCarousel/operations";
 
 const MainPage = () => {
   const sectionsFromDB = useSelector(getMainSections).filter(
@@ -22,25 +23,21 @@ const MainPage = () => {
     dispatch(loadFeatures());
     dispatch(loadPackages());
     dispatch(loadWorkStages());
+    dispatch(loadReviews());
   }, [dispatch]);
 
-  const sectionsComponents = [
+  const sectionsComponents = {
     WorkStages,
     AutoFromUsa,
     AboutUs,
     ReviewCarousel,
     ServicePackages,
-  ];
+  };
 
   const mapComponentsToRender = () => {
     return sectionsFromDB.map((section) => {
       const { description, _id: id, heading, name, reactComponent } = section;
-      const Component = sectionsComponents.find((component) => {
-        if (component.type) {
-          return component.type.name === reactComponent;
-        }
-        return component.name === reactComponent;
-      });
+      const Component = sectionsComponents[reactComponent];
 
       if (Component) {
         return (
@@ -52,6 +49,7 @@ const MainPage = () => {
           />
         );
       }
+
       return null;
     });
   };

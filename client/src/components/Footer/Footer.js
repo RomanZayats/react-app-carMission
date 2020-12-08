@@ -4,22 +4,15 @@ import Navbar from "../Navbar/Navbar";
 import Logo from "../Logo/Logo";
 import SocialNetworks from "../SocialNetworks/SocialNetworks";
 import { useSelector } from "react-redux";
-import { getLogoData } from "../../store/selectors/logoSelectors";
-import { getNavbarData } from "../../store/selectors/navbarSelectors";
+import { getLogoData } from "../../store/logo/selectors";
+import { getNavbarData } from "../../store/navbar/selectors";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   const logoInfo = useSelector(getLogoData);
   const navbarItems = useSelector(getNavbarData);
-  const quantOfNavbaItems = navbarItems.filter((e) => !e.disabled);
-  const leftSideItems =
-    quantOfNavbaItems.length > 6
-      ? quantOfNavbaItems.slice(0, 4)
-      : quantOfNavbaItems.slice(0, 3);
-  const rightSideItems =
-    quantOfNavbaItems.length > 6
-      ? quantOfNavbaItems.slice(4)
-      : quantOfNavbaItems.slice(3);
+  const leftSideItems = navbarItems.filter((e) => e.footerLocation === "left-side");
+  const rightSideItems = navbarItems.filter((e) => e.footerLocation === "right-side");
 
   return (
     <div className="footer__bg">
