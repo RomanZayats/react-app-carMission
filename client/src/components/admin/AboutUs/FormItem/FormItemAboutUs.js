@@ -1,13 +1,30 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import AdminFormField from "../../AdminFormField/AdminFormField";
+import * as yup from "yup";
 
 const FormItemWorkStages = ({ imgPath, title: propsTitle, text, isMain }) => {
   const title = text && !propsTitle ? text : propsTitle;
 
+  const validationSchema = yup.object().shape({
+    imgPath: yup
+      .string()
+      .required("Required field!")
+      .min(15)
+      .max(50, "Length err! String must contain 15-50 chars"),
+    title: yup
+      .string()
+      .required("Required field!")
+      .min(15)
+      .max(600, "Length err! String must contain 15-600 chars"),
+  });
+
   return (
     <Formik
       initialValues={{ imgPath, title }}
+      validationSchema={validationSchema}
+      validateOnChange={false}
+      validateOnBlur={false}
       onSubmit={(values) => {
         console.log("confirm submit");
       }}
