@@ -23,5 +23,8 @@
     font-family: $content-font;
   }
 
-
+  &__form-updated-confirmation {
+    margin: 5px 0;
+    color: greenyellow;
+  }
 }

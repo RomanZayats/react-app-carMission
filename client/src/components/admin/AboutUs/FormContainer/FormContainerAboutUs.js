@@ -8,17 +8,7 @@ const FormContainerAboutUs = () => {
   const data = useSelector(getFeatures);
 
   const formList = data.map((feature) => {
-    const { imgPath, title, text, isMain, _id: id } = feature;
-
-    return (
-      <FormItemWorkStages
-        imgPath={imgPath}
-        isMain={isMain}
-        text={text}
-        title={title}
-        key={id}
-      />
-    );
+    return <FormItemWorkStages obj={feature} key={feature._id} />;
   });
 
   return (
