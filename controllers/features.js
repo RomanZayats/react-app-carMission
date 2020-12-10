@@ -41,9 +41,6 @@ exports.updateFeature = (req, res, next) => {
           { $set: updatedFeature },
           { new: true }
         )
-          // .populate("product")
-          // .populate("category")
-          // .populate("customer")
           .then((feature) => res.json(feature))
           .catch((err) =>
             res.status(400).json({
