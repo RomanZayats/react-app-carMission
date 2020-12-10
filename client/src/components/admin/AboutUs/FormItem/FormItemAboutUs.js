@@ -21,10 +21,9 @@ const FormItemWorkStages = ({ obj }) => {
   }, [timeOut]);
 
   const onSubmit = async (values) => {
-    const updatedObj = {
-      ...obj,
-      ...values,
-    };
+    const updatedObj = isMain
+      ? { ...obj, imgPath: values.imgPath, text: values.title }
+      : { ...obj, ...values };
 
     const featureToServer = await axios({
       method: "PUT",
