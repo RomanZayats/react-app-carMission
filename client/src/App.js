@@ -17,11 +17,11 @@ import { loadFeatures } from "./store/aboutUs/operations";
 import { loadPackages } from "./store/servicePackages/operations";
 import { loadWorkStages } from "./store/workStages/operations";
 import { loadReviews } from "./store/ReviewCarousel/operations";
-import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-const App = () => {
+const App = ({ match }) => {
   const dispatch = useDispatch();
-  const { location } = useHistory();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     dispatch(loadNavbarData());
@@ -49,11 +49,11 @@ const App = () => {
     <div className="App">
       <div className="App__bg">
         <div className="App__main-page">
-          {location.pathname !== "/admin" && <MainHeader />}
+          {pathname !== "/admin/" && <MainHeader />}
           <FeedbackForm />
           <ErrorModal />
           <AppRoutes />
-          {winWidth > 640 || (location.pathname !== "/admin" && <Footer />)}
+          {winWidth > 640 || (pathname !== "/admin/" && <Footer />)}
         </div>
       </div>
     </div>

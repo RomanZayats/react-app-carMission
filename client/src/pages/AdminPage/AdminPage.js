@@ -1,18 +1,31 @@
 import React from "react";
 import AdminHeader from "../../components/admin/AdminHeader/AdminHeader";
-import SideBar from "../../components/admin/SideBar/SideBar";
-import FormContainerWorkStages from "../../components/admin/WorkStages/FormContainer/FormContainerWorkStages";
-import FormContainerMainPageSections from "../../components/admin/MainPageSections/FormContainer/FormContainer";
-import FormContainerAboutUs from "../../components/admin/AboutUs/FormContainer/FormContainerAboutUs";
+import SideBar from "../../components/admin/SideBar/Main/SideBar";
+import { useSelector } from "react-redux";
+import { getNavbarData } from "../../store/navbar/selectors";
+import AdminRoutes from "../../routes/AdminRoutes";
+import "./AdminPage.scss";
 
 const AdminPage = () => {
+  const navFromDB = useSelector(getNavbarData)
+    .map((nav) => nav.sectionId)
+    .filter((i) => !!i !== false);
+  const linksId = ["main-page-sections"];
+  navFromDB.forEach((link) => {
+    const normalLink = link
+      .split("")
+      .filter((c) => c !== "#")
+      .join("");
+    linksId.push(normalLink);
+  });
+
   return (
     <>
       <AdminHeader />
-      <SideBar />
-      <FormContainerMainPageSections/>
-      <FormContainerAboutUs />
-      <FormContainerWorkStages />
+      <div className="admin-wrapper">
+        <SideBar linksId={linksId} />
+        <AdminRoutes linksId={linksId} />
+      </div>
     </>
   );
 };

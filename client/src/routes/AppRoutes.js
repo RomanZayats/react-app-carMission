@@ -32,10 +32,11 @@ const AppRoutes = () => {
         path="/admin/login"
         render={() => <p>full info for car in stock</p>}
       />
+
       <ProtectedRoute
         authenticated={isAuth}
-        exact
-        path="/admin"
+        urlRedirect="/"
+        path="/admin/*"
         component={AdminPage}
       />
       <Route path="*" component={Page404} />
@@ -45,5 +46,5 @@ const AppRoutes = () => {
 
 export default AppRoutes;
 
-const ProtectedRoute = ({ authenticated, ...props }) =>
-  authenticated ? <Route {...props} /> : <Redirect to="/" />;
+const ProtectedRoute = ({ authenticated, urlRedirect, ...props }) =>
+  authenticated ? <Route {...props} /> : <Redirect to={urlRedirect} />;
