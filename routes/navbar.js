@@ -5,7 +5,6 @@ const passport = require("passport");
 //Import controllers
 const {
     addNavbarItem,
-    getNavbarItem,
     getNavbarItems,
     deleteNavbarItem,
     updateNavbarItem
@@ -15,12 +14,6 @@ const {
 // @desc    GET existing navbar items
 // @access  Public
 router.get("/", getNavbarItems);
-
-// @route   GET /navbar
-// @desc    GET existing  navbar item
-// @access  Public
-router.get("/:id", getNavbarItem);
-
 
 // @route   POST /navbar
 // @desc    Create new navbar item

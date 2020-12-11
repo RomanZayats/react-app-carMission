@@ -26,16 +26,6 @@ exports.getNavbarItems = (req, res, next) => {
     );
 };
 
-exports.getNavbarItem = (req, res, next) => {
-  Navbar.findOne({ _id: req.params.id })
-    .then(navbarItem => res.json(navbarItem))
-    .catch(err =>
-      res.status(400).json({
-        message: `Error happened on server: "${err}" `
-      })
-    );
-};
-
 exports.updateNavbarItem = (req, res, next) => {
   Navbar.findOne({ _id: req.params.id })
     .then(navbarItem => {
