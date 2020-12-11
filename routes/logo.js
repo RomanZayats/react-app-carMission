@@ -11,12 +11,12 @@ const {
 } = require("../controllers/logo");
 
 // @route   GET /logo
-// @desc    GET existing categories
+// @desc    GET existing logo data
 // @access  Public
 router.get("/", getLogo);
 
 // @route   POST /logo
-// @desc    Create new category
+// @desc    Create new logo data
 // @access  Private
 router.post(
     "/", 
@@ -25,7 +25,7 @@ router.post(
 );
 
 // @route   PUT /logo/:id
-// @desc    Update existing logo
+// @desc    Update existing logo data
 // @access  Private
 router.put(
     "/:id",
@@ -35,7 +35,7 @@ router.put(
 
 
 // @route   DELETE /logo/:id
-// @desc    DELETE existing logo
+// @desc    DELETE existing logo data
 // @access  Private
 router.delete(
     "/:id",
