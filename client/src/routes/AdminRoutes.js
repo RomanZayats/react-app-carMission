@@ -8,6 +8,7 @@ import Page404 from "../pages/Page404/Page404";
 const AdminRoutes = () => {
   return (
     <Switch>
+      <Route exact path="/admin/" />
       <Route
         exact
         path="/admin/main-page-sections"
@@ -17,6 +18,23 @@ const AdminRoutes = () => {
       <Route
         exact
         path="/admin/work-stages"
+        component={FormContainerWorkStages}
+      />
+      <Route
+        exact
+        path="/admin/service-packages"
+        component={FormContainerWorkStages}
+      />
+      <Route exact path="/admin/reviews" component={FormContainerWorkStages} />
+      <Route exact path="/admin/blog" component={FormContainerWorkStages} />
+      <Route
+        exact
+        path="/admin/car-catalog"
+        component={FormContainerWorkStages}
+      />
+      <Route
+        exact
+        path="/admin/calculator"
         component={FormContainerWorkStages}
       />
       <Route path="*" component={Page404} />
