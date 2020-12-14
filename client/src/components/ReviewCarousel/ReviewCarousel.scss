@@ -95,7 +95,6 @@
 }
 @media screen and (max-width: 1009px) and (min-width: 961px) {
   .slick-slider {
-    //max-width: 100%;
     max-width: calc(100% - 58.7px);
   }
   .arrow__prev, .arrow__next {
@@ -110,7 +109,6 @@
   }
   .slick-slider {
     max-width: 100%;
-   // max-width: calc(100% - 58.7px);
   }
 }
 @media screen and (max-width: 640px) and (min-width: 362px) {
@@ -119,7 +117,6 @@
     padding-left: 27px;
   }
   .slick-slider {
-    //max-width: 100%;
     max-width: calc(100% - 54px);
   }
   .arrow__prev, .arrow__next {
