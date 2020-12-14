@@ -14,9 +14,13 @@ import { loadFeatures } from "./store/aboutUs/operations";
 import { loadPackages } from "./store/servicePackages/operations";
 import { loadWorkStages } from "./store/workStages/operations";
 import { loadReviews } from "./store/ReviewCarousel/operations";
+import { useLocation } from "react-router-dom";
 
-const App = ({ match }) => {
+
+
+const App = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     dispatch(loadNavbarData());
@@ -30,6 +34,7 @@ const App = ({ match }) => {
 
   const isLogoLoading = useSelector(getIsLogoLoading);
   const isNavbarLoading = useSelector(getIsNavbarLoading);
+  const isMainPage = location.pathname === "/";
 
   if (isNavbarLoading || isLogoLoading) {
     return (
@@ -41,13 +46,11 @@ const App = ({ match }) => {
 
   return (
     <div className="App">
-      <div className="App__bg">
-        <div className="App__main-page">
+        <div className={isMainPage ? "App__main-page" : "App__bg"}>
           <FeedbackForm />
           <ErrorModal />
           <AppRoutes />
         </div>
-      </div>
     </div>
   );
 };
