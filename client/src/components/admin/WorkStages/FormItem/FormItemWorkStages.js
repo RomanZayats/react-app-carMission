@@ -8,6 +8,7 @@ import { toastr } from "react-redux-toastr";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addNewStage } from "../../../../store/workStages/actions";
+import { filterWorkStages } from "../../../../store/workStages/operations";
 
 const workStagesSchema = yup.object().shape({
   num: yup
@@ -44,7 +45,7 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
 
     if (deleted.status === 200) {
       toastr.success("Успешно", `Шаг "${name}" удалён в базе данных`);
-      setIsDeleted(true);
+      dispatch(filterWorkStages(sourceObj._id));
     } else {
       toastr.warning("Хм...", "Что-то пошло не так");
     }
