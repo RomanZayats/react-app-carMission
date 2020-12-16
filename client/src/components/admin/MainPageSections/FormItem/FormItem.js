@@ -1,15 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import "./FormItem.scss";
 import AdminFormField from "../../AdminFormField/AdminFormField";
-import Select from "react-select";
+import axios from "axios";
+import { saveErrObjAction } from "../../../../store/errorObject/saveErrObjAction";
+import { openErrModal } from "../../../../store/ErrorModal/openErrModal";
+import { useDispatch } from "react-redux";
+import useUpdateTimeout from "../../../../utils/hooks/useUpdateTimeout";
+import Button from "../../../generalComponents/Button/Button";
+import UpdateConfirmation from "../../updateConfirmation/UpdateConfirmation";
+import { validationSchema } from "../validationSchema";
 
-const FormItem = ({ heading, description, index, disabled }) => {
+const FormItem = ({ obj }) => {
+
+  const { heading, description, index, disabled, _id } = obj;
+  const dispatch = useDispatch();
+  const [isUpdated, setIsUpdated] = useState(false);
+  const timeOut = useUpdateTimeout(setIsUpdated);
+
+  useEffect(() => {
+    return () => clearTimeout(timeOut);
+  }, [timeOut]);
+
+  const onSubmit = async (values) => {
+
+    const updatedObj = { ...obj, ...values };
+
+    const sectionToServer = await axios({
+      method: "PUT",
+      url: `/api/sections-main/${_id}`,
+      data: updatedObj
+    }).catch((err) => {
+      dispatch(saveErrObjAction(err));
+      dispatch(openErrModal);
+    });
+
+    if (sectionToServer.status === 200) {
+      setIsUpdated(true);
+    }
+  };
+
   return (
     <Formik
       initialValues={{ heading, description, index, disabled }}
+      validationSchema={validationSchema}
+      validateOnChange={false}
+      validateOnBlur={false}
       onSubmit={(values) => {
-        console.log("confirm submit");
+        onSubmit(values);
       }}
     >
       {({ errors, touched }) => (
@@ -36,23 +74,33 @@ const FormItem = ({ heading, description, index, disabled }) => {
             errors={errors}
             labelName="Порядок при отображении"
           />
-          <div>
-            <p>Скрыть секцию на странице</p>
-            <Select
-              className="admin__input"
-              placeholder={disabled.toString()}
-              options={[
-                { value: "true", label: "true" },
-                { value: "false", label: "false" },
-              ]}
+          <label className="admin__form-label admin__input">
+            <Field
+              type="checkbox"
+              name="disabled"
             />
+            &nbsp;Скрыть секцию на странице
+          </label>
+
+          <div className="admin__buttons-box">
+            <Button
+              className="admin__delete-btn"
+              text="Delete item"
+              onClick={(event) => {
+                event.preventDefault();
+              }}
+            />
+            <Field
+              type="submit"
+              disabled={isUpdated}
+              name="submit"
+              className="admin__submit-btn"
+              value="Submit changes"
+            />
+            {isUpdated && <UpdateConfirmation/>}
           </div>
-          <Field
-            type="submit"
-            name="submit"
-            className="admin__submit-btn"
-            value="Submit changes"
-          />
+
+
         </Form>
       )}
     </Formik>

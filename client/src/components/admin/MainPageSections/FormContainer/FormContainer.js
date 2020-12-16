@@ -10,8 +10,8 @@ const FormContainerMainPageSections = () => {
   const data = useSelector(getMainSections);
 
   const formList = data.map((section) => {
-    const { heading, description, index, disabled } = section;
-    return <FormItem heading={heading} description={description} index={index} disabled={disabled}  key={uuidv4()} />;
+    const { heading, description, index, disabled, _id } = section;
+    return <FormItem obj={section} heading={heading} description={description} index={index} disabled={disabled} id={_id} key={uuidv4()} />;
   });
 
   return (
