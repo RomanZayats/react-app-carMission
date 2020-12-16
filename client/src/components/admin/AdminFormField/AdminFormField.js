@@ -12,7 +12,6 @@ const AdminFormField = ({
   fieldClassName,
   errorClassName,
 }) => {
-  console.log(errors);
   return (
     <label className={labelClassName || "admin__label"}>
       <span className="admin__label-name">{labelName}</span>

@@ -5,6 +5,7 @@ import * as yup from "yup";
 import AdminFormField from "../../AdminFormField/AdminFormField";
 import Button from "../../../generalComponents/Button/Button";
 import { toastr } from "react-redux-toastr";
+import axios from "axios";
 
 const workStagesSchema = yup.object().shape({
   num: yup
@@ -28,18 +29,31 @@ const workStagesSchema = yup.object().shape({
 const FormItemWorkStages = ({ sourceObj, isNew }) => {
   const { num, name, iconSrc } = sourceObj;
 
-  const handleDelete = (e) => {
+  const handleDeleteItem = (e) => {
     e.preventDefault();
     toastr.success("delete", "item deleted");
-    console.log("deleted");
   };
 
-  const handleUpdate = (values) => {
-    console.log("confirm update");
+  const handleUpdate = async (values) => {
+    const updatedObj = {
+      ...sourceObj,
+      ...values,
+    };
+    const updatedStage = await axios
+      .put(`/api/work-stages/${sourceObj._id}`, updatedObj)
+      .catch((err) => {
+        toastr.error(err.message);
+      });
+
+    if (updatedStage.status === 200) {
+      toastr.success("Успешно", `Шаг "${values.name}" обновлён в базе данных`);
+    } else {
+      toastr.warning("Хм...", "Что-то пошло не так");
+    }
   };
 
-  const handlePost = (values) => {
-    console.log("confirm create new");
+  const handleAddItem = (values) => {
+    toastr.success("new", "item created");
   };
 
   return (
@@ -48,7 +62,7 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
       validationSchema={workStagesSchema}
       validateOnBlur={false}
       validateOnChange={false}
-      onSubmit={isNew ? handlePost : handleUpdate}
+      onSubmit={isNew ? handleAddItem : handleUpdate}
     >
       {({ errors, touched }) => (
         <Form className="admin-stages__form-item">
@@ -88,7 +102,7 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
           <Button
             className="admin-stages__delete-btn"
             text="&#10005;"
-            onClick={handleDelete}
+            onClick={handleDeleteItem}
           />
         </Form>
       )}
