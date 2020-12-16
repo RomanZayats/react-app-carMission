@@ -4,6 +4,7 @@ import "./FormItemWorkStages.scss";
 import * as yup from "yup";
 import AdminFormField from "../../AdminFormField/AdminFormField";
 import Button from "../../../generalComponents/Button/Button";
+import { toastr } from "react-redux-toastr";
 
 const workStagesSchema = yup.object().shape({
   num: yup
@@ -29,7 +30,7 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
 
   const handleDelete = (e) => {
     e.preventDefault();
-
+    toastr.success("delete", "item deleted");
     console.log("deleted");
   };
 

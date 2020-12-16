@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { HelmetProvider } from "react-helmet-async";
 import store from "./store/store";
+import { ReduxToastr } from "react-redux-toastr";
 
 ReactDOM.render(
   <React.StrictMode>
