@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { getWorkStages } from "../../../../store/workStages/selectors";
-import { v4 as uuidv4 } from "uuid";
 import FormItemWorkStages from "../FormItem/FormItemWorkStages";
 import SectionHeading from "../../../generalComponents/SectionHeading/SectionHeading";
 import "./FormContainerWorkStages.scss";
@@ -10,16 +9,13 @@ const FormContainerWorkStages = () => {
   const data = useSelector(getWorkStages);
 
   const formList = data.map((stage) => {
-    const { num, name } = stage;
-    return <FormItemWorkStages num={num} name={name} key={uuidv4()} />;
+    return <FormItemWorkStages sourceObj={stage} key={stage._id} />;
   });
 
   return (
-    <div className="admin__form-container">
-      <div className="admin__container-head">
-        <SectionHeading text="Этапы сотрудничества" />
-      </div>
-      {formList}
+    <div className="admin-stages">
+      <SectionHeading text="Этапы сотрудничества" />
+      <div className="admin-stages__form-container">{formList}</div>
     </div>
   );
 };
