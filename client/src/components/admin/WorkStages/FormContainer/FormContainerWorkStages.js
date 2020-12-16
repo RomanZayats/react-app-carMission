@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getWorkStages } from "../../../../store/workStages/selectors";
 import FormItemWorkStages from "../FormItem/FormItemWorkStages";
@@ -7,14 +7,34 @@ import "./FormContainerWorkStages.scss";
 import Button from "../../../generalComponents/Button/Button";
 
 const FormContainerWorkStages = () => {
+  const [formList, setFormList] = useState([]);
   const data = useSelector(getWorkStages);
 
-  const formList = data.map((stage) => {
-    return <FormItemWorkStages sourceObj={stage} key={stage._id} />;
-  });
+  useEffect(() => {
+    const mapFormToRender = () => {
+      return data.map((stage) => {
+        return <FormItemWorkStages sourceObj={stage} key={stage._id} />;
+      });
+    };
+    setFormList(mapFormToRender());
+  }, [data]);
 
-  const handleNewItem = () => {
+  const createNewFormItem = () => {
+    const empty = {
+      num: "",
+      name: "",
+      iconSrc: "",
+    };
 
+    return <FormItemWorkStages sourceObj={empty} isNew key={Date.now()} />;
+  };
+
+  const handleAddItem = () => {
+    const form = createNewFormItem();
+
+    const updated = formList.map((i) => i);
+    updated.push(form);
+    setFormList(updated);
   };
 
   return (
@@ -24,7 +44,7 @@ const FormContainerWorkStages = () => {
       <Button
         text="+"
         className="admin-stages__add-btn"
-        onClick={handleNewItem}
+        onClick={handleAddItem}
       />
     </div>
   );

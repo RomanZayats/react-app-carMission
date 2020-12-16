@@ -50,7 +50,7 @@ const App = () => {
           <ErrorModal />
           <AppRoutes />
           <ReduxToastr
-            timeOut={4000}
+            timeOut={5000}
             newestOnTop
             preventDuplicates
             position="top-right"

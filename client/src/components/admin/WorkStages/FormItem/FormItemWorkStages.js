@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import "./FormItemWorkStages.scss";
 import * as yup from "yup";
@@ -6,6 +6,8 @@ import AdminFormField from "../../AdminFormField/AdminFormField";
 import Button from "../../../generalComponents/Button/Button";
 import { toastr } from "react-redux-toastr";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addNewStage } from "../../../../store/workStages/actions";
 
 const workStagesSchema = yup.object().shape({
   num: yup
@@ -28,10 +30,30 @@ const workStagesSchema = yup.object().shape({
 
 const FormItemWorkStages = ({ sourceObj, isNew }) => {
   const { num, name, iconSrc } = sourceObj;
+  const [isDeleted, setIsDeleted] = useState(false);
+  const dispatch = useDispatch();
 
-  const handleDeleteItem = (e) => {
+  const handleDeleteFromDB = async (e) => {
     e.preventDefault();
-    toastr.success("delete", "item deleted");
+
+    const deleted = await axios
+      .delete(`/api/work-stages/delete/${sourceObj._id}`)
+      .catch((err) => {
+        toastr.error(err.message);
+      });
+
+    if (deleted.status === 200) {
+      toastr.success("Успешно", `Шаг "${name}" удалён в базе данных`);
+      setIsDeleted(true);
+    } else {
+      toastr.warning("Хм...", "Что-то пошло не так");
+    }
+  };
+
+  const handleDeleteNew = (e) => {
+    e.preventDefault();
+    setIsDeleted(true);
+    toastr.success("Успешно", "Шаг удалён до внесения в базу данных");
   };
 
   const handleUpdate = async (values) => {
@@ -46,15 +68,33 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
       });
 
     if (updatedStage.status === 200) {
-      toastr.success("Успешно", `Шаг "${values.name}" обновлён в базе данных`);
+      toastr.success(
+        "Успешно",
+        `Шаг изменён на "${values.name}" в базе данных`
+      );
     } else {
       toastr.warning("Хм...", "Что-то пошло не так");
     }
   };
 
-  const handleAddItem = (values) => {
-    toastr.success("new", "item created");
+  const handlePostToDB = async (values) => {
+    const newStage = await axios
+      .post("/api/work-stages/", values)
+      .catch((err) => {
+        toastr.error(err.message);
+      });
+
+    if (newStage.status === 200) {
+      toastr.success("Успешно", `Шаг "${values.name}" добавлен в базу данных`);
+      dispatch(addNewStage(newStage.data));
+    } else {
+      toastr.warning("Хм...", "Что-то пошло не так");
+    }
   };
+
+  if (isDeleted) {
+    return null;
+  }
 
   return (
     <Formik
@@ -62,7 +102,7 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
       validationSchema={workStagesSchema}
       validateOnBlur={false}
       validateOnChange={false}
-      onSubmit={isNew ? handleAddItem : handleUpdate}
+      onSubmit={isNew ? handlePostToDB : handleUpdate}
     >
       {({ errors, touched }) => (
         <Form className="admin-stages__form-item">
@@ -102,7 +142,7 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
           <Button
             className="admin-stages__delete-btn"
             text="&#10005;"
-            onClick={handleDeleteItem}
+            onClick={isNew ? handleDeleteNew : handleDeleteFromDB}
           />
         </Form>
       )}
