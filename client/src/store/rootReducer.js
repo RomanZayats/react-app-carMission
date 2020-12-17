@@ -10,6 +10,8 @@ import workStages from "./workStages/reducer";
 import reviewCarousel from "./ReviewCarousel/reduser";
 import errModalReducer from "./ErrorModal/errModalReducer";
 import errObjReducer from "./errorObject/errObjReducer";
+import auth from "./auth/reducer";
+import { reducer as toastr } from "react-redux-toastr";
 
 const reducer = combineReducers({
   appMainSections,
@@ -23,6 +25,8 @@ const reducer = combineReducers({
   errModalReducer,
   errObjReducer,
   reviewCarousel,
+  auth,
+  toastr,
 });
 
 export default reducer;

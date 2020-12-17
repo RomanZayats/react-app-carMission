@@ -14,8 +14,10 @@ import { loadFeatures } from "./store/aboutUs/operations";
 import { loadPackages } from "./store/servicePackages/operations";
 import { loadWorkStages } from "./store/workStages/operations";
 import { loadReviews } from "./store/ReviewCarousel/operations";
+import { checkToken } from "./store/auth/operations";
+import ReduxToastr from "react-redux-toastr";
 
-const App = ({ match }) => {
+const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,6 +28,7 @@ const App = ({ match }) => {
     dispatch(loadPackages());
     dispatch(loadWorkStages());
     dispatch(loadReviews());
+    dispatch(checkToken());
   }, [dispatch]);
 
   const isLogoLoading = useSelector(getIsLogoLoading);
@@ -46,6 +49,16 @@ const App = ({ match }) => {
           <FeedbackForm />
           <ErrorModal />
           <AppRoutes />
+          <ReduxToastr
+            timeOut={5000}
+            newestOnTop
+            preventDuplicates
+            position="top-right"
+            getState={(state) => state.toastr}
+            transitionIn="fadeIn"
+            transitionOut="fadeOut"
+            progressBar
+          />
         </div>
       </div>
     </div>
