@@ -40,6 +40,17 @@ const FormItem = ({ obj }) => {
     }
   };
 
+  // const deleteSection = async () => {
+  //   await axios({
+  //     method: "DELETE",
+  //     url: `/api/sections-main/${_id}`
+  //   }).catch((err) => {
+  //     dispatch(saveErrObjAction(err));
+  //     dispatch(openErrModal);
+  //   });
+  // };
+
+
   return (
     <Formik
       initialValues={{ heading, description, index, disabled }}

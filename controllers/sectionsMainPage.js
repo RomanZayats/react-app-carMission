@@ -58,6 +58,21 @@ exports.updateSectionMainPage = (req, res, next) => {
     );
 };
 
+exports.deleteSectionMainPage = (req, res, next) => {
+  SectionMainPage.deleteOne({ _id: req.params.id }).then(() => {
+    res
+      .status(200)
+      .json({
+        message: "you've just deleted section from sections collection",
+      })
+      .catch((err) => {
+        res.status(400).json({
+          message: `Error happened on server: "${err}" `,
+        });
+      });
+  });
+};
+
 exports.deleteAllSectionsMainPage = (req, res, next) => {
   SectionMainPage.deleteMany({}).then(() => {
     res
