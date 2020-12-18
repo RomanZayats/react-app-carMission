@@ -9,8 +9,8 @@
     align-items: center;
     margin-bottom: 25px;
     padding: 30px;
-    color: $Rectangle48;
-    border: $Rectangle48 1px solid;
+    color: #c6d1de;
+    border: #c6d1de 1px solid;
     border-radius: 30px;
   }
 
@@ -39,6 +39,15 @@
   &__form-input {
     width: 100%;
     height: 25px;
+    color: $Rectangle67;
+    font-size: 17px;
+    font-family: $content-font;
+    background: $Rectangle48;
+    border: none;
+  }
+  &__form-textarea {
+    width: 100%;
+    height: 75px;
     color: $Rectangle67;
     font-size: 17px;
     font-family: $content-font;

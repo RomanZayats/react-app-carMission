@@ -14,7 +14,6 @@ const FormItemReviewCarousel = ({ obj, isNew }) => {
 const { customerPhoto, customerName, carInfo, reviewText, _id: id } = obj;
 
   const dispatch = useDispatch();
-  const [isUpdated, setIsUpdated] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
 
   const handleDeleteFromDB = async (e) => {
@@ -52,8 +51,7 @@ const { customerPhoto, customerName, carInfo, reviewText, _id: id } = obj;
       });
 
     if (updatedReview.status === 200) {
-      setIsUpdated(true);
-      toastr.success(
+        toastr.success(
         "Успешно",
         `Отзыв с id "${id}" изменён в базе данных`
       );
@@ -119,8 +117,9 @@ const { customerPhoto, customerName, carInfo, reviewText, _id: id } = obj;
             labelName="Марка, модель авто"
           />
           <AdminFormField
+            as="textarea"
             labelClassName="admin-reviews__form-label"
-            fieldClassName="admin-reviews__form-input"
+            fieldClassName="admin-reviews__form-textarea"
             errorClassName="admin-reviews__form-error"
             type="textarea"
             name="reviewText"
@@ -131,7 +130,7 @@ const { customerPhoto, customerName, carInfo, reviewText, _id: id } = obj;
           <Field
             type="submit"
             name="submit"
-            className="admin-reviews_submit-btn"
+            className="admin-reviews__submit-btn"
             disabled={submitting}
             value={isNew ? "Создать отзыв" : "Подтвердить изменения"}
           />
