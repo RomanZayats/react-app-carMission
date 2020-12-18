@@ -4,6 +4,7 @@ import FormContainerMainPageSections from "../components/admin/MainPageSections/
 import FormContainerAboutUs from "../components/admin/AboutUs/FormContainer/FormContainerAboutUs";
 import FormContainerWorkStages from "../components/admin/WorkStages/FormContainer/FormContainerWorkStages";
 import Page404 from "../pages/Page404/Page404";
+import FormContainerReviewCarousel from "../components/admin/ReviewCarousel/FormContainer/FormContainerReviewCarousel";
 
 const AdminRoutes = () => {
   return (
@@ -25,7 +26,7 @@ const AdminRoutes = () => {
         path="/admin/service-packages"
         component={FormContainerWorkStages}
       />
-      <Route exact path="/admin/reviews" component={FormContainerWorkStages} />
+      <Route exact path="/admin/reviews" component={FormContainerReviewCarousel} />
       <Route exact path="/admin/blog" component={FormContainerWorkStages} />
       <Route
         exact
