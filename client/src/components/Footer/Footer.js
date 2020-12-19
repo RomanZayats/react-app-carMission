@@ -11,6 +11,10 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   const logoInfo = useSelector(getLogoData);
   const navbarItems = useSelector(getNavbarData);
+  const sortByNumberInNavbar = (arr) => {
+    arr.sort((a, b) => +a.numberInNavbar > +b.numberInNavbar ? 1 : -1);
+  }
+  sortByNumberInNavbar(navbarItems);
   const leftSideItems = navbarItems.filter((e) => e.footerLocation === "left-side");
   const rightSideItems = navbarItems.filter((e) => e.footerLocation === "right-side");
 

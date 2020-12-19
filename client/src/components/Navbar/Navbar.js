@@ -11,7 +11,7 @@ const Navbar = ({ items, className, onClick, mobileNavbar, isFooter }) => {
         className={className}
         textContent={e.textContent}
         contacts={e.contacts}
-        sectionId={e.sectionId}
+        sectionId={`#${e.sectionId}`}
         id={uuidv4()}
         key={uuidv4()}
         isFooter={e.contacts && isFooter}

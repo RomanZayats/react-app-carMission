@@ -19,12 +19,13 @@ const NavbarSchema = new Schema(
             type: Boolean,
             required: true
         },
+        numberInNavbar: {
+            type: String,
+            required: true
+        },
         sectionId: {
             type: String,
         },
-        onClick: {
-            type: String,
-        }, 
         contacts: {
             type: String,
         }

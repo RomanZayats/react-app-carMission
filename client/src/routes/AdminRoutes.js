@@ -4,11 +4,17 @@ import FormContainerMainPageSections from "../components/admin/MainPageSections/
 import FormContainerAboutUs from "../components/admin/AboutUs/FormContainer/FormContainerAboutUs";
 import FormContainerWorkStages from "../components/admin/WorkStages/FormContainer/FormContainerWorkStages";
 import Page404 from "../pages/Page404/Page404";
+import AdminNavbar from "../components/admin/AdminNavbar/AdminNavbar";
 
 const AdminRoutes = () => {
   return (
     <Switch>
       <Route exact path="/admin/" />
+      <Route
+        exact
+        path="/admin/navbars"
+        component={AdminNavbar}
+      />
       <Route
         exact
         path="/admin/main-page-sections"
