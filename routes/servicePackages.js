@@ -15,7 +15,7 @@ const {
 // @access  Private
 router.post("/", addServicePackage);
 
-// @route   PUT /work-stages
+// @route   PUT /service-packages
 // @desc    Update stage from collection by id
 // @access  Private
 router.put(
@@ -24,7 +24,7 @@ router.put(
   updateServicePackages
 );
 
-// @route   DELETE /work-stages
+// @route   DELETE /service-packages
 // @desc    Delete stage from collection by id
 // @access  Private
 router.delete(
