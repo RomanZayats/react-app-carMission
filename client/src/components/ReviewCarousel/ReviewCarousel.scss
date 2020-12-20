@@ -107,8 +107,15 @@
     padding-right: 37px;
     padding-left: 37px;
   }
+  .slick-slider {
+    max-width: 100%;
+  }
 }
 @media screen and (max-width: 640px) and (min-width: 362px) {
+  .carousel__section{
+    padding-right: 27px;
+    padding-left: 27px;
+  }
   .slick-slider {
     max-width: 100%;
   }
@@ -119,7 +126,11 @@
 }
 
 @media screen and (max-width: 361px) {
+  .carousel__section{
+    padding-right: 17px;
+    padding-left: 17px;
+  }
   .slick-slider {
-    width: 320px;
+   min-width: 275px;
   }
 }
