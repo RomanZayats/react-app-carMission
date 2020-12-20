@@ -20,12 +20,8 @@ const MainHeader = () => {
   sortByNumberInNavbar(navbarData);
   const firstMobileSize = 768;
   const isMobileWindowSize = winWidth <= firstMobileSize;
-  const leftSideItems = navbarData.filter(
-    (e) => e.headerLocation === "left-side"
-  );
-  const rightSideItems = navbarData.filter(
-    (e) => e.headerLocation === "right-side"
-  );
+  const leftSideItems = navbarData.filter((e) => e.headerLocation === "left-side");
+  const rightSideItems = navbarData.filter((e) => e.headerLocation === "right-side");
 
   const header = !isMobileWindowSize ? (
     <>
