@@ -25,8 +25,6 @@ exports.addSectionMainPage = (req, res, next) => {
     );
 };
 
-
-
 exports.updateSectionMainPage = (req, res, next) => {
   SectionMainPage.findOne({ _id: req.params.id })
     .then((sectionMainPage) => {
