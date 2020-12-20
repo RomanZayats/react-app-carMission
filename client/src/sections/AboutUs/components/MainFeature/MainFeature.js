@@ -7,7 +7,6 @@ import MainFeatureText from "./components/MainFeatureText/MainFeatureText";
 
 const MainFeature = (props) => {
   const { className, imgPath, text } = props;
-  console.log(text);
   const { width: winWidth } = useWinSize();
 
   const mainFeatureRender = (windowWidth) => {
