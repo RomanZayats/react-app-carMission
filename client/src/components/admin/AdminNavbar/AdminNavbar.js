@@ -17,11 +17,10 @@ const AdminNavbar = () => {
     const sectionsNumberInNavbar = navbarData.map((e) => ({ value: e.numberInNavbar, label: e.numberInNavbar}));
 
 
-    const navbarItems = navbarData.map(({ textContent, contacts, footerLocation, headerLocation, disabled, _id, id, sectionId, numberInNavbar }, index) =>
+    const navbarItems = navbarData.map(({ textContent, contacts, footerLocation, headerLocation, _id, id, sectionId, numberInNavbar }, index) =>
         <AdminNavarItem
             className="admin__navbar"
             textContent={textContent}
-            disabled={disabled}
             headerLocation={headerLocation}
             footerLocation={footerLocation}
             contacts={contacts}
@@ -38,7 +37,7 @@ const AdminNavbar = () => {
         <div className="admin__navbar">
             <SectionHeading text="Пункты меню" />
             <ul className="admin__navbar-menu">{navbarItems}</ul>
-            {/* <Button className="admin__add-btn" text="Add item" onClick={() => {}} /> */}
+            <Button className="admin__add-btn" text="Add item" onClick={() => {}} />
         </div>
     );
 };

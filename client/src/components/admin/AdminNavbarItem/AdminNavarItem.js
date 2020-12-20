@@ -5,7 +5,7 @@ import Button from "../../generalComponents/Button/Button";
 import Select from "react-select";
 
 const AdminNavarItem = ({
-    className, textContent, headerLocation, footerLocation, disabled, _id, contacts, sectionId, sectionsArr, numberInNavbar, sectionsNumberInNavbar
+    className, textContent, headerLocation, footerLocation, _id, contacts, sectionId, sectionsArr, numberInNavbar, sectionsNumberInNavbar
 }) => {
     const options = (name) => (
         name === "активна"
@@ -24,7 +24,6 @@ const AdminNavarItem = ({
 
     const headerDefaultValue = options("меню").filter(option => option.value === headerLocation);
     const footerDefaultValue = options("футере").filter(option => option.value === footerLocation);
-    const isDisabled = options("активна").filter(option => option.value === disabled.toString());
     const sectionName = sectionsArr.filter(name => name.value === sectionId);
     const itemNumber = sectionsNumberInNavbar.filter(name => name.value === numberInNavbar);
 
@@ -58,7 +57,7 @@ const AdminNavarItem = ({
                                 labelName="Контактные данные"
                                 fieldClassName={`${className}-field`}
                             />
-                            <p className="admin__navbar-contacts">Знаком "/" разделяются места переносa текста на новою строку</p>
+                            {/* <p className="admin__navbar-contacts">Знаком "/" разделяются места переносa текста на новою строку</p> */}
                         </>
                         : null
                     }
@@ -90,7 +89,7 @@ const AdminNavarItem = ({
                     />
                     
                     <label htmlFor="itemNumber" className={`${className}-label`}>Порядковый номер секции</label>
-                    <p className="admin__navbar-number">В случае изменения, проверьте расположение секции слева или справа, а так же на уникальность ее номера!</p>
+                    {/* <p className="admin__navbar-number">В случае изменения, проверьте расположение секции слева или справа, а так же на уникальность ее номера!</p> */}
                     <Select
                         name="itemNumber"
                         className={`${className}-select`}
@@ -98,12 +97,12 @@ const AdminNavarItem = ({
                         options={sectionsNumberInNavbar}
                     />
 
-                    <label className={`${className}-label`}>Отображение секции на сайте</label>
+                    {/* <label className={`${className}-label`}>Отображение секции на сайте</label>
                     <Select
                         className={`${className}-select`}
                         defaultValue={isDisabled}
                         options={options("активна")}
-                    />
+                    /> */}
 
                     <div className="admin__buttons-box admin__navbar-buttons">
                         <Button
