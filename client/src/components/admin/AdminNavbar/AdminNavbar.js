@@ -9,52 +9,62 @@ import "./AdminNavbar.scss";
 
 const AdminNavbar = () => {
     const [navbarList, setNavbarList] = useState([]);
-    const navbarData = useSelector(getNavbarData);
-    const mainClassName = "admin-navbar"
+    const [sectionsNumberInNavbar, setSectionsNumberInNavbar] = useState([]);
+    const [sectionsLinkArr, setSectionsLinkArr] = useState([])
 
-    const sortByNumberInNavbar = (arr) => {
-        arr.sort((a, b) => +a.numberInNavbar > +b.numberInNavbar ? 1 : -1);
-    }
-    sortByNumberInNavbar(navbarData);
-    const sectionsLinkArr = navbarData.map((e) => ({ value: e.sectionId, label: e.sectionId}));
-    const sectionsNumberInNavbar = navbarData.map((e) => ({ value: e.numberInNavbar, label: e.numberInNavbar}));
+    const navbarData = useSelector(getNavbarData);
+    const mainClassName = "admin-navbar";
+    const nextNum = navbarData.length + 1;
+    const sortByNumberInNavbar = (arr) => arr.sort((a, b) => +a.numberInNavbar > +b.numberInNavbar ? 1 : -1);
+
+    const allNumbersInNavbar = (arr) => arr.map((e) => ({ value: e.numberInNavbar, label: e.numberInNavbar}));
+    const sectionsLink = (arr) => arr.map((e) => ({ value: e.sectionId, label: e.sectionId})).filter(e => e.value !== undefined)
 
     const createNewFormItem = () => {
-        const empty = {
-            className: {mainClassName},
-            textContent: "Введите название секции",
-            headerLocation: "Выберите расположение в меню",
-            footerLocation: "Выберите расположение в футере(подвале)",
-            numberInNavbar: "Введите уникальный порядковый номер",
-            sectionId: "Выберите к какой секции относится линк",
+        const newItemNumber = { value: nextNum, label: nextNum};
+        sectionsNumberInNavbar.push(newItemNumber);
+        return <AdminNavarItem
+                className={mainClassName}
+                textContentPlaceholder="Введите название секцию"
+                headerLocationPlaceholder="Выберите расположение"
+                footerLocationPlaceholder="Выберите расположение"
+                numberInNavbar={nextNum}
+                sectionIdPlaceholder="Выберите секций"
 
-            sectionsArr: {sectionsLinkArr},
-            sectionsNumberInNavbar: {sectionsNumberInNavbar}
-        };
-    };
-
-
+                sectionsArr={sectionsLinkArr}
+                sectionsNumberInNavbar={sectionsNumberInNavbar}
+                isNew
+                key={Date.now()}
+            />
+    }
 
     useEffect(() => {
-        const mapFormToRender = () => {
-          return navbarData.map(({ textContent, contacts, footerLocation, headerLocation, _id, id, sectionId, numberInNavbar, disabled }) => {
-            return <AdminNavarItem
-                        className={mainClassName}
-                        textContent={textContent}
-                        headerLocation={headerLocation}
-                        footerLocation={footerLocation}
-                        contacts={contacts}
-                        numberInNavbar={numberInNavbar}
-                        sectionId={sectionId}
-                        disabled={disabled}
-                        id={id || _id}
-                        key={_id}
+        sortByNumberInNavbar(navbarData);
 
-                        sectionsArr={sectionsLinkArr}
-                        sectionsNumberInNavbar={sectionsNumberInNavbar}
-                    />;
-        });
+        const numbers = allNumbersInNavbar(navbarData);
+        const links = sectionsLink(navbarData)
+
+        const mapFormToRender = () => {
+            return navbarData.map(({ textContent, contacts, footerLocation, headerLocation, _id, id, sectionId, numberInNavbar, disabled }) => (
+                <AdminNavarItem
+                    className={mainClassName}
+                    textContent={textContent}
+                    headerLocation={headerLocation}
+                    footerLocation={footerLocation}
+                    contacts={contacts}
+                    numberInNavbar={numberInNavbar}
+                    sectionId={sectionId}
+                    disabled={disabled}
+                    id={id || _id}
+                    key={_id}
+
+                    sectionsArr={links}
+                    sectionsNumberInNavbar={numbers}
+                />
+            ));
         };
+        setSectionsLinkArr(links)
+        setSectionsNumberInNavbar(numbers);
         setNavbarList(mapFormToRender());
     }, [navbarData]);
     
@@ -64,26 +74,8 @@ const AdminNavbar = () => {
         const updated = navbarList.map((i) => i);
         updated.push(form);
         setNavbarList(updated);
+        setSectionsNumberInNavbar(allNumbersInNavbar(updated));
     };
-
-    
-
-
-    // const navbarList = navbarData.map(({ textContent, contacts, footerLocation, headerLocation, _id, id, sectionId, numberInNavbar }, index) =>
-    //     <AdminNavarItem
-    //         className="admin__navbar"
-    //         textContent={textContent}
-    //         headerLocation={headerLocation}
-    //         footerLocation={footerLocation}
-    //         contacts={contacts}
-    //         sectionsArr={sectionsLinkArr}
-    //         sectionId={sectionId}
-    //         numberInNavbar={numberInNavbar}
-    //         sectionsNumberInNavbar={sectionsNumberInNavbar}
-    //         id={id || _id}
-    //         key={index}
-    //     />
-    // )
     
     return (
         <div className={mainClassName}>

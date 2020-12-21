@@ -23,12 +23,16 @@
     }
     &__info{
         font-size: 18px;
+        text-align: center;
     }
     &__info_active {
-        text-shadow: 1px 1px 2px black, 1px 1px 1em rgb(55, 255, 0);
+        text-shadow: 1px 1px 2px black, 0 0 1em rgb(55, 255, 0);
     }
     &__info_none-active {
         text-shadow: 1px 1px 2px black, 0 0 1em rgb(255, 0, 0);
+    }
+    &__info_new-item {
+        text-shadow: 1px 1px 2px black, 0 0 1em rgb(0, 251, 255);
     }
     &__select > div{
         width: 100%;
