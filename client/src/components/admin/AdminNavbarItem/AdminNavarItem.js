@@ -3,9 +3,27 @@ import { Formik, Form, Field } from "formik";
 import AdminFormField from "../AdminFormField/AdminFormField";
 import Button from "../../generalComponents/Button/Button";
 import Select from "react-select";
+import * as yup from "yup";
+import { toastr } from "react-redux-toastr";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import "./AdminNavbarItem.scss";
+
+
+const navbarSchema = yup.object().shape({
+    textContent: yup
+        .string()
+        .typeError("Введите текст")
+        .strict(true)
+        .required("Обязательное поле"),
+    contacts: yup
+        .string()
+        .typeError("Введите текст")
+        .strict(true)
+});
 
 const AdminNavarItem = ({
-    className, textContent, headerLocation, footerLocation, _id, contacts, sectionId, sectionsArr, numberInNavbar, sectionsNumberInNavbar
+    className, textContent, headerLocation, footerLocation, _id, contacts, sectionId, sectionsArr, numberInNavbar, sectionsNumberInNavbar, disabled
 }) => {
     const options = (name) => (
         name === "активна"
@@ -30,43 +48,63 @@ const AdminNavarItem = ({
 
     return (
         <Formik
-            initialValues={{ textContent, _id, contacts, sectionName, itemNumber }}
-            // validationSchema={validationSchema}
+            initialValues={{ textContent, contacts, headerLocation, footerLocation, numberInNavbar }}
+            validationSchema={navbarSchema}
             validateOnChange={false}
             validateOnBlur={false}
             // onSubmit={onSubmit}
         >
             {({ errors, touched }) => (
-                <Form className={`${className}-item`}>
+                <Form className={`${className}__item`}>
+                    {disabled ?
+                        <label htmlFor="itemNumber" className={`${className}__info ${className}__info_none-active`}>Ceкция неактивна на сайте</label>
+                        :
+                        <label htmlFor="itemNumber" className={`${className}__info ${className}__info_active`}>Ceкция активна на сайте</label>
+                    }
+
                     <AdminFormField
-                        className={`admin__form-label ${`${className}-label`}`}
+                        labelClassName={`${className}__label`}
+                        fieldClassName={`${className}__input`}
+                        errorClassName="admin-stages__form-error"
+                        labelName="Название ccылки секции в меню"
                         type="input"
                         name="textContent"
                         errors={errors}
-                        labelName="Название ccылки секции в меню"
-                        fieldClassName={`${className}-field`}
                     />
+                    <label htmlFor="itemNumber" className={`${className}__label`}>
+                        <span className={`${className}__number-text`}>Порядковый номер пункта в меню*</span>
+                        <p className={`${className}__number-hidden`}>Проверьте уникален ли номер пункта, а также его расположение слева или справа от лого</p>
+                    </label>
+                    <Select
+                        name="numberInNavbar"
+                        className={`${className}__select`}
+                        defaultValue={itemNumber}
+                        options={sectionsNumberInNavbar}
+                    />
+
 
                     {contacts ?
                         <>
+                            <p className={`${className}__contacts-hidden`}>Знаком "/" разделяются места переносa текста на новою строку</p>
                             <AdminFormField
-                                className={`admin__form-label ${`${className}-label`}`}
+                                labelClassName={`${className}__label`}
+                                fieldClassName={`${className}__input`}
+                                errorClassName="admin-stages__form-error"
+                                labelName="Контактные данные*"
                                 type="input"
                                 name="contacts"
                                 errors={errors}
-                                labelName="Контактные данные"
-                                fieldClassName={`${className}-field`}
                             />
-                            {/* <p className="admin__navbar-contacts">Знаком "/" разделяются места переносa текста на новою строку</p> */}
                         </>
                         : null
                     }
 
                     {!contacts ?
                         <>
-                            <label className={`${className}-label`}>К какой секции относится</label>
+                            <label className={`${className}__label`}>К какой секции относится</label>
                             <Select
-                                className={`${className}-select`}
+                                name="sectionId"
+                                className={`${className}__select`}
                                 defaultValue={sectionName}
                                 options={sectionsArr}
                             />
@@ -74,53 +112,33 @@ const AdminNavarItem = ({
                         : null
                     }
 
-                    <label className={`${className}-label`}>Расположение в меню</label>
+                    <label className={`${className}__label`}>Расположение в меню</label>
                     <Select
-                        className={`${className}-select`}
+                        name="headerLocation"
+                        className={`${className}__select`}
                         defaultValue={headerDefaultValue}
                         options={options("меню")}
                     />
 
-                    <label className={`${className}-label`}>Расположение в футере(подвале)</label>
+                    <label className={`${className}__label`}>Расположение в футере(подвале)</label>
                     <Select
-                        className={`${className}-select`}
+                        name="footerLocation"
+                        className={`${className}__select`}
                         defaultValue={footerDefaultValue}
                         options={options("футере")}
                     />
                     
-                    <label htmlFor="itemNumber" className={`${className}-label`}>Порядковый номер секции</label>
-                    {/* <p className="admin__navbar-number">В случае изменения, проверьте расположение секции слева или справа, а так же на уникальность ее номера!</p> */}
-                    <Select
-                        name="itemNumber"
-                        className={`${className}-select`}
-                        defaultValue={itemNumber}
-                        options={sectionsNumberInNavbar}
+                    <Field
+                        type="submit"
+                        name="submit"
+                        className={`${className}__submit-btn`}
+                        // value={isNew ? "Создать новый пункт меню?" : "Подтвердить изменения"}
                     />
-
-                    {/* <label className={`${className}-label`}>Отображение секции на сайте</label>
-                    <Select
-                        className={`${className}-select`}
-                        defaultValue={isDisabled}
-                        options={options("активна")}
-                    /> */}
-
-                    <div className="admin__buttons-box admin__navbar-buttons">
-                        <Button
-                            className="admin__delete-btn"
-                            text="Delete item"
-                            onClick={(event) => {
-                                event.preventDefault();
-                            }}
-                        />
-                        <Field
-                            type="submit"
-                            // disabled={isUpdated}
-                            name="submit"
-                            className="admin__submit-btn"
-                            value="Submit changes"
-                        />
-                        {/* {isUpdated && <UpdateConfirmation />} */}
-                    </div>
+                    <Button
+                        className={`${className}__delete-btn`}
+                        text="&#10005;"
+                        // onClick={isNew ? handleDeleteNew : handleDeleteFromDB}
+                    />
                 </Form>
             )}
         </Formik>
