@@ -1,44 +1,33 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import FormItem from "../FormItem/FormItem";
 import SectionHeading from "../../../generalComponents/SectionHeading/SectionHeading";
 import "./FormContainer.scss";
 import { getMainSections } from "../../../../store/appMainSections/selectors";
 import Button from "../../../generalComponents/Button/Button";
-import axios from "axios";
-import { saveErrObjAction } from "../../../../store/errorObject/saveErrObjAction";
-import { openErrModal } from "../../../../store/ErrorModal/openErrModal";
 
 const FormContainerMainPageSections = () => {
   const data = useSelector(getMainSections);
-  const dispatch = useDispatch();
   const [sectionCreationStatus, setSectionCreationStatus] = useState("no");
+
   const formList = data.map((section) => {
     const { heading, description, index, disabled, _id } = section;
     return <FormItem obj={section} heading={heading} description={description} index={index} disabled={disabled}
                      id={_id} key={uuidv4()}/>;
   });
 
-  const addSection = async () => {
-    const createSection = await axios({
-      method: "POST",
-      url: "/api/sections-main"
-    }).catch((err) => {
-      dispatch(saveErrObjAction(err));
-      dispatch(openErrModal);
-    });
+  useEffect(() => {
 
-    if (createSection.status === 200) {
-      setSectionCreationStatus("created");
-    }
-  };
+  }, [data]);
 
   const emptySectionObject = {
     heading: "",
     description: "",
     index: "",
-    disabled: true
+    disabled: true,
+    name: "",
+    reactComponent: ""
   };
 
   return (
@@ -48,11 +37,13 @@ const FormContainerMainPageSections = () => {
       </div>
       {formList}
 
-      <Button text="+" className="admin__add-btn" onClick={() => {setSectionCreationStatus("creating");}}/>
 
       {sectionCreationStatus === "creating" ? <FormItem obj={emptySectionObject}
                                                         sectionCreationStatus={sectionCreationStatus}
-                                                        setSectionCreationStatus={setSectionCreationStatus}/> : null}
+                                                        setSectionCreationStatus={(status) => setSectionCreationStatus(status)}/> : null}
+
+      <Button text="+" className="admin__add-btn" onClick={() => {setSectionCreationStatus("creating");}}/>
+
     </div>
   );
 };

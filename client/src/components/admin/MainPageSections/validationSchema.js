@@ -12,7 +12,7 @@ export const validationSchema = yup.object().shape({
     .max(600, "Length err! String must contain 15-600 chars"),
   index: yup
     .number()
-    .max(2, "Length err! String must contain 1-2 chars")
+    // .max(3, "Length err! String must contain 1-2 chars")
     .required("Required field!"),
   disabled: yup
     .boolean()

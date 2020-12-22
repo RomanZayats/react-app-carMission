@@ -13,6 +13,7 @@ exports.getSectionsMainPage = (req, res, next) => {
 };
 
 exports.addSectionMainPage = (req, res, next) => {
+  console.log("req body  - - - - ",req.body);
   const newSectionMainPage = new SectionMainPage(req.body);
 
   newSectionMainPage

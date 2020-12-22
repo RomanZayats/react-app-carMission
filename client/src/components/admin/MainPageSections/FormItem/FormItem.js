@@ -11,11 +11,9 @@ import Button from "../../../generalComponents/Button/Button";
 import UpdateConfirmation from "../../updateConfirmation/UpdateConfirmation";
 import { validationSchema } from "../validationSchema";
 
-const FormItem = ({ obj }, sectionCreationStatus, setSectionCreationStatus) => {
-  console.log("sectionCreationStatus - - - - ", sectionCreationStatus);
-  console.log("setSectionCreationStatus - - - - ", setSectionCreationStatus);
+const FormItem = ({ obj, sectionCreationStatus, setSectionCreationStatus }) => {
 
-  const { heading, description, index, disabled, _id } = obj;
+  const { heading, description, index, disabled, name, reactComponent, _id } = obj;
   const dispatch = useDispatch();
   const [isUpdated, setIsUpdated] = useState(false);
   const timeOut = useUpdateTimeout(setIsUpdated);
@@ -26,38 +24,38 @@ const FormItem = ({ obj }, sectionCreationStatus, setSectionCreationStatus) => {
 
   const onSubmit = async (values) => {
 
-    if (sectionCreationStatus ==="creating") {
-
+    if (sectionCreationStatus === "creating") {
       const sectionToServer = await axios({
         method: "POST",
-        url: "/api/sections-main",
-        data: values
+        url: "/api/sections-main/",
+        data: { ...values }
       }).catch((err) => {
         dispatch(saveErrObjAction(err));
         dispatch(openErrModal);
       });
 
       if (sectionToServer.status === 200) {
-        setSectionCreationStatus("no");
+        setSectionCreationStatus("created");
       }
 
     } else {
 
-    const updatedObj = { ...obj, ...values };
+      const updatedObj = { ...obj, ...values };
 
-    const sectionToServer = await axios({
-      method: "PUT",
-      url: `/api/sections-main/${_id}`,
-      data: updatedObj
-    }).catch((err) => {
-      dispatch(saveErrObjAction(err));
-      dispatch(openErrModal);
-    });
+      const sectionToServer = await axios({
+        method: "PUT",
+        url: `/api/sections-main/${_id}`,
+        data: updatedObj
+      }).catch((err) => {
+        dispatch(saveErrObjAction(err));
+        dispatch(openErrModal);
+      });
 
-    if (sectionToServer.status === 200) {
-      setIsUpdated(true);
+      if (sectionToServer.status === 200) {
+        setIsUpdated(true);
+      }
     }
-  }};
+  };
 
   const deleteSection = async () => {
     await axios({
@@ -69,10 +67,9 @@ const FormItem = ({ obj }, sectionCreationStatus, setSectionCreationStatus) => {
     });
   };
 
-
   return (
     <Formik
-      initialValues={{ heading, description, index, disabled }}
+      initialValues={{ heading, description, index, disabled, name, reactComponent }}
       validationSchema={validationSchema}
       validateOnChange={false}
       validateOnBlur={false}
@@ -104,6 +101,22 @@ const FormItem = ({ obj }, sectionCreationStatus, setSectionCreationStatus) => {
             errors={errors}
             labelName="Порядок при отображении"
           />
+          <AdminFormField
+            className="admin__form-label"
+            type="input"
+            name="name"
+            errors={errors}
+            labelName="Название секции"
+          />
+
+          <AdminFormField
+            className="admin__form-label"
+            type="input"
+            name="reactComponent"
+            errors={errors}
+            labelName="Название реакт-компонента"
+          />
+
           <label className="admin__form-label admin__input">
             <Field
               type="checkbox"
@@ -112,14 +125,14 @@ const FormItem = ({ obj }, sectionCreationStatus, setSectionCreationStatus) => {
             &nbsp;Скрыть секцию на странице
           </label>
 
-          {sectionCreationStatus==="creating" ?
+          {sectionCreationStatus === "creating" || sectionCreationStatus === "created" ?
             <div className="admin__buttons-box">
               <Button
                 className="admin__delete-btn"
                 text="Cancel"
                 onClick={(event) => {
                   event.preventDefault();
-                  setSectionCreationStatus("no")
+                  setSectionCreationStatus("no");
                 }}
               />
               <Field
@@ -128,26 +141,27 @@ const FormItem = ({ obj }, sectionCreationStatus, setSectionCreationStatus) => {
                 className="admin__submit-btn"
                 value="Submit"
               />
-              {sectionCreationStatus==="created" && <UpdateConfirmation/>}
+              {sectionCreationStatus === "created" && <UpdateConfirmation/>}
             </div>
             :
             <div className="admin__buttons-box">
-            <Button
-              className="admin__delete-btn"
-              text="Delete item"
-              onClick={(event) => {
-                event.preventDefault();
-              }}
-            />
-            <Field
-              type="submit"
-              disabled={isUpdated}
-              name="submit"
-              className="admin__submit-btn"
-              value="Submit changes"
-            />
-            {isUpdated && <UpdateConfirmation/>}
-          </div>
+              <Button
+                className="admin__delete-btn"
+                text="Delete item"
+                onClick={(event) => {
+                  event.preventDefault();
+                  deleteSection()
+                }}
+              />
+              <Field
+                type="submit"
+                disabled={isUpdated}
+                name="submit"
+                className="admin__submit-btn"
+                value="Submit changes"
+              />
+              {isUpdated && <UpdateConfirmation/>}
+            </div>
           }
         </Form>
       )}
