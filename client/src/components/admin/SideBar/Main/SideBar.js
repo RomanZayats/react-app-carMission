@@ -8,7 +8,7 @@ const SideBar = () => {
   const navFromDB = useSelector(getNavbarData)
     .map((nav) => nav.sectionId)
     .filter((i) => !!i !== false);
-  const linksId = ["main-page-sections"];
+  const linksId = ["main-page-sections", "admin"];
   navFromDB.forEach((link) => {
     const normalLink = link
       .split("")
