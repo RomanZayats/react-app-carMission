@@ -7,6 +7,7 @@ import { getMainSections } from "../../../../store/appMainSections/selectors";
 const SideBar = () => {
   const navFromDB = useSelector(getMainSections)
     .filter((i) => i.disabled === false)
+    .filter((i) => i.name !== "auto-offer")
     .map(({ name, heading }) => {
       return {
         route: name,
