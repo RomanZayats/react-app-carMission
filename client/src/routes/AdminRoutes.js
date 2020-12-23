@@ -6,6 +6,7 @@ import FormContainerWorkStages from "../components/admin/WorkStages/FormContaine
 import FormContainerServicePakages from "../components/admin/ServicePakages/FormContainer/FormContainerServicePackages";
 import Page404 from "../pages/Page404/Page404";
 import FormContainerReviewCarousel from "../components/admin/ReviewCarousel/FormContainer/FormContainerReviewCarousel";
+import FormContainerAdminUsers from "../components/admin/AdminUsers/FormContainer/FormContainerAdminUsers";
 
 const AdminRoutes = () => {
   return (
@@ -43,7 +44,7 @@ const AdminRoutes = () => {
         path="/admin/calculator"
         component={FormContainerWorkStages}
       />
-      <Route exact path="/admin/users" component={FormContainerWorkStages} />
+      <Route exact path="/admin/users" component={FormContainerAdminUsers} />
       <Route path="*" component={Page404} />
     </Switch>
   );
