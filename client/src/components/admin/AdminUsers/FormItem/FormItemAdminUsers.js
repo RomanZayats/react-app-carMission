@@ -30,7 +30,7 @@ const adminUsersSchema = yup.object().shape({
 });
 
 const FormItemAdminUsers = ({ sourceObj, isNew }) => {
-  const { num, name, iconSrc } = sourceObj;
+  const { firstName, lastName, login } = sourceObj;
   const [isDeleted, setIsDeleted] = useState(false);
   const dispatch = useDispatch();
 
@@ -44,7 +44,7 @@ const FormItemAdminUsers = ({ sourceObj, isNew }) => {
       });
 
     if (deleted.status === 200) {
-      toastr.success("Успешно", `Шаг "${name}" удалён в базе данных`);
+      toastr.success("Успешно", `Шаг "${login}" удалён в базе данных`);
       dispatch(filterWorkStages(sourceObj._id));
     } else {
       toastr.warning("Хм...", "Что-то пошло не так");
@@ -71,7 +71,7 @@ const FormItemAdminUsers = ({ sourceObj, isNew }) => {
     if (updatedStage.status === 200) {
       toastr.success(
         "Успешно",
-        `Шаг изменён на "${values.name}" в базе данных`
+        `Шаг изменён на "${values.login}" в базе данных`
       );
     } else {
       toastr.warning("Хм...", "Что-то пошло не так");
@@ -86,7 +86,7 @@ const FormItemAdminUsers = ({ sourceObj, isNew }) => {
       });
 
     if (newStage.status === 200) {
-      toastr.success("Успешно", `Шаг "${values.name}" добавлен в базу данных`);
+      toastr.success("Успешно", `Шаг "${values.login}" добавлен в базу данных`);
       dispatch(addNewStage(newStage.data));
     } else {
       toastr.warning("Хм...", "Что-то пошло не так");
@@ -99,7 +99,7 @@ const FormItemAdminUsers = ({ sourceObj, isNew }) => {
 
   return (
     <Formik
-      initialValues={{ num, name, iconSrc }}
+      initialValues={{ firstName, lastName, login }}
       validationSchema={adminUsersSchema}
       validateOnBlur={false}
       validateOnChange={false}
@@ -112,27 +112,27 @@ const FormItemAdminUsers = ({ sourceObj, isNew }) => {
             fieldClassName="admin-stages__form-input"
             errorClassName="admin-stages__form-error"
             type="text"
-            name="num"
+            name="firstName"
             errors={errors}
-            labelName="Номер шага"
+            labelName="Имя"
           />
           <AdminFormField
             labelClassName="admin-stages__form-label"
             fieldClassName="admin-stages__form-input"
             errorClassName="admin-stages__form-error"
             type="text"
-            name="name"
+            name="lastName"
             errors={errors}
-            labelName="Название шага"
+            labelName="Фамилия"
           />
           <AdminFormField
             labelClassName="admin-stages__form-label"
             fieldClassName="admin-stages__form-input"
             errorClassName="admin-stages__form-error"
             type="text"
-            name="iconSrc"
+            name="login"
             errors={errors}
-            labelName="Ссылка на иконку шага"
+            labelName="Логин"
           />
           <Field
             type="submit"
