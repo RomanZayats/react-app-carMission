@@ -135,7 +135,15 @@ exports.loginAdmin = async (req, res, next) => {
 // Controller for getting all admin users
 exports.getAdmins = (req, res, next) => {
   Admin.find()
-    .then((data) => res.send(data))
+    .lean()
+    .then((data) => {
+      const newData = data.map((admin) => {
+        const { password, ...rest } = admin;
+        return rest;
+      });
+
+      res.send(newData);
+    })
     .catch((err) =>
       res.status(400).json({
         message: `Error happened on server: "${err}" `,

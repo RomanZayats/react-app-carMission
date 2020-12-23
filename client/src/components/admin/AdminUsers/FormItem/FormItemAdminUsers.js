@@ -11,18 +11,17 @@ import Button from "../../../generalComponents/Button/Button";
 import * as yup from "yup";
 
 const adminUsersSchema = yup.object().shape({
-  num: yup
-    .number()
-    .typeError("Введите число")
-    .positive("Отрицательный шаг? Серьёзно?")
-    .integer("Введите целое число")
-    .required("Обязательное поле"),
-  name: yup
-    .string()
+  firstName: yup
+    .string("Введите текст")
     .typeError("Введите текст")
     .strict(true)
     .required("Обязательное поле"),
-  iconSrc: yup
+  lastName: yup
+    .string("Введите текст")
+    .typeError("Введите текст")
+    .strict(true)
+    .required("Обязательное поле"),
+  login: yup
     .string("Введите текст")
     .typeError("Введите текст")
     .strict(true)
@@ -32,13 +31,14 @@ const adminUsersSchema = yup.object().shape({
 const FormItemAdminUsers = ({ sourceObj, isNew }) => {
   const { firstName, lastName, login } = sourceObj;
   const [isDeleted, setIsDeleted] = useState(false);
+  const [isPassChange, setIsPassChange] = useState(false);
   const dispatch = useDispatch();
 
   const handleDeleteFromDB = async (e) => {
     e.preventDefault();
 
     const deleted = await axios
-      .delete(`/api/work-stages/delete/${sourceObj._id}`)
+      .delete(`/api/tfynttnfy/delete/${sourceObj._id}`)
       .catch((err) => {
         toastr.error(err.message);
       });
@@ -63,7 +63,7 @@ const FormItemAdminUsers = ({ sourceObj, isNew }) => {
       ...values,
     };
     const updatedStage = await axios
-      .put(`/api/work-stages/${sourceObj._id}`, updatedObj)
+      .put(`/api/tfyntyn/${sourceObj._id}`, updatedObj)
       .catch((err) => {
         toastr.error(err.message);
       });
@@ -79,11 +79,9 @@ const FormItemAdminUsers = ({ sourceObj, isNew }) => {
   };
 
   const handlePostToDB = async (values) => {
-    const newStage = await axios
-      .post("/api/work-stages/", values)
-      .catch((err) => {
-        toastr.error(err.message);
-      });
+    const newStage = await axios.post("/api/dthntm/", values).catch((err) => {
+      toastr.error(err.message);
+    });
 
     if (newStage.status === 200) {
       toastr.success("Успешно", `Шаг "${values.login}" добавлен в базу данных`);
@@ -93,13 +91,30 @@ const FormItemAdminUsers = ({ sourceObj, isNew }) => {
     }
   };
 
+  const triggerPassChange = (e) => {
+    e.preventDefault();
+    console.log("Show inputs");
+    setIsPassChange(true);
+  };
+
+  const handlePassChange = (e) => {
+    e.preventDefault();
+    console.log("Send changed password");
+  };
+
   if (isDeleted) {
     return null;
   }
 
   return (
     <Formik
-      initialValues={{ firstName, lastName, login }}
+      initialValues={{
+        firstName,
+        lastName,
+        login,
+        password: "",
+        confirmPassword: "",
+      }}
       validationSchema={adminUsersSchema}
       validateOnBlur={false}
       validateOnChange={false}
@@ -139,6 +154,33 @@ const FormItemAdminUsers = ({ sourceObj, isNew }) => {
             name="submit"
             className="admin-stages__submit-btn"
             value={isNew ? "Создать шаг" : "Подтвердить изменения"}
+          />
+          {isPassChange && (
+            <AdminFormField
+              labelClassName="admin-stages__form-label"
+              fieldClassName="admin-stages__form-input"
+              errorClassName="admin-stages__form-error"
+              type="password"
+              name="password"
+              errors={errors}
+              labelName="Новый пароль"
+            />
+          )}
+          {isPassChange && (
+            <AdminFormField
+              labelClassName="admin-stages__form-label"
+              fieldClassName="admin-stages__form-input"
+              errorClassName="admin-stages__form-error"
+              type="password"
+              name="confirmPassword"
+              errors={errors}
+              labelName="Повторите новый пароль"
+            />
+          )}
+          <Button
+            text={isPassChange ? "Подтвердить смену пароля" : "Сменить пароль"}
+            className="admin-stages__submit-btn"
+            onClick={isPassChange ? handlePassChange : triggerPassChange}
           />
           <Button
             className="admin-stages__delete-btn"
