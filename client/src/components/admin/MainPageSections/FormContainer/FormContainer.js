@@ -36,8 +36,6 @@ const FormContainerMainPageSections = () => {
         <SectionHeading text="Секции главной страницы"/>
       </div>
       {formList}
-
-
       {sectionCreationStatus === "creating" ? <FormItem obj={emptySectionObject}
                                                         sectionCreationStatus={sectionCreationStatus}
                                                         setSectionCreationStatus={(status) => setSectionCreationStatus(status)}/> : null}

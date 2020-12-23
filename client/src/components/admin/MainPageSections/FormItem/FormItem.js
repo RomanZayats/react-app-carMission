@@ -10,6 +10,8 @@ import useUpdateTimeout from "../../../../utils/hooks/useUpdateTimeout";
 import Button from "../../../generalComponents/Button/Button";
 import UpdateConfirmation from "../../updateConfirmation/UpdateConfirmation";
 import { validationSchema } from "../validationSchema";
+import { loadMainSection } from "../../../../store/appMainSections/operations";
+import ChangesConfirmation from "../../ChangesConfirmation/ChangesConfirmation";
 
 const FormItem = ({ obj, sectionCreationStatus, setSectionCreationStatus }) => {
 
@@ -36,6 +38,7 @@ const FormItem = ({ obj, sectionCreationStatus, setSectionCreationStatus }) => {
 
       if (sectionToServer.status === 200) {
         setSectionCreationStatus("created");
+        dispatch(loadMainSection());
       }
 
     } else {
@@ -53,18 +56,22 @@ const FormItem = ({ obj, sectionCreationStatus, setSectionCreationStatus }) => {
 
       if (sectionToServer.status === 200) {
         setIsUpdated(true);
+        dispatch(loadMainSection());
       }
     }
   };
 
   const deleteSection = async () => {
-    await axios({
+    const delSectionFromServer = await axios({
       method: "DELETE",
       url: `/api/sections-main/${_id}`
     }).catch((err) => {
       dispatch(saveErrObjAction(err));
       dispatch(openErrModal);
     });
+    if (delSectionFromServer.status === 200) {
+      dispatch(loadMainSection());
+    }
   };
 
   return (
@@ -150,7 +157,7 @@ const FormItem = ({ obj, sectionCreationStatus, setSectionCreationStatus }) => {
                 text="Delete item"
                 onClick={(event) => {
                   event.preventDefault();
-                  deleteSection()
+                  deleteSection();
                 }}
               />
               <Field
@@ -160,7 +167,7 @@ const FormItem = ({ obj, sectionCreationStatus, setSectionCreationStatus }) => {
                 className="admin__submit-btn"
                 value="Submit changes"
               />
-              {isUpdated && <UpdateConfirmation/>}
+              {isUpdated && <ChangesConfirmation text="Updated successfully!"/>}
             </div>
           }
         </Form>
