@@ -168,6 +168,7 @@ const FormItem = ({ obj, sectionCreationStatus, setSectionCreationStatus }) => {
                 value="Submit changes"
               />
               {isUpdated && <ChangesConfirmation text="Updated successfully!"/>}
+              {sectionCreationStatus === "created" && <ChangesConfirmation text="Created successfully!"/>}
             </div>
           }
         </Form>
