@@ -13,13 +13,20 @@ const FormContainerMainPageSections = () => {
 
   const formList = data.map((section) => {
     const { heading, description, index, disabled, _id } = section;
-    return <FormItem obj={section} heading={heading} description={description} index={index} disabled={disabled}
-                     id={_id} key={uuidv4()}/>;
+    return (
+      <FormItem
+        obj={section}
+        heading={heading}
+        description={description}
+        index={index}
+        disabled={disabled}
+        id={_id}
+        key={uuidv4()}
+      />
+    );
   });
 
-  useEffect(() => {
-
-  }, [data]);
+  useEffect(() => {}, [data]);
 
   const emptySectionObject = {
     heading: "",
@@ -27,21 +34,32 @@ const FormContainerMainPageSections = () => {
     index: "",
     disabled: true,
     name: "",
-    reactComponent: ""
+    reactComponent: "",
   };
 
   return (
     <div className="admin__form-container">
       <div className="admin__container-head">
-        <SectionHeading text="Секции главной страницы"/>
+        <SectionHeading text="Секции главной страницы" />
       </div>
       {formList}
-      {sectionCreationStatus === "creating" ? <FormItem obj={emptySectionObject}
-                                                        sectionCreationStatus={sectionCreationStatus}
-                                                        setSectionCreationStatus={(status) => setSectionCreationStatus(status)}/> : null}
+      {sectionCreationStatus === "creating" ? (
+        <FormItem
+          obj={emptySectionObject}
+          sectionCreationStatus={sectionCreationStatus}
+          setSectionCreationStatus={(status) =>
+            setSectionCreationStatus(status)
+          }
+        />
+      ) : null}
 
-      <Button text="+" className="admin__add-btn" onClick={() => {setSectionCreationStatus("creating");}}/>
-
+      <Button
+        text="+"
+        className="admin__add-btn"
+        onClick={() => {
+          setSectionCreationStatus("creating");
+        }}
+      />
     </div>
   );
 };
