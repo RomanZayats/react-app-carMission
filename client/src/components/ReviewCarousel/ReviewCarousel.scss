@@ -8,13 +8,11 @@
 }
   &__wrapper {
     max-width: 1088px;
-    margin: 0 auto;
+    margin: 52px auto 0 auto;
    }
 }
 
-.slick-slider {
-  margin: 52px auto 0 auto;
-}
+
 .arrow__prev, .arrow__next{
   position: absolute;
   top: 50%;
@@ -95,7 +93,7 @@
 }
 @media screen and (max-width: 1009px) and (min-width: 961px) {
   .slick-slider {
-    max-width: calc(100% - 58.7px);
+    max-width: 100%;
   }
   .arrow__prev, .arrow__next {
     width: 15px;
@@ -117,7 +115,7 @@
     padding-left: 27px;
   }
   .slick-slider {
-    max-width: calc(100% - 54px);
+    max-width: 100%;
   }
   .arrow__prev, .arrow__next {
     width: 10px;
@@ -131,6 +129,6 @@
     padding-left: 17px;
   }
   .slick-slider {
-    width: 275px;
+   min-width: 275px;
   }
 }
