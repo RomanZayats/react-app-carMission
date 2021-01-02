@@ -144,10 +144,10 @@ const AdminNavarItem = ({
     }
 
     const changeNumber = (obj) => {
-        const { label, value } = obj;
-        setNumber(value);
-        // const {name, value} = e.target;
-        // console.log(value)
+        if(obj !== null) {
+            const { label, value } = obj
+            setNumber(value);
+        }
     }
     const addNumber = (obj) => {
         const { label, value } = obj;
@@ -194,14 +194,13 @@ const AdminNavarItem = ({
                         <p className={`${className}__number-hidden`}>Проверьте уникален ли номер пункта, а также его расположение слева или справа от лого</p>
                     </label>
                     <CreatableSelect
-                        isClearable
                         className={`${className}__select`}
                         // name="numberInNavbar"
                         defaultValue={itemNumber}
                         onChange={changeNumber}
                         onCreateOption={addNumber}
                         options={numberArr}
-                        value={number}
+                        // value={number}
                     />
 
 
