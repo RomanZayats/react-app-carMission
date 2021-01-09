@@ -1,9 +1,10 @@
 @import "src/theme/styles/variables";
 
 .admin-sidebar {
+  position: sticky;
+  top: 0;
   align-self: start;
   width: 20%;
-  margin-top: 50px;
 
   &__list {
     display: flex;
@@ -11,7 +12,6 @@
   }
 
   &__item {
-
   }
 
   &__link {
@@ -25,7 +25,7 @@
     text-transform: uppercase;
     text-decoration: none;
     background-color: $Rectangle48;
-    transition: .3s;
+    transition: 0.3s;
 
     &--active {
       color: $Rectangle48;
