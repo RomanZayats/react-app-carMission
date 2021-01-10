@@ -60,7 +60,6 @@ const Footer = () => {
         />
       </>;
 
-
   return (
     <div className="footer__bg">
       <div className="footer__container">

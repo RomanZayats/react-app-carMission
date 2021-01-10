@@ -17,7 +17,7 @@ const NavbarSchema = new Schema(
         },
         disabled: {
             type: Boolean,
-            required: true
+            // required: true
         },
         numberInNavbar: {
             type: String,

@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import AdminFormField from "../AdminFormField/AdminFormField";
 import Button from "../../generalComponents/Button/Button";
-import Select from "react-select";
-import CreatableSelect from "react-select/creatable";
-
 import * as yup from "yup";
 import { toastr } from "react-redux-toastr";
 import axios from "axios";
@@ -12,6 +9,7 @@ import { useDispatch } from "react-redux";
 import "./AdminNavbarItem.scss";
 import { addNewItem } from "../../../store/navbar/actions";
 import { filterNavbarData } from "../../../store/navbar/operations";
+import AdminNavbarSelect from "../AdminNavbarSelect/AdminNavbarSelect";
 
 
 const navbarSchema = yup.object().shape({
@@ -32,7 +30,6 @@ const navbarSchema = yup.object().shape({
     sectionId: yup
         .string()
         .typeError("Выберите одно из свойств")
-        
 });
 
 const AdminNavarItem = ({
@@ -55,15 +52,12 @@ const AdminNavarItem = ({
 }) => {
     const dispatch = useDispatch();
     const [isDeleted, setIsDeleted] = useState(false);
-    const [number, setNumber] = useState(numberInNavbar);
     const [numberArr, setNumberArr] = useState(sectionsNumberInNavbar);
-    // const [formTextContent, setFormTextContent] = useState(textContent);
-    // const [headerLocation, setHeaderLocation] = useState(headerLocation);
-    // const [footerLocation, setFooterLocation] = useState(footerLocation);
-    // const [sectionId, setSectionId] = useState(sectionId);
-    const initialValues = contacts ? { textContent, contacts, headerLocation, footerLocation, number, sectionId } : { textContent, headerLocation, footerLocation, number, sectionId }
-    // console.log(initialValues)
-
+    const [numberValue, setNumberValue] = useState(numberInNavbar);
+    const [sectionIdValue, setSectionIdValue] = useState(sectionId);
+    const [headerLocationValue, setHeaderLocationValue] = useState(headerLocation);
+    const [footerLocationValue, setFooterLocationValue] = useState(footerLocation);
+    const initialValues = contacts ? { textContent, contacts, headerLocation, footerLocation, numberInNavbar, sectionId } : { textContent, headerLocation, footerLocation, numberInNavbar, sectionId }
 
     const options = (name) => (
         name === "активна"
@@ -79,12 +73,7 @@ const AdminNavarItem = ({
                     { value: "non-active", label: `Неактивно в ${name}` }
                 ]
     )
-    const headerDefaultValue = options("меню").filter(option => headerLocation ? option.value === headerLocation : null);
-    const footerDefaultValue = options("футере").filter(option => footerLocation ? option.value === footerLocation : null);
-    const sectionName = sectionsArr.filter(name => name.value === sectionId);
-    const itemNumber = sectionsNumberInNavbar.filter(name => name.value === numberInNavbar);
-
-
+    
     const handleDeleteFromDB = async (e) => {
         e.preventDefault();
         const deleted = await axios
@@ -128,8 +117,8 @@ const AdminNavarItem = ({
         const newItem = await axios
             .post("/api/navbar/", values)
             .catch((err) => {
-            toastr.error(err.message);
-        });
+                toastr.error(err.message);
+            });
     
         if (newItem.status === 200) {
             toastr.success("Успешно", `Пункт "${values.textContent}" добавлен в базу данных`);
@@ -143,19 +132,6 @@ const AdminNavarItem = ({
         return null;
     }
 
-    const changeNumber = (obj) => {
-        if(obj !== null) {
-            const { label, value } = obj
-            setNumber(value);
-        }
-    }
-    const addNumber = (obj) => {
-        const { label, value } = obj;
-        setNumberArr(...sectionsNumberInNavbar, value);
-    }
-
-    
-
     return (
         <Formik
             initialValues={initialValues}
@@ -164,7 +140,7 @@ const AdminNavarItem = ({
             validateOnBlur={false}
             onSubmit={isNew ? handlePostToDB : handleUpdate}
         >
-            {({ errors }) => (
+            {({ errors, setFieldValue }) => (
                 <Form className={`${className}__item`}>
                     {disabled ?
                         <label className={`${className}__info ${className}__info_none-active`}>Ceкция неактивна на сайте</label>
@@ -193,16 +169,15 @@ const AdminNavarItem = ({
                         <span className={`${className}__number-text`}>Порядковый номер пункта в меню*</span>
                         <p className={`${className}__number-hidden`}>Проверьте уникален ли номер пункта, а также его расположение слева или справа от лого</p>
                     </label>
-                    <CreatableSelect
+                    <AdminNavbarSelect
                         className={`${className}__select`}
-                        // name="numberInNavbar"
-                        defaultValue={itemNumber}
-                        onChange={changeNumber}
-                        onCreateOption={addNumber}
+                        value={numberValue}
                         options={numberArr}
-                        // value={number}
+                        onChange={(value) => {
+                            setNumberValue(value.value)
+                            setFieldValue("numberInNavbar", value.value)
+                            }}
                     />
-
 
                     {contacts ?
                         <>
@@ -223,33 +198,47 @@ const AdminNavarItem = ({
                     {!contacts ?
                         <>
                             <label className={`${className}__label`}>К какой секции относится</label>
-                            <Select
-                                name="sectionId"
+                            <AdminNavbarSelect
                                 className={`${className}__select`}
-                                defaultValue={sectionName}
-                                placeholder={sectionId || sectionIdPlaceholder}
+                                value={sectionIdValue}
                                 options={sectionsArr}
+                                placeholder={sectionId || sectionIdPlaceholder}
+                                onChange={(value) => {
+                                    setSectionIdValue(value.value)
+                                    setFieldValue("sectionId", value.value)
+                                }}
                             />
+                           
                         </>
                         : null
                     }
 
                     <label className={`${className}__label`}>Расположение в меню</label>
-                    <Select
-                        name="headerLocation"
+                    <AdminNavbarSelect
                         className={`${className}__select`}
-                        defaultValue={headerDefaultValue}
-                        placeholder={headerLocation || headerLocationPlaceholder}
                         options={options("меню")}
+                        placeholder={headerLocation || headerLocationPlaceholder}
+                        value={headerLocationValue}
+                        onChange={(value) => {
+                            setHeaderLocationValue(value.value)
+                            setFieldValue("headerLocation", value.value)
+                        }}
                     />
 
                     <label className={`${className}__label`}>Расположение в футере(подвале)</label>
-                    <Select
-                        name="footerLocation"
+                    <AdminNavbarSelect
                         className={`${className}__select`}
-                        defaultValue={footerDefaultValue}
+                        value={footerLocationValue}
                         placeholder={footerLocation || footerLocationPlaceholder}
                         options={options("футере")}
+                        onChange={(value) => {
+                            setFooterLocationValue(value.value)
+                            setFieldValue("footerLocation", value.value)
+                        }}
+
+                        
+                        name="footerLocation"
+                        errors={errors}
                     />
                     
                     <Field

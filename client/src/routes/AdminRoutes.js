@@ -14,7 +14,7 @@ const AdminRoutes = () => {
       <Route exact path="/admin/" />
       <Route
         exact
-        path="/admin/navbars"
+        path="/admin/navbar"
         component={AdminNavbar}
       />
       <Route
@@ -33,7 +33,11 @@ const AdminRoutes = () => {
         path="/admin/service-packages"
         component={FormContainerServicePakages}
       />
-      <Route exact path="/admin/reviews" component={FormContainerReviewCarousel} />
+      <Route
+        exact
+        path="/admin/reviews"
+        component={FormContainerReviewCarousel}
+      />
       <Route exact path="/admin/blog" component={FormContainerWorkStages} />
       <Route
         exact
@@ -45,6 +49,7 @@ const AdminRoutes = () => {
         path="/admin/calculator"
         component={FormContainerWorkStages}
       />
+      <Route exact path="/admin/users" component={FormContainerWorkStages} />
       <Route path="*" component={Page404} />
     </Switch>
   );

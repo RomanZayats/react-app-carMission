@@ -26,11 +26,14 @@ const AdminNavbar = () => {
         return <AdminNavarItem
                 className={mainClassName}
                 textContentPlaceholder="Введите название секцию"
+                textContent=""
                 headerLocationPlaceholder="Выберите расположение"
+                headerLocation=""
                 footerLocationPlaceholder="Выберите расположение"
+                footerLocation=""
                 numberInNavbar={nextNum}
                 sectionIdPlaceholder="Выберите секций"
-
+                sectionId=""
                 sectionsArr={sectionsLinkArr}
                 sectionsNumberInNavbar={sectionsNumberInNavbar}
                 isNew

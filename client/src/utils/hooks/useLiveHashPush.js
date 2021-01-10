@@ -22,7 +22,8 @@ const useLiveHashPush = (anchorName) => {
 
   useEffect(() => {
     if (inView) {
-      if (dotTargetSection === anchorName && anchorName !== undefined && dotClick) {
+      console.log(anchorName)
+      if (dotTargetSection === anchorName  && dotClick) {
         dispatch(resetTargetSection());
         dispatch(resetDotClick());
       } else if (!dotClick) {
