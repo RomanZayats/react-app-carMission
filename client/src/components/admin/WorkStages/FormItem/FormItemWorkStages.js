@@ -9,6 +9,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addNewStage } from "../../../../store/workStages/actions";
 import { filterWorkStages } from "../../../../store/workStages/operations";
+import AdminDropZone from "../../AdminDropZone/AdminDropZone";
 
 const workStagesSchema = yup.object().shape({
   num: yup
@@ -134,6 +135,7 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
             errors={errors}
             labelName="Ссылка на иконку шага"
           />
+          <AdminDropZone />
           <Field
             type="submit"
             name="submit"
