@@ -24,6 +24,11 @@ const SideBar = () => {
       route: "main-page-sections",
       heading: "Секции главной страницы",
     },
+    {
+      route: "social-networks",
+      heading: "Социальные сети",
+    },
+
     ...navFromDB,
   ];
 
