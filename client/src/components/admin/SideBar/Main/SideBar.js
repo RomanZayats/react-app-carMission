@@ -28,6 +28,10 @@ const SideBar = () => {
       route: "social-networks",
       heading: "Социальные сети",
     },
+    {
+      route: "navbar",
+      heading: "Пункты меню",
+    },
 
     ...navFromDB,
   ];

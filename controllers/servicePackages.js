@@ -23,7 +23,7 @@ exports.getServicePackages = (req, res, next) => {
     );
 };
 
-exports.updateServicePackages = (req, res, next) => {
+exports.updateServicePackage = (req, res, next) => {
   ServicePackage.findOne({ _id: req.params.id })
     .then((servicePackage) => {
       if (!servicePackage) {
