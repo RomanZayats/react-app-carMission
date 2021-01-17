@@ -1,4 +1,6 @@
 const ServicePackage = require("../models/ServicePackage");
+const queryCreator = require("../commonHelpers/queryCreator");
+const _ = require("lodash");
 
 exports.addServicePackage = (req, res, next) => {
   const newServicePackage = new ServicePackage(req.body);
@@ -23,7 +25,7 @@ exports.getServicePackages = (req, res, next) => {
     );
 };
 
-exports.updateServicePackage = (req, res, next) => {
+exports.updateServicePackages = (req, res, next) => {
   ServicePackage.findOne({ _id: req.params.id })
     .then((servicePackage) => {
       if (!servicePackage) {
