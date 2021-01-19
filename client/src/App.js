@@ -17,6 +17,7 @@ import { loadReviews } from "./store/ReviewCarousel/operations";
 import { checkToken } from "./store/auth/operations";
 import ReduxToastr from "react-redux-toastr";
 import { useLocation } from "react-router-dom";
+import { loadSocialNetworks } from "./store/socialNetworks/operations";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const App = () => {
     dispatch(loadWorkStages());
     dispatch(loadReviews());
     dispatch(checkToken());
+    dispatch(loadSocialNetworks());
   }, [dispatch]);
 
   const isLogoLoading = useSelector(getIsLogoLoading);

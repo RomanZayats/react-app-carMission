@@ -7,7 +7,7 @@ import FormContainerServicePakages from "../components/admin/ServicePakages/Form
 import Page404 from "../pages/Page404/Page404";
 import FormContainerReviewCarousel from "../components/admin/ReviewCarousel/FormContainer/FormContainerReviewCarousel";
 import AdminNavbar from "../components/admin/AdminNavbar/AdminNavbar";
-import AdminSocialNetwroks from "../components/admin/AdminSocialNetworks/AdminSocialNetwroks";
+import AdminSocialNetworks from "../components/admin/AdminSocialNetworks/AdminSocialNetworks";
 
 const AdminRoutes = () => {
   return (
@@ -32,7 +32,7 @@ const AdminRoutes = () => {
       <Route
         exact
         path="/admin/social-networks"
-        component={AdminSocialNetwroks}
+        component={AdminSocialNetworks}
       />
       <Route
         exact

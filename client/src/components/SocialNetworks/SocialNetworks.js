@@ -3,9 +3,12 @@ import SocialNetworksItem from "../SocialNetworksItem/SocialNetworksItem";
 import PropTypes from "prop-types";
 import axios from "axios";
 import "./SocialNetworks.scss";
+import { useSelector } from "react-redux";
+import { getSocialNetworks } from "../../store/socialNetworks/selectors";
 
 const SocialNetworks = ({ className }) => {
   const [items, setItems] = useState([]);
+  // const data = useSelector(getSocialNetworks);
 
   useEffect(() => {
     getData();

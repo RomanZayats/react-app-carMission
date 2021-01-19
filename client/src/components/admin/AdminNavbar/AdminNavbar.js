@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getNavbarData } from "../../../store/navbar/selectors";
-import AdminNavarItem from "../AdminNavbarItem/AdminNavarItem";
+import AdminNavbarItem from "../AdminNavbarItem/AdminNavbarItem";
 import SectionHeading from "../../generalComponents/SectionHeading/SectionHeading";
 import Button from "../../generalComponents/Button/Button";
 import "./AdminNavbar.scss";
@@ -23,7 +23,7 @@ const AdminNavbar = () => {
     const createNewFormItem = () => {
         const newItemNumber = { value: nextNum, label: nextNum};
         sectionsNumberInNavbar.push(newItemNumber);
-        return <AdminNavarItem
+        return <AdminNavbarItem
                 className={mainClassName}
                 textContentPlaceholder="Введите название секцию"
                 textContent=""
@@ -49,7 +49,7 @@ const AdminNavbar = () => {
 
         const mapFormToRender = () => {
             return navbarData.map(({ textContent, contacts, footerLocation, headerLocation, _id, id, sectionId, numberInNavbar, disabled }) => (
-                <AdminNavarItem
+                <AdminNavbarItem
                     className={mainClassName}
                     textContent={textContent}
                     headerLocation={headerLocation}
