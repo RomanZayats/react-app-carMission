@@ -25,14 +25,14 @@ const AdminNavbar = () => {
         sectionsNumberInNavbar.push(newItemNumber);
         return <AdminNavbarItem
                 className={mainClassName}
-                textContentPlaceholder="Введите название секцию"
+                textContentPlaceholder="Введите название секции"
                 textContent=""
                 headerLocationPlaceholder="Выберите расположение"
                 headerLocation=""
                 footerLocationPlaceholder="Выберите расположение"
                 footerLocation=""
                 numberInNavbar={nextNum}
-                sectionIdPlaceholder="Выберите секций"
+                sectionIdPlaceholder="Выберите секцию"
                 sectionId=""
                 sectionsArr={sectionsLinkArr}
                 sectionsNumberInNavbar={sectionsNumberInNavbar}

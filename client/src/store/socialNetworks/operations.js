@@ -1,17 +1,24 @@
 import axios from "axios";
-import { setSocialNetworks, updateSocialNetwroks } from "./actions";
+import { setSocialNetworks, updateSocialNetwroks, socialNetwroksLoading } from "./actions";
 import { getSocialNetworks } from "./selectors";
 import { saveErrObjAction } from "../errorObject/saveErrObjAction";
 import { openErrModal } from "../ErrorModal/openErrModal";
 
-export const loadSocialNetworks = () => (dispatch) => {
-  axios("/api/social-networks").then((res) => {
-    dispatch(setSocialNetworks(res.data));
+export const loadSocialNetworks = () => async (dispatch) => {
+  dispatch(socialNetwroksLoading(true))
+
+  const socialNetworksFromDB = await axios({
+    method: "GET",
+    url: "/api/social-networks",
   })
-  .catch((err) => {
-    dispatch(saveErrObjAction(err));
-    dispatch(openErrModal);
-  });
+    .then((r) => r.data)
+    .catch((err) => {
+      dispatch(saveErrObjAction(err));
+      dispatch(openErrModal);
+    });
+
+  dispatch(setSocialNetworks(socialNetworksFromDB));
+  dispatch(socialNetwroksLoading(false))
 };
 
 export const filterSocialNetworks = (id) => (dispatch, getStore) => {

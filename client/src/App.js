@@ -24,6 +24,7 @@ const App = () => {
   const location = useLocation();
 
   useEffect(() => {
+    dispatch(loadSocialNetworks());
     dispatch(loadNavbarData());
     dispatch(loadMainSection());
     dispatch(loadLogoData());
@@ -32,7 +33,6 @@ const App = () => {
     dispatch(loadWorkStages());
     dispatch(loadReviews());
     dispatch(checkToken());
-    dispatch(loadSocialNetworks());
   }, [dispatch]);
 
   const isLogoLoading = useSelector(getIsLogoLoading);
