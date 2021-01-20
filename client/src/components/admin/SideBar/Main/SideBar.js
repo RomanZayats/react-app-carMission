@@ -32,8 +32,12 @@ const SideBar = () => {
       route: "navbar",
       heading: "Пункты меню",
     },
-
+    
     ...navFromDB,
+    {
+      route: "Logo",
+      heading: "Главное Лого",
+    },
   ];
 
   const linksList = links.map(({ route, heading }, index) => {

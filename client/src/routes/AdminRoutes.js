@@ -8,6 +8,7 @@ import Page404 from "../pages/Page404/Page404";
 import FormContainerReviewCarousel from "../components/admin/ReviewCarousel/FormContainer/FormContainerReviewCarousel";
 import AdminNavbar from "../components/admin/AdminNavbar/AdminNavbar";
 import AdminSocialNetwroks from "../components/admin/AdminSocialNetworks/AdminSocialNetwroks";
+import AdminLogo from "../components/admin/AdminLogo/AdminLogo";
 
 const AdminRoutes = () => {
   return (
@@ -17,6 +18,11 @@ const AdminRoutes = () => {
         exact
         path="/admin/navbar"
         component={AdminNavbar}
+      />
+      <Route
+        exact
+        path="/admin/logo"
+        component={AdminLogo}
       />
       <Route
         exact

@@ -95,7 +95,6 @@ const AdminNavarItem = ({
         toastr.success("Успешно", "Айтем удалён до внесения в базу данных");
     };
     const handleUpdate = async (values) => {
-        console.log(values)
         const updatedItem = await axios
             .put(`/api/navbar/${id}`, values)
             .catch((err) => {
