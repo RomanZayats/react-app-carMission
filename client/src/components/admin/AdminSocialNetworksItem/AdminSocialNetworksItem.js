@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-
-const AdminSocialNetworksItem = () => {
-    return (
-        <div>
-            
-        </div>
-    );
-};
-
-=======
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { useDispatch } from "react-redux";
@@ -204,6 +192,4 @@ AdminSocialNetworksItem.defaultTypes = {
     iconSrcPlaceholder: "",
 }
 
-
->>>>>>> dfa3f13f5340d0af6540215d1570ee69d058f3c8
 export default AdminSocialNetworksItem;

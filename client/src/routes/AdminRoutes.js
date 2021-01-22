@@ -7,11 +7,7 @@ import FormContainerServicePakages from "../components/admin/ServicePakages/Form
 import Page404 from "../pages/Page404/Page404";
 import FormContainerReviewCarousel from "../components/admin/ReviewCarousel/FormContainer/FormContainerReviewCarousel";
 import AdminNavbar from "../components/admin/AdminNavbar/AdminNavbar";
-<<<<<<< HEAD
-import AdminSocialNetwroks from "../components/admin/AdminSocialNetworks/AdminSocialNetwroks";
-=======
 import AdminSocialNetworks from "../components/admin/AdminSocialNetworks/AdminSocialNetworks";
->>>>>>> dfa3f13f5340d0af6540215d1570ee69d058f3c8
 
 const AdminRoutes = () => {
   return (
@@ -36,11 +32,7 @@ const AdminRoutes = () => {
       <Route
         exact
         path="/admin/social-networks"
-<<<<<<< HEAD
-        component={AdminSocialNetwroks}
-=======
         component={AdminSocialNetworks}
->>>>>>> dfa3f13f5340d0af6540215d1570ee69d058f3c8
       />
       <Route
         exact
