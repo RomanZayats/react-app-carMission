@@ -14,6 +14,7 @@ import { loadFeatures } from "./store/aboutUs/operations";
 import { loadPackages } from "./store/servicePackages/operations";
 import { loadWorkStages } from "./store/workStages/operations";
 import { loadReviews } from "./store/ReviewCarousel/operations";
+import { loadBlogs } from "./store/Blogs/operations";
 import { checkToken } from "./store/auth/operations";
 import ReduxToastr from "react-redux-toastr";
 
@@ -28,6 +29,7 @@ const App = () => {
     dispatch(loadPackages());
     dispatch(loadWorkStages());
     dispatch(loadReviews());
+    dispatch(loadBlogs());
     dispatch(checkToken());
   }, [dispatch]);
 
