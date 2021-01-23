@@ -21,6 +21,9 @@
         width: 80%;
         margin-bottom: 20px;
     }
+    &__select-required {
+        border: 1px solid red;
+    }
     &__info{
         font-size: 18px;
         text-align: center;
@@ -75,14 +78,6 @@
     &__label:hover &__number-hidden {
         display: block;
     }
-
-    // &__contacts-hidden + &__label {
-    //     position: relative;
-    // }
-
-    // &__contacts-hidden + &__label &__input:focus &__contacts-hidden {
-    //     display: block;
-    // }
 
     &__submit-btn {
         padding: 10px 20px;

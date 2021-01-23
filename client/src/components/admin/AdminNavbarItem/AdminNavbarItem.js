@@ -30,6 +30,7 @@ const navbarSchema = yup.object().shape({
     sectionId: yup
         .string()
         .typeError("Выберите одно из свойств")
+        .required("Обязательное поле"),
 });
 
 const AdminNavarItem = ({
@@ -136,7 +137,7 @@ const AdminNavarItem = ({
             validateOnBlur={false}
             onSubmit={isNew ? handlePostToDB : handleUpdate}
         >
-            {({ errors, setFieldValue }) => (
+            {({ errors, setFieldValue, touched }) => (
                 <Form className={`${className}__item`}>
                     {disabled ?
                         <label className={`${className}__info ${className}__info_none-active`}>Ceкция неактивна на сайте</label>
@@ -166,6 +167,7 @@ const AdminNavarItem = ({
                         <p className={`${className}__number-hidden`}>Проверьте уникален ли номер пункта, а также его расположение слева или справа от лого</p>
                     </label>
                     <AdminNavbarSelect
+                        name="numberInNavbar"
                         className={`${className}__select`}
                         value={numberValue}
                         options={sectionsNumberInNavbar}
@@ -195,6 +197,7 @@ const AdminNavarItem = ({
                         <>
                             <label className={`${className}__label`}>К какой секции относится</label>
                             <AdminNavbarSelect
+                                name="sectionId"
                                 className={`${className}__select`}
                                 value={sectionIdValue}
                                 options={sectionsArr}
@@ -210,6 +213,7 @@ const AdminNavarItem = ({
 
                     <label className={`${className}__label`}>Расположение в меню</label>
                     <AdminNavbarSelect
+                        name="headerLocation"
                         className={`${className}__select`}
                         options={options("меню")}
                         placeholder={headerLocation || headerLocationPlaceholder}
@@ -222,7 +226,8 @@ const AdminNavarItem = ({
 
                     <label className={`${className}__label`}>Расположение в футере(подвале)</label>
                     <AdminNavbarSelect
-                        className={`${className}__select`}
+                        name="footerLocation"
+                        className={errors ? `${className}__select` : `${className}__select ${className}__select-required`}
                         value={footerLocationValue}
                         placeholder={footerLocation || footerLocationPlaceholder}
                         options={options("футере")}
@@ -230,12 +235,11 @@ const AdminNavarItem = ({
                             setFooterLocationValue(value.value)
                             setFieldValue("footerLocation", value.value)
                         }}
-
-                        
-                        name="footerLocation"
                         errors={errors}
+                        touched={touched}
                     />
                     
+
                     <Field
                         type="submit"
                         name="submit"
