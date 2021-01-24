@@ -11,9 +11,9 @@ const Navbar = ({ items, className, onClick, mobileNavbar, isFooter }) => {
         className={className}
         textContent={e.textContent}
         contacts={e.contacts}
-        sectionId={e.sectionId}
+        sectionId={`#${e.sectionId}`}
         id={uuidv4()}
-        key={uuidv4()}
+        key={e._id}
         isFooter={e.contacts && isFooter}
       />
     ) : null
@@ -35,7 +35,7 @@ Navbar.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
   mobileNavbar: PropTypes.bool,
-  isFooter: PropTypes.bool
+  isFooter: PropTypes.bool,
 };
 
 Navbar.defaultProps = {
@@ -43,8 +43,7 @@ Navbar.defaultProps = {
   className: "",
   onClick: () => {},
   mobileNavbar: false,
-  isFooter: false
-
+  isFooter: false,
 };
 
 export default Navbar;
