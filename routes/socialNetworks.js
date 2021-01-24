@@ -9,7 +9,6 @@ const {
     getSocialNetworksItem,
     updateSocialNetworksItem,
     deleteSocialNetworksItem
-
 } = require("../controllers/socialNetworks");
 
 // @route   GET /social-networks
@@ -27,7 +26,7 @@ router.get("/:id", getSocialNetworksItem);
 // @access  Private
 router.post(
     "/", 
-    // passport.authenticate("jwt-admin", { session: false }),
+    passport.authenticate("jwt", { session: false }),
     addSocialNetworksData
 );
 
@@ -36,7 +35,7 @@ router.post(
 // @access  Private
 router.put(
     "/:id",
-    // passport.authenticate("jwt-admin", { session: false }),
+    passport.authenticate("jwt", { session: false }),
     updateSocialNetworksItem
 );
 
@@ -45,7 +44,7 @@ router.put(
 // @access  Private
 router.delete(
     "/:id",
-    // passport.authenticate("jwt-admin", { session: false }),
+    passport.authenticate("jwt", { session: false }),
     deleteSocialNetworksItem
 );
 
