@@ -21,15 +21,12 @@ const navbarSchema = yup.object().shape({
         .required("Обязательное поле"),
     headerLocation: yup
         .string()
-        .typeError("Выберите одно из свойств")
         .required("Обязательное поле"),
     footerLocation: yup
         .string()
-        .typeError("Выберите одно из свойств")
         .required("Обязательное поле"),
     sectionId: yup
         .string()
-        .typeError("Выберите одно из свойств")
         .required("Обязательное поле"),
 });
 
@@ -168,13 +165,15 @@ const AdminNavarItem = ({
                     </label>
                     <AdminNavbarSelect
                         name="numberInNavbar"
-                        className={`${className}__select`}
+                        className={className}
                         value={numberValue}
                         options={sectionsNumberInNavbar}
                         onChange={(value) => {
                             setNumberValue(value.value)
                             setFieldValue("numberInNavbar", value.value)
                             }}
+                        errors={errors}
+
                     />
 
                     {contacts ?
@@ -198,7 +197,7 @@ const AdminNavarItem = ({
                             <label className={`${className}__label`}>К какой секции относится</label>
                             <AdminNavbarSelect
                                 name="sectionId"
-                                className={`${className}__select`}
+                                className={className}
                                 value={sectionIdValue}
                                 options={sectionsArr}
                                 placeholder={sectionId || sectionIdPlaceholder}
@@ -206,6 +205,7 @@ const AdminNavarItem = ({
                                     setSectionIdValue(value.value)
                                     setFieldValue("sectionId", value.value)
                                 }}
+                                errors={errors}
                             />
                         </>
                         : null
@@ -214,7 +214,7 @@ const AdminNavarItem = ({
                     <label className={`${className}__label`}>Расположение в меню</label>
                     <AdminNavbarSelect
                         name="headerLocation"
-                        className={`${className}__select`}
+                        className={className}
                         options={options("меню")}
                         placeholder={headerLocation || headerLocationPlaceholder}
                         value={headerLocationValue}
@@ -222,12 +222,13 @@ const AdminNavarItem = ({
                             setHeaderLocationValue(value.value)
                             setFieldValue("headerLocation", value.value)
                         }}
+                        errors={errors}
                     />
 
                     <label className={`${className}__label`}>Расположение в футере(подвале)</label>
                     <AdminNavbarSelect
                         name="footerLocation"
-                        className={errors ? `${className}__select` : `${className}__select ${className}__select-required`}
+                        className={className}
                         value={footerLocationValue}
                         placeholder={footerLocation || footerLocationPlaceholder}
                         options={options("футере")}
@@ -236,7 +237,6 @@ const AdminNavarItem = ({
                             setFieldValue("footerLocation", value.value)
                         }}
                         errors={errors}
-                        touched={touched}
                     />
                     
 
