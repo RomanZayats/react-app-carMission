@@ -6,11 +6,25 @@ import FormContainerWorkStages from "../components/admin/WorkStages/FormContaine
 import FormContainerServicePakages from "../components/admin/ServicePakages/FormContainer/FormContainerServicePackages";
 import Page404 from "../pages/Page404/Page404";
 import FormContainerReviewCarousel from "../components/admin/ReviewCarousel/FormContainer/FormContainerReviewCarousel";
+import AdminNavbar from "../components/admin/AdminNavbar/AdminNavbar";
+import AdminLogo from "../components/admin/AdminLogo/AdminLogo";
+import AdminSocialNetworks from "../components/admin/AdminSocialNetworks/AdminSocialNetworks";
+import FormContainerBlogs from "../components/admin/Blogs/FormContainer/FormContainerBlogs";
 
 const AdminRoutes = () => {
   return (
     <Switch>
       <Route exact path="/admin/" />
+      <Route
+        exact
+        path="/admin/navbar"
+        component={AdminNavbar}
+      />
+      <Route
+        exact
+        path="/admin/logo"
+        component={AdminLogo}
+      />
       <Route
         exact
         path="/admin/main-page-sections"
@@ -24,6 +38,11 @@ const AdminRoutes = () => {
       />
       <Route
         exact
+        path="/admin/social-networks"
+        component={AdminSocialNetworks}
+      />
+      <Route
+        exact
         path="/admin/service-packages"
         component={FormContainerServicePakages}
       />
@@ -32,7 +51,7 @@ const AdminRoutes = () => {
         path="/admin/reviews"
         component={FormContainerReviewCarousel}
       />
-      <Route exact path="/admin/blog" component={FormContainerWorkStages} />
+      <Route exact path="/admin/blogs" component={FormContainerBlogs} />
       <Route
         exact
         path="/admin/car-catalog"
