@@ -135,7 +135,7 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
             errors={errors}
             labelName="Ссылка на иконку шага"
           />
-          <AdminDropZone />
+          <AdminDropZone _id={sourceObj._id} />
           <Field
             type="submit"
             name="submit"
