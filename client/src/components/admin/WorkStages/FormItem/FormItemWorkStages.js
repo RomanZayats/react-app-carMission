@@ -8,7 +8,10 @@ import { toastr } from "react-redux-toastr";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addNewStage } from "../../../../store/workStages/actions";
-import { filterWorkStages } from "../../../../store/workStages/operations";
+import {
+  filterWorkStages,
+  updateStagesByNewSrc,
+} from "../../../../store/workStages/operations";
 import AdminDropZone from "../../AdminDropZone/AdminDropZone";
 
 const workStagesSchema = yup.object().shape({
@@ -23,11 +26,8 @@ const workStagesSchema = yup.object().shape({
     .typeError("Введите текст")
     .strict(true)
     .required("Обязательное поле"),
-  iconSrc: yup
-    .string("Введите текст")
-    .typeError("Введите текст")
-    .strict(true)
-    .required("Обязательное поле"),
+  iconSrc: yup.string("Введите текст").typeError("Введите текст").strict(true),
+  // .required("Обязательное поле"),
 });
 
 const FormItemWorkStages = ({ sourceObj, isNew }) => {
@@ -59,9 +59,9 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
     toastr.success("Успешно", "Шаг удалён до внесения в базу данных");
   };
 
-  const handleUpdate = async (values) => {
+  const uploadImgAndUpdateStore = async (values, id) => {
     const res = await axios
-      .post(`/api/work-stages/upload/${sourceObj._id}`, fileReady, {
+      .post(`/api/work-stages/upload/${id}`, fileReady, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -69,8 +69,28 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
       .catch((err) => {
         toastr.error(err.message);
       });
-    console.log(res);
 
+    dispatch(updateStagesByNewSrc(res.data.location, id));
+    setFileReady(null);
+    values.iconSrc = res.data.location;
+    console.log("while uploading", values.iconSrc);
+    toastr.success("Успешно", "Изображение загружено");
+  };
+
+  const checkIsInputChanges = (values) => {
+    let isNotChanged;
+    for (const key in values) {
+      if (sourceObj[key] === values[key]) {
+        isNotChanged = true;
+      } else {
+        isNotChanged = false;
+        return isNotChanged;
+      }
+    }
+    return isNotChanged;
+  };
+
+  const updateStageTexts = async (values) => {
     const updatedObj = {
       ...sourceObj,
       ...values,
@@ -91,7 +111,24 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
     }
   };
 
+  const handleUpdate = (values) => {
+    if (fileReady && checkIsInputChanges(values)) {
+      uploadImgAndUpdateStore(values, sourceObj._id);
+    } else if (!fileReady && !checkIsInputChanges(values)) {
+      updateStageTexts(values);
+    } else if (fileReady && !checkIsInputChanges(values)) {
+      uploadImgAndUpdateStore(values, sourceObj._id);
+      updateStageTexts(values);
+    } else {
+      toastr.warning("Сообщение", "Ничего не изменилось");
+    }
+  };
+
   const handlePostToDB = async (values) => {
+    if (!values.iconSrc) {
+      values.iconSrc = "Wait for S3 uploading";
+    }
+
     const newStage = await axios
       .post("/api/work-stages/", values)
       .catch((err) => {
@@ -99,8 +136,12 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
       });
 
     if (newStage.status === 200) {
+      if (fileReady) {
+        await uploadImgAndUpdateStore(values, newStage.data._id);
+      }
+
+      dispatch(addNewStage({ ...newStage.data, iconSrc: values.iconSrc }));
       toastr.success("Успешно", `Шаг "${values.name}" добавлен в базу данных`);
-      dispatch(addNewStage(newStage.data));
     } else {
       toastr.warning("Хм...", "Что-то пошло не так");
     }
@@ -147,7 +188,11 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
             errors={errors}
             labelName="Ссылка на иконку шага"
           />
-          <AdminDropZone imgURL={iconSrc} setFile={setFileReady} />
+          <AdminDropZone
+            imgURL={iconSrc}
+            setFile={setFileReady}
+            file={fileReady}
+          />
           <Field
             type="submit"
             name="submit"

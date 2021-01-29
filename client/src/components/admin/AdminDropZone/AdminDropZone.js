@@ -1,8 +1,9 @@
 import React, { useCallback, useState, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
 import { dropZone, previewStyles } from "./styles";
+import Button from "../../generalComponents/Button/Button";
 
-const AdminDropZone = ({ setFile, imgURL }) => {
+const AdminDropZone = ({ setFile, imgURL, file }) => {
   const [image, setImage] = useState({});
 
   const onDrop = useCallback(
@@ -21,6 +22,13 @@ const AdminDropZone = ({ setFile, imgURL }) => {
     [setFile]
   );
 
+  const deleteDroppedImg = (e) => {
+    e.preventDefault();
+
+    setImage({});
+    setFile(null);
+  };
+
   const thumbs = (
     <div style={previewStyles.thumb}>
       <div style={previewStyles.thumbInner}>
@@ -29,6 +37,13 @@ const AdminDropZone = ({ setFile, imgURL }) => {
           style={previewStyles.img}
           alt="preview"
         />
+        {file && (
+          <Button
+            text="Удалить"
+            className="admin-stages__delete-img-btn"
+            onClick={deleteDroppedImg}
+          />
+        )}
       </div>
     </div>
   );
