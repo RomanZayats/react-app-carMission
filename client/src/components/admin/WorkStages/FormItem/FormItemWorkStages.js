@@ -33,6 +33,7 @@ const workStagesSchema = yup.object().shape({
 const FormItemWorkStages = ({ sourceObj, isNew }) => {
   const { num, name, iconSrc } = sourceObj;
   const [isDeleted, setIsDeleted] = useState(false);
+  const [fileReady, setFileReady] = useState(null);
   const dispatch = useDispatch();
 
   const handleDeleteFromDB = async (e) => {
@@ -59,6 +60,17 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
   };
 
   const handleUpdate = async (values) => {
+    const res = await axios
+      .post(`/api/work-stages/upload/${sourceObj._id}`, fileReady, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .catch((err) => {
+        toastr.error(err.message);
+      });
+    console.log(res);
+
     const updatedObj = {
       ...sourceObj,
       ...values,
@@ -135,7 +147,7 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
             errors={errors}
             labelName="Ссылка на иконку шага"
           />
-          <AdminDropZone _id={sourceObj._id} />
+          <AdminDropZone imgURL={iconSrc} setFile={setFileReady} />
           <Field
             type="submit"
             name="submit"

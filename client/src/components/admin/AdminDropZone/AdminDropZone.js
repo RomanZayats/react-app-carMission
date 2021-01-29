@@ -1,35 +1,67 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
-import axios from "axios";
+import { dropZone, previewStyles } from "./styles";
 
-const AdminDropZone = ({ _id }) => {
+const AdminDropZone = ({ setFile, imgURL }) => {
+  const [image, setImage] = useState({});
+
   const onDrop = useCallback(
-    async (acceptedFiles) => {
+    (acceptedFiles) => {
       const [image] = acceptedFiles;
       const file = new FormData();
       file.append("image", image);
+      setFile(file);
 
-      const res = await axios
-        .post(`/api/work-stages/upload/${_id}`, file, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+      setImage(
+        Object.assign(image, {
+          preview: URL.createObjectURL(image),
         })
-        .catch((err) => console.log(err));
-      console.log(res);
+      );
     },
-    [_id]
+    [setFile]
   );
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+  const thumbs = (
+    <div style={previewStyles.thumb}>
+      <div style={previewStyles.thumbInner}>
+        <img
+          src={image.preview || imgURL}
+          style={previewStyles.img}
+          alt="preview"
+        />
+      </div>
+    </div>
+  );
+
+  const {
+    getRootProps,
+    getInputProps,
+    isDragActive,
+    isDragAccept,
+    isDragReject,
+  } = useDropzone({
+    accept: "image/*",
+    maxFiles: 1,
+    onDrop,
+  });
+
+  const style = useMemo(
+    () => ({
+      ...dropZone.baseStyle,
+      ...(isDragActive ? dropZone.activeStyle : {}),
+      ...(isDragAccept ? dropZone.acceptStyle : {}),
+      ...(isDragReject ? dropZone.rejectStyle : {}),
+    }),
+    [isDragActive, isDragReject, isDragAccept]
+  );
 
   return (
-    <div {...getRootProps()}>
-      <input {...getInputProps()} />
-      {isDragActive ? (
-        <p>Drop the files here ...</p>
-      ) : (
+    <div>
+      <div {...getRootProps({ style })}>
+        <input {...getInputProps()} />
         <p>Перетащите файл или кликните для выбора файла</p>
-      )}
+      </div>
+      <aside style={previewStyles.thumbsContainer}>{thumbs}</aside>
     </div>
   );
 };
