@@ -16,22 +16,23 @@ import { addNewFeature } from "../../../../store/aboutUs/actions";
 import AdminDropZone from "../../AdminDropZone/AdminDropZone";
 import { checkIsInputChanges } from "../../../../utils/functions/checkIsInputChanges";
 
-export const validationSchema = yup.object().shape({
-  imgPath: yup
-    .string()
-    // .required("Обязательное поле!")
-    .min(15)
-    .max(200, "Ошибка длины! Строка должна содержать 15-50 знаков"),
-  title: yup
-    .string()
-    .required("Обязательное поле!")
-    .min(15)
-    .max(600, "Ошибка длины! Строка должна содержать 15-600 знаков"),
-});
+const validationSchemaCreator = (inputName) => {
+  return yup.object().shape({
+    imgPath: yup
+      .string()
+      // .required("Обязательное поле!")
+      .min(15)
+      .max(200, "Ошибка длины! Строка должна содержать 15-50 знаков"),
+    [inputName]: yup
+      .string()
+      .required("Обязательное поле!")
+      .min(15)
+      .max(600, "Ошибка длины! Строка должна содержать 15-600 знаков"),
+  });
+};
 
 const FormItemAboutUs = ({ sourceObj, isNew }) => {
-  const { imgPath, title: propsTitle, text, isMain } = sourceObj;
-  const title = text && !propsTitle ? text : propsTitle;
+  const { imgPath, title, text, isMain } = sourceObj;
   const dispatch = useDispatch();
   const [isDeleted, setIsDeleted] = useState(false);
   const [fileReady, setFileReady] = useState(null);
@@ -77,12 +78,6 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
   };
 
   const updateFeatureTexts = async (values) => {
-    // const { title } = values;
-    // if (isMain) {
-    //   values.text = title;
-    //   values.title = "";
-    // }
-
     const updatedObj = {
       ...sourceObj,
       ...values,
@@ -106,12 +101,6 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
   };
 
   const handleUpdate = (values) => {
-    const { title } = values;
-    if (isMain) {
-      values.text = title;
-      values.title = "";
-    }
-
     if (fileReady && checkIsInputChanges(values, sourceObj)) {
       uploadImgAndUpdateStore(values, sourceObj._id);
     } else if (!fileReady && !checkIsInputChanges(values, sourceObj)) {
@@ -122,10 +111,6 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
       );
     } else {
       toastr.warning("Сообщение", "Ничего не изменилось");
-      if (isMain) {
-        values.title = text;
-        values.text = "";
-      }
     }
   };
 
@@ -151,8 +136,8 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
 
   return (
     <Formik
-      initialValues={{ imgPath, title }}
-      validationSchema={validationSchema}
+      initialValues={isMain ? { imgPath, text } : { imgPath, title }}
+      validationSchema={validationSchemaCreator(isMain ? "text" : "title")}
       validateOnBlur={false}
       validateOnChange={false}
       onSubmit={isNew ? handlePostToDB : handleUpdate}
@@ -184,7 +169,7 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
             errorClassName="admin-about-us__form-error"
             as={isMain ? "textarea" : "input"}
             type={isMain ? "textarea" : "input"}
-            name="title"
+            name={isMain ? "text" : "title"}
             errors={errors}
             labelName={isMain ? "Текстовый контент" : "Подпись к картинке"}
           />
