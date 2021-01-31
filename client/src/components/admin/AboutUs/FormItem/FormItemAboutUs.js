@@ -120,8 +120,12 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
       });
 
     if (newFeature.status === 200) {
+      if (fileReady) {
+        await uploadImgAndUpdateStore(values, newFeature.data._id);
+      }
+
       toastr.success("Успешно", "Преимущество добавлено в базу данных");
-      dispatch(addNewFeature(newFeature.data));
+      dispatch(addNewFeature({ ...newFeature.data, imgPath: values.imgPath }));
     } else {
       toastr.warning("Хм...", "Что-то пошло не так");
     }
