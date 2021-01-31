@@ -7,15 +7,20 @@ import "./FormItemAboutUs.scss";
 import AdminFormField from "../../AdminFormField/AdminFormField";
 import Button from "../../../generalComponents/Button/Button";
 import { toastr } from "react-redux-toastr";
-import { filterAboutUs } from "../../../../store/aboutUs/operations";
+import {
+  filterAboutUs,
+  updateFeaturesByNewSrc,
+} from "../../../../store/aboutUs/operations";
 import { addNewFeature } from "../../../../store/aboutUs/actions";
+import AdminDropZone from "../../AdminDropZone/AdminDropZone";
+import { checkIsInputChanges } from "../../../../utils/functions/checkIsInputChanges";
 
 export const validationSchema = yup.object().shape({
   imgPath: yup
     .string()
-    .required("Обязательное поле!")
+    // .required("Обязательное поле!")
     .min(15)
-    .max(50, "Ошибка длины! Строка должна содержать 15-50 знаков"),
+    .max(200, "Ошибка длины! Строка должна содержать 15-50 знаков"),
   title: yup
     .string()
     .required("Обязательное поле!")
@@ -28,6 +33,7 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
   const title = text && !propsTitle ? text : propsTitle;
   const dispatch = useDispatch();
   const [isDeleted, setIsDeleted] = useState(false);
+  const [fileReady, setFileReady] = useState(null);
 
   const handleDeleteFromDB = async (e) => {
     e.preventDefault();
@@ -52,12 +58,29 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
     toastr.success("Успешно", "Преимущество удалено до внесения в базу данных");
   };
 
-  const handleUpdate = async (values) => {
-    const { title } = values;
-    if (isMain) {
-      values.text = title;
-      values.title = "";
-    }
+  const uploadImgAndUpdateStore = async (values, id) => {
+    const res = await axios
+      .post(`/api/features/upload/${id}`, fileReady, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .catch((err) => {
+        toastr.error(err.message);
+      });
+
+    dispatch(updateFeaturesByNewSrc(res.data.location, id));
+    setFileReady(null);
+    values.imgPath = res.data.location;
+    toastr.success("Успешно", "Изображение загружено");
+  };
+
+  const updateFeatureTexts = async (values) => {
+    // const { title } = values;
+    // if (isMain) {
+    //   values.text = title;
+    //   values.title = "";
+    // }
 
     const updatedObj = {
       ...sourceObj,
@@ -72,9 +95,35 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
 
     if (updatedFeature.status === 200) {
       toastr.success("Успешно", "Преимущество изменено в базе данных");
-      values.title = updatedObj.text;
+      if (isMain) {
+        values.title = updatedObj.text;
+      }
     } else {
       toastr.warning("Хм...", "Что-то пошло не так");
+    }
+  };
+
+  const handleUpdate = (values) => {
+    const { title } = values;
+    if (isMain) {
+      values.text = title;
+      values.title = "";
+    }
+
+    if (fileReady && checkIsInputChanges(values, sourceObj)) {
+      uploadImgAndUpdateStore(values, sourceObj._id);
+    } else if (!fileReady && !checkIsInputChanges(values, sourceObj)) {
+      updateFeatureTexts(values);
+    } else if (fileReady && !checkIsInputChanges(values, sourceObj)) {
+      uploadImgAndUpdateStore(values, sourceObj._id).then(() =>
+        updateFeatureTexts(values)
+      );
+    } else {
+      toastr.warning("Сообщение", "Ничего не изменилось");
+      if (isMain) {
+        values.title = text;
+        values.text = "";
+      }
     }
   };
 
@@ -137,7 +186,11 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
             errors={errors}
             labelName={isMain ? "Текстовый контент" : "Подпись к картинке"}
           />
-
+          <AdminDropZone
+            imgURL={imgPath}
+            setFile={setFileReady}
+            file={fileReady}
+          />
           <Field
             type="submit"
             name="submit"

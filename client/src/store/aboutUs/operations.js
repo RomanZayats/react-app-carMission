@@ -27,3 +27,20 @@ export const filterAboutUs = (id) => (dispatch, getStore) => {
   const filtered = features.filter((feature) => feature._id !== id);
   dispatch(updateFeatures(filtered));
 };
+
+export const updateFeaturesByNewSrc = (src, id) => (dispatch, getStore) => {
+  const stages = getFeatures(getStore());
+
+  const updated = stages.map((feature) => {
+    if (feature._id === id) {
+      return {
+        ...feature,
+        imgPath: src,
+      };
+    } else {
+      return feature;
+    }
+  });
+
+  dispatch(updateFeatures(updated));
+};
