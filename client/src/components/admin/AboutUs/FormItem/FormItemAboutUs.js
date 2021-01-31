@@ -9,6 +9,7 @@ import Button from "../../../generalComponents/Button/Button";
 import { toastr } from "react-redux-toastr";
 import {
   filterAboutUs,
+  updateFeaturesByNewObject,
   updateFeaturesByNewSrc,
 } from "../../../../store/aboutUs/operations";
 import { addNewFeature } from "../../../../store/aboutUs/actions";
@@ -94,6 +95,7 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
       });
 
     if (updatedFeature.status === 200) {
+      dispatch(updateFeaturesByNewObject(updatedFeature.data, sourceObj._id));
       toastr.success("Успешно", "Преимущество изменено в базе данных");
       if (isMain) {
         values.title = updatedObj.text;

@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { addNewStage } from "../../../../store/workStages/actions";
 import {
   filterWorkStages,
+  updateStagesByNewObject,
   updateStagesByNewSrc,
 } from "../../../../store/workStages/operations";
 import AdminDropZone from "../../AdminDropZone/AdminDropZone";
@@ -89,6 +90,7 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
       });
 
     if (updatedStage.status === 200) {
+      dispatch(updateStagesByNewObject(updatedStage.data, sourceObj._id));
       toastr.success(
         "Успешно",
         `Шаг изменён на "${values.name}" в базе данных`
