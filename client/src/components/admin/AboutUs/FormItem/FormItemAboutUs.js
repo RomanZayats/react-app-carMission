@@ -92,9 +92,6 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
     if (updatedFeature.status === 200) {
       dispatch(updateFeaturesByNewObject(updatedFeature.data, sourceObj._id));
       toastr.success("Успешно", "Преимущество изменено в базе данных");
-      if (isMain) {
-        values.title = updatedObj.text;
-      }
     } else {
       toastr.warning("Хм...", "Что-то пошло не так");
     }

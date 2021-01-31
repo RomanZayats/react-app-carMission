@@ -21,7 +21,6 @@ const FormContainerAboutUs = () => {
       });
     };
     setFormList(mapFormToRender());
-    console.log("rerender, new data is", data);
   }, [data]);
 
   const createNewFormItem = () => {
