@@ -19,6 +19,7 @@ import { checkToken } from "./store/auth/operations";
 import ReduxToastr from "react-redux-toastr";
 import { useLocation } from "react-router-dom";
 import { loadSocialNetworks } from "./store/socialNetworks/operations";
+import { getMainSectionsIsLoading } from "./store/appMainSections/selectors";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -39,9 +40,10 @@ const App = () => {
 
   const isLogoLoading = useSelector(getIsLogoLoading);
   const isNavbarLoading = useSelector(getIsNavbarLoading);
+  const isMainSectionsLoading = useSelector(getMainSectionsIsLoading);
   const isMainPage = location.pathname === "/";
 
-  if (isNavbarLoading || isLogoLoading) {
+  if (isMainSectionsLoading || isNavbarLoading || isLogoLoading) {
     return (
       <div className="App">
         <Loader />
