@@ -15,6 +15,7 @@ import {
 import { addNewFeature } from "../../../../store/aboutUs/actions";
 import AdminDropZone from "../../AdminDropZone/AdminDropZone";
 import { checkIsInputChanges } from "../../../../utils/functions/checkIsInputChanges";
+import ModalDeleteConfirmation from "../../ModalDeleteConfirmation/ModalDeleteConfirmation";
 
 const validationSchemaCreator = (inputName) => {
   return yup.object().shape({
@@ -196,6 +197,7 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
             text="&#10005;"
             onClick={isNew ? handleDeleteNew : handleDeleteFromDB}
           />
+          {/* <ModalDeleteConfirmation /> */}
         </Form>
       )}
     </Formik>
