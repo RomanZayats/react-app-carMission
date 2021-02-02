@@ -37,8 +37,8 @@ test("Navbar window have onClick function", () => {
 
   const block = getByTestId("mobileNavbarBlock");
 
+  expect(clickFunc).not.toHaveBeenCalled();
   fireEvent.click(block);
-  expect(clickFunc).toHaveBeenCalled();
   expect(clickFunc).toHaveBeenCalledTimes(1);
 });
 
