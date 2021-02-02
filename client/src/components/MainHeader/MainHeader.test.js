@@ -75,10 +75,6 @@ test("Is MainHeader button have onClick ", () => {
     getByText("Touch");
     const button = getByTestId("button");
     expect(button).toBeInTheDocument();
-
-    // fireEvent.click(button);
-    // expect(button).not.toBeDefined();
-
 })
 
 test("Is MainHeader NavbarItem ", () => {
@@ -103,8 +99,4 @@ test("Is MainHeader NavbarItem ", () => {
     )
     const navbar = getByTestId("navbar"); 
     expect(navbar).toBeInTheDocument();
-    
-    // fireEvent.click(navbar);
-    // expect(navbar).not.toBeDefined();
-
 })
