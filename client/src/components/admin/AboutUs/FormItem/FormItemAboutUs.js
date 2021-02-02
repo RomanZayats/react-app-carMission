@@ -37,6 +37,7 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
   const dispatch = useDispatch();
   const [isDeleted, setIsDeleted] = useState(false);
   const [fileReady, setFileReady] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDeleteFromDB = async (e) => {
     e.preventDefault();
@@ -138,6 +139,11 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
     }
   };
 
+  const openConfirmModal = (e) => {
+    e.preventDefault();
+    setIsModalOpen(true);
+  };
+
   if (isDeleted) {
     return null;
   }
@@ -195,9 +201,13 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
           <Button
             className="admin-about-us__delete-btn"
             text="&#10005;"
-            onClick={isNew ? handleDeleteNew : handleDeleteFromDB}
+            onClick={openConfirmModal}
           />
-          {/* <ModalDeleteConfirmation /> */}
+          <ModalDeleteConfirmation
+            isOpen={isModalOpen}
+            setIsOpen={setIsModalOpen}
+            deleteHandler={isNew ? handleDeleteNew : handleDeleteFromDB}
+          />
         </Form>
       )}
     </Formik>
