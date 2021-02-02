@@ -112,22 +112,28 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
   };
 
   const handlePostToDB = async (values) => {
-    const newObj = { ...values, isMain: false };
-    const newFeature = await axios
-      .post("/api/features/", newObj)
-      .catch((err) => {
-        toastr.error(err.message);
-      });
+    if (values.imgPath || fileReady) {
+      const newObj = { ...values, isMain: false };
+      const newFeature = await axios
+        .post("/api/features/", newObj)
+        .catch((err) => {
+          toastr.error(err.message);
+        });
 
-    if (newFeature.status === 200) {
-      if (fileReady) {
-        await uploadImgAndUpdateStore(values, newFeature.data._id);
+      if (newFeature.status === 200) {
+        if (fileReady) {
+          await uploadImgAndUpdateStore(values, newFeature.data._id);
+        }
+
+        toastr.success("Успешно", "Преимущество добавлено в базу данных");
+        dispatch(
+          addNewFeature({ ...newFeature.data, imgPath: values.imgPath })
+        );
+      } else {
+        toastr.warning("Хм...", "Что-то пошло не так");
       }
-
-      toastr.success("Успешно", "Преимущество добавлено в базу данных");
-      dispatch(addNewFeature({ ...newFeature.data, imgPath: values.imgPath }));
     } else {
-      toastr.warning("Хм...", "Что-то пошло не так");
+      toastr.warning("Warning", "Не добавлено изображение или путь к нему");
     }
   };
 

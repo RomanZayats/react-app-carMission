@@ -115,25 +115,28 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
   };
 
   const handlePostToDB = async (values) => {
-    if (!values.iconSrc) {
-      values.iconSrc = "Wait for S3 uploading";
-    }
+    if (values.iconSrc || fileReady) {
+      const newStage = await axios
+        .post("/api/work-stages/", values)
+        .catch((err) => {
+          toastr.error(err.message);
+        });
 
-    const newStage = await axios
-      .post("/api/work-stages/", values)
-      .catch((err) => {
-        toastr.error(err.message);
-      });
+      if (newStage.status === 200) {
+        if (fileReady) {
+          await uploadImgAndUpdateStore(values, newStage.data._id);
+        }
 
-    if (newStage.status === 200) {
-      if (fileReady) {
-        await uploadImgAndUpdateStore(values, newStage.data._id);
+        dispatch(addNewStage({ ...newStage.data, iconSrc: values.iconSrc }));
+        toastr.success(
+          "Успешно",
+          `Шаг "${values.name}" добавлен в базу данных`
+        );
+      } else {
+        toastr.warning("Хм...", "Что-то пошло не так");
       }
-
-      dispatch(addNewStage({ ...newStage.data, iconSrc: values.iconSrc }));
-      toastr.success("Успешно", `Шаг "${values.name}" добавлен в базу данных`);
     } else {
-      toastr.warning("Хм...", "Что-то пошло не так");
+      toastr.warning("Warning", "Не добавлено изображение или путь к нему");
     }
   };
 
