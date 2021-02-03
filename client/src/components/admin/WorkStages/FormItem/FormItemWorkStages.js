@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, Field } from "formik";
 import "./FormItemWorkStages.scss";
 import * as yup from "yup";
 import AdminFormField from "../../AdminFormField/AdminFormField";
-import Button from "../../../generalComponents/Button/Button";
 import { toastr } from "react-redux-toastr";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addNewStage } from "../../../../store/workStages/actions";
-import { filterWorkStages } from "../../../../store/workStages/operations";
+import { updateStagesByNewObject } from "../../../../store/workStages/operations";
+import { checkIsInputNotChanges } from "../../../../utils/functions/checkIsInputNotChanges";
 
 const workStagesSchema = yup.object().shape({
   num: yup
@@ -22,80 +21,72 @@ const workStagesSchema = yup.object().shape({
     .typeError("Введите текст")
     .strict(true)
     .required("Обязательное поле"),
-  iconSrc: yup
-    .string("Введите текст")
-    .typeError("Введите текст")
-    .strict(true)
-    .required("Обязательное поле"),
+  iconSrc: yup.string("Введите текст").typeError("Введите текст").strict(true),
 });
 
-const FormItemWorkStages = ({ sourceObj, isNew }) => {
+const FormItemWorkStages = ({
+  sourceObj,
+  isNew,
+  children,
+  put,
+  post,
+  uploadToS3,
+  file,
+}) => {
   const { num, name, iconSrc } = sourceObj;
-  const [isDeleted, setIsDeleted] = useState(false);
   const dispatch = useDispatch();
 
-  const handleDeleteFromDB = async (e) => {
-    e.preventDefault();
-
-    const deleted = await axios
-      .delete(`/api/work-stages/delete/${sourceObj._id}`)
-      .catch((err) => {
-        toastr.error(err.message);
-      });
-
-    if (deleted.status === 200) {
-      toastr.success("Успешно", `Шаг "${name}" удалён в базе данных`);
-      dispatch(filterWorkStages(sourceObj._id));
-    } else {
-      toastr.warning("Хм...", "Что-то пошло не так");
-    }
-  };
-
-  const handleDeleteNew = (e) => {
-    e.preventDefault();
-    setIsDeleted(true);
-    toastr.success("Успешно", "Шаг удалён до внесения в базу данных");
-  };
-
-  const handleUpdate = async (values) => {
+  const updateStageTexts = async (values) => {
     const updatedObj = {
       ...sourceObj,
       ...values,
     };
-    const updatedStage = await axios
-      .put(`/api/work-stages/${sourceObj._id}`, updatedObj)
-      .catch((err) => {
-        toastr.error(err.message);
-      });
+    const updatedStage = await put(updatedObj);
 
     if (updatedStage.status === 200) {
+      dispatch(updateStagesByNewObject(updatedStage.data, sourceObj._id));
       toastr.success(
         "Успешно",
-        `Шаг изменён на "${values.name}" в базе данных`
+        `Этап изменён на "${values.name}" в базе данных`
       );
     } else {
       toastr.warning("Хм...", "Что-то пошло не так");
     }
   };
 
-  const handlePostToDB = async (values) => {
-    const newStage = await axios
-      .post("/api/work-stages/", values)
-      .catch((err) => {
-        toastr.error(err.message);
-      });
-
-    if (newStage.status === 200) {
-      toastr.success("Успешно", `Шаг "${values.name}" добавлен в базу данных`);
-      dispatch(addNewStage(newStage.data));
+  const handleUpdate = (values) => {
+    if (file && checkIsInputNotChanges(values, sourceObj)) {
+      uploadToS3(values, sourceObj._id);
+    } else if (!file && !checkIsInputNotChanges(values, sourceObj)) {
+      updateStageTexts(values);
+    } else if (file && !checkIsInputNotChanges(values, sourceObj)) {
+      uploadToS3(values, sourceObj._id).then(() => updateStageTexts(values));
     } else {
-      toastr.warning("Хм...", "Что-то пошло не так");
+      toastr.warning("Сообщение", "Ничего не изменилось");
     }
   };
 
-  if (isDeleted) {
-    return null;
-  }
+  const handlePostToDB = async (values) => {
+    if (values.iconSrc || file) {
+      const newStage = await post(values);
+
+      if (newStage.status === 200) {
+        if (file) {
+          await uploadToS3(values, newStage.data._id);
+        }
+
+        dispatch(addNewStage({ ...newStage.data, iconSrc: values.iconSrc }));
+        toastr.success(
+          "Успешно",
+          `Шаг "${values.name}" добавлен в базу данных`
+        );
+      } else {
+        toastr.warning("Хм...", "Что-то пошло не так");
+      }
+    } else {
+      toastr.warning("Warning", "Не добавлено изображение или путь к нему");
+    }
+  };
 
   return (
     <Formik
@@ -111,39 +102,32 @@ const FormItemWorkStages = ({ sourceObj, isNew }) => {
             labelClassName="admin-stages__form-label"
             fieldClassName="admin-stages__form-input"
             errorClassName="admin-stages__form-error"
-            type="text"
             name="num"
             errors={errors}
-            labelName="Номер шага"
+            labelName="Номер этапа"
           />
           <AdminFormField
             labelClassName="admin-stages__form-label"
             fieldClassName="admin-stages__form-input"
             errorClassName="admin-stages__form-error"
-            type="text"
             name="name"
             errors={errors}
-            labelName="Название шага"
+            labelName="Название этапа"
           />
           <AdminFormField
             labelClassName="admin-stages__form-label"
             fieldClassName="admin-stages__form-input"
             errorClassName="admin-stages__form-error"
-            type="text"
             name="iconSrc"
             errors={errors}
             labelName="Ссылка на иконку шага"
           />
+          {children}
           <Field
             type="submit"
             name="submit"
             className="admin-stages__submit-btn"
-            value={isNew ? "Создать шаг" : "Подтвердить изменения"}
-          />
-          <Button
-            className="admin-stages__delete-btn"
-            text="&#10005;"
-            onClick={isNew ? handleDeleteNew : handleDeleteFromDB}
+            value={isNew ? "Создать этап" : "Подтвердить изменения"}
           />
         </Form>
       )}

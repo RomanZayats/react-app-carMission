@@ -14,27 +14,36 @@ import { loadFeatures } from "./store/aboutUs/operations";
 import { loadPackages } from "./store/servicePackages/operations";
 import { loadWorkStages } from "./store/workStages/operations";
 import { loadReviews } from "./store/ReviewCarousel/operations";
+import { loadBlogs } from "./store/Blogs/operations";
 import { checkToken } from "./store/auth/operations";
 import ReduxToastr from "react-redux-toastr";
+import { useLocation } from "react-router-dom";
+import { loadSocialNetworks } from "./store/socialNetworks/operations";
+import { getMainSectionsIsLoading } from "./store/appMainSections/selectors";
 
 const App = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
-    dispatch(loadNavbarData());
     dispatch(loadMainSection());
+    dispatch(loadSocialNetworks());
+    dispatch(loadNavbarData());
     dispatch(loadLogoData());
     dispatch(loadFeatures());
     dispatch(loadPackages());
     dispatch(loadWorkStages());
     dispatch(loadReviews());
+    dispatch(loadBlogs());
     dispatch(checkToken());
   }, [dispatch]);
 
   const isLogoLoading = useSelector(getIsLogoLoading);
   const isNavbarLoading = useSelector(getIsNavbarLoading);
+  const isMainSectionsLoading = useSelector(getMainSectionsIsLoading);
+  const isMainPage = location.pathname === "/";
 
-  if (isNavbarLoading || isLogoLoading) {
+  if (isMainSectionsLoading || isNavbarLoading || isLogoLoading) {
     return (
       <div className="App">
         <Loader />
@@ -44,22 +53,20 @@ const App = () => {
 
   return (
     <div className="App">
-      <div className="App__bg">
-        <div className="App__main-page">
-          <FeedbackForm />
-          <ErrorModal />
-          <AppRoutes />
-          <ReduxToastr
-            timeOut={5000}
-            newestOnTop
-            preventDuplicates
-            position="top-right"
-            getState={(state) => state.toastr}
-            transitionIn="fadeIn"
-            transitionOut="fadeOut"
-            progressBar
-          />
-        </div>
+      <div className={isMainPage ? "App__main-page" : "App__bg"}>
+        <FeedbackForm />
+        <ErrorModal />
+        <AppRoutes />
+        <ReduxToastr
+          timeOut={5000}
+          newestOnTop
+          preventDuplicates
+          position="top-right"
+          getState={(state) => state.toastr}
+          transitionIn="fadeIn"
+          transitionOut="fadeOut"
+          progressBar
+        />
       </div>
     </div>
   );

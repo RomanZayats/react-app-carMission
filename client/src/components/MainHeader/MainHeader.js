@@ -14,15 +14,14 @@ const MainHeader = () => {
   const navbarData = useSelector(getNavbarData);
   const { width: winWidth } = useWinSize();
   const [isMobileNavbar, setIsMobileNavbar] = useState(false);
-
+  const sortByNumberInNavbar = (arr) => {
+    arr.sort((a, b) => +a.numberInNavbar > +b.numberInNavbar ? 1 : -1);
+  }
+  sortByNumberInNavbar(navbarData);
   const firstMobileSize = 768;
   const isMobileWindowSize = winWidth <= firstMobileSize;
-  const leftSideItems = navbarData.filter(
-    (e) => e.headerLocation === "left-side"
-  );
-  const rightSideItems = navbarData.filter(
-    (e) => e.headerLocation === "right-side"
-  );
+  const leftSideItems = navbarData.filter((e) => e.headerLocation === "left-side");
+  const rightSideItems = navbarData.filter((e) => e.headerLocation === "right-side");
 
   const header = !isMobileWindowSize ? (
     <>
@@ -60,7 +59,7 @@ const MainHeader = () => {
           onClick={() => setIsMobileNavbar(!isMobileNavbar)}
         />
       ) : (
-        <Button className="open-navbar" onClick={setIsMobileNavbar} text="" />
+        <Button className="open-navbar" onClick={setIsMobileNavbar} text=""/>
       )}
     </>
   );
@@ -68,7 +67,7 @@ const MainHeader = () => {
   return (
     <div className="header__bg">
       <div className="header__container">
-        <div className="navbar__block">{header}</div>
+        <div className="navbar__block" data-testid="navbar-block">{header}</div>
       </div>
     </div>
   );

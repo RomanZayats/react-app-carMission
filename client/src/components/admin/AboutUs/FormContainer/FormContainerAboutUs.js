@@ -1,32 +1,80 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import "./FormContainerAboutUs.scss";
 import { getFeatures } from "../../../../store/aboutUs/selectors";
-import FormItemWorkStages from "../FormItem/FormItemAboutUs";
 import SectionHeading from "../../../generalComponents/SectionHeading/SectionHeading";
 import Button from "../../../generalComponents/Button/Button";
+import FormItemAboutUs from "../FormItem/FormItemAboutUs";
+import { getMainSections } from "../../../../store/appMainSections/selectors";
+import {
+  filterAboutUs,
+  updateFeaturesByNewSrc,
+} from "../../../../store/aboutUs/operations";
+import enhanceFormItem from "../../../hoc/enhanceFromItem";
+
+const config = {
+  dropZone: true,
+  canBeDeleted: true,
+  pathProp: "imgPath",
+  routes: {
+    post: "/api/features/",
+    put: "/api/features/",
+    delete: "/api/features/delete/",
+    upload: "/api/features/upload/",
+  },
+  actions: {
+    filterDeleted: filterAboutUs,
+    updateS3Link: updateFeaturesByNewSrc,
+  },
+};
 
 const FormContainerAboutUs = () => {
-  const data = useSelector(getFeatures);
-
-  // const newObj = {
-  //   title: "",
-  //   imgPath: "",
-  //   isMain: false,
-  //   text: null,
-  //   // key: uuidv4(),
-  // };
-
-  const formList = data.map((feature) => {
-    return <FormItemWorkStages obj={feature} key={feature._id} />;
+  const [formList, setFormList] = useState([]);
+  const data = useSelector(getFeatures).sort((a, b) => {
+    return a.isMain === b.isMain ? 0 : a.isMain ? -1 : 1;
   });
+  const { heading } = useSelector(getMainSections).find(
+    (s) => s.reactComponent === "AboutUs"
+  );
+
+  useEffect(() => {
+    const mapFormToRender = () => {
+      return data.map((feature) => {
+        const Enhanced = enhanceFormItem(FormItemAboutUs, config);
+        return <Enhanced sourceObj={feature} key={feature._id} />;
+      });
+    };
+    setFormList(mapFormToRender());
+  }, [data]);
+
+  const createNewFormItem = () => {
+    const empty = {
+      title: "",
+      imgPath: "",
+      isMain: false,
+      text: null,
+    };
+    const Enhanced = enhanceFormItem(FormItemAboutUs, config);
+    return <Enhanced sourceObj={empty} isNew key={Date.now()} />;
+  };
+
+  const handleAddItem = () => {
+    const form = createNewFormItem();
+
+    const updated = formList.map((i) => i);
+    updated.push(form);
+    setFormList(updated);
+  };
 
   return (
-    <div className="admin__form-container">
-      <div className="admin__container-head">
-        <SectionHeading text="О нас" />
-      </div>
-      {formList}
-      <Button className="admin__add-btn" text="Add item" onClick={() => {}} />
+    <div className="admin-about-us">
+      <SectionHeading text={heading} />
+      <div className="admin-about-us__form-container">{formList}</div>
+      <Button
+        text="+"
+        className="admin-about-us__add-btn"
+        onClick={handleAddItem}
+      />
     </div>
   );
 };

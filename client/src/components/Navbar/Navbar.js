@@ -11,9 +11,9 @@ const Navbar = ({ items, className, onClick, mobileNavbar, isFooter }) => {
         className={className}
         textContent={e.textContent}
         contacts={e.contacts}
-        sectionId={e.sectionId}
+        sectionId={`#${e.sectionId}`}
         id={uuidv4()}
-        key={uuidv4()}
+        key={e._id}
         isFooter={e.contacts && isFooter}
       />
     ) : null
@@ -21,13 +21,13 @@ const Navbar = ({ items, className, onClick, mobileNavbar, isFooter }) => {
 
   if (mobileNavbar) {
     return (
-      <div className={`${className}__window`} onClick={onClick}>
-        <ul className={className}>{navbarItems}</ul>
+      <div className={`${className}__window`} onClick={onClick} data-testid="mobileNavbarBlock">
+        <ul className={className} data-testid="mobileNavbarList">{navbarItems}</ul>
       </div>
     );
   }
 
-  return <ul className={className}>{navbarItems}</ul>;
+  return <ul className={className} data-testid="desktopNavbarList">{navbarItems}</ul>;
 };
 
 Navbar.propTypes = {
@@ -35,7 +35,7 @@ Navbar.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
   mobileNavbar: PropTypes.bool,
-  isFooter: PropTypes.bool
+  isFooter: PropTypes.bool,
 };
 
 Navbar.defaultProps = {
@@ -43,8 +43,7 @@ Navbar.defaultProps = {
   className: "",
   onClick: () => {},
   mobileNavbar: false,
-  isFooter: false
-
+  isFooter: false,
 };
 
 export default Navbar;

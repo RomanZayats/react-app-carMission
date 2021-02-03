@@ -12,7 +12,7 @@ const NavbarItem = ({
   contacts,
   sectionId,
   id,
-  isFooter
+  isFooter,
 }) => {
   const dispatch = useDispatch();
   const showFeedbackModal = () => {
@@ -30,6 +30,7 @@ const NavbarItem = ({
         className={`${className}--link`}
         id={id}
         onClick={contacts ? showFeedbackModal : null}
+        data-testid="navbarItemHashLink"
       >
         {isFooter ? contanctsInfo : textContent}
       </HashLink>

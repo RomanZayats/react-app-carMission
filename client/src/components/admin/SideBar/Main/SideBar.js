@@ -24,7 +24,20 @@ const SideBar = () => {
       route: "main-page-sections",
       heading: "Секции главной страницы",
     },
+    {
+      route: "navbar",
+      heading: "Пункты меню",
+    },
+    
     ...navFromDB,
+    {
+      route: "social-networks",
+      heading: "Социальные сети",
+    },
+    {
+      route: "Logo",
+      heading: "Главное Лого",
+    },
   ];
 
   const linksList = links.map(({ route, heading }, index) => {

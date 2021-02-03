@@ -1,32 +1,66 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import SectionHeading from "../../../generalComponents/SectionHeading/SectionHeading";
 import { getPackages } from "../../../../store/servicePackages/selectors";
 import FormItemServicePackages from "../FormItem/FormItemServicePackages";
-import { v4 as uuidv4 } from "uuid";
+import "./FormContainerServicePackages.scss";
+import Button from "../../../generalComponents/Button/Button";
+import { filterServicePackages } from "../../../../store/servicePackages/operations";
+import enhanceFormItem from "../../../hoc/enhanceFromItem";
+
+const config = {
+  canBeDeleted: true,
+  routes: {
+    post: "/api/service-packages/",
+    put: "/api/service-packages/",
+    delete: "/api/service-packages/delete/",
+  },
+  actions: {
+    filterDeleted: filterServicePackages(),
+  },
+};
 
 const FormContainerServicePackages = () => {
+  const [formList, setFormList] = useState([]);
   const data = useSelector(getPackages);
 
-  const formList = data.map((packages) => {
-    const { name, price, currency, serviceList } = packages;
-    return (
-      <FormItemServicePackages
-        name={name}
-        price={price}
-        currency={currency}
-        serviceList={serviceList}
-        key={uuidv4()}
-      />
-    );
-  });
+  useEffect(() => {
+    const mapFormToRender = () => {
+      return data.map((servicePackage) => {
+        const Enhanced = enhanceFormItem(FormItemServicePackages, config);
+        return <Enhanced sourceObj={servicePackage} key={servicePackage._id} />;
+      });
+    };
+    setFormList(mapFormToRender());
+  }, [data]);
+
+  const createNewFormItem = () => {
+    const empty = {
+      name: "",
+      price: "",
+      currency: "",
+      serviceList: [],
+    };
+    const Enhanced = enhanceFormItem(FormItemServicePackages, config);
+    return <Enhanced sourceObj={empty} isNew key={Date.now()} />;
+  };
+
+  const handleAddItem = () => {
+    const form = createNewFormItem();
+    const updated = formList.map((i) => i);
+    updated.push(form);
+    setFormList(updated);
+  };
 
   return (
-    <div className="admin__form-container">
-      <div className="admin__container-head">
-        <SectionHeading text="Пакеты Услуг" />
-      </div>
-      {formList}
+    <div className="admin-packages">
+      <SectionHeading text="Пакеты услуг" />
+      <div className="admin-packages__form-container">{formList}</div>
+      <Button
+        text="+"
+        className="admin-packages__add-btn"
+        onClick={handleAddItem}
+      />
     </div>
   );
 };

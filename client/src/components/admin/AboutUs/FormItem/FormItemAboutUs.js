@@ -1,92 +1,139 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Formik, Form, Field } from "formik";
-import AdminFormField from "../../AdminFormField/AdminFormField";
-import axios from "axios";
-import { saveErrObjAction } from "../../../../store/errorObject/saveErrObjAction";
-import { openErrModal } from "../../../../store/ErrorModal/openErrModal";
 import { useDispatch } from "react-redux";
-import useUpdateTimeout from "../../../../utils/hooks/useUpdateTimeout";
-import UpdateConfirmation from "../../updateConfirmation/UpdateConfirmation";
-import { validationSchema } from "../ValidationSchema";
-import Button from "../../../generalComponents/Button/Button";
+import * as yup from "yup";
+import "./FormItemAboutUs.scss";
+import AdminFormField from "../../AdminFormField/AdminFormField";
+import { toastr } from "react-redux-toastr";
+import { updateFeaturesByNewObject } from "../../../../store/aboutUs/operations";
+import { addNewFeature } from "../../../../store/aboutUs/actions";
+import { checkIsInputNotChanges } from "../../../../utils/functions/checkIsInputNotChanges";
 
-const FormItemWorkStages = ({ obj }) => {
-  const { imgPath, title: propsTitle, text, isMain, _id: id } = obj;
-  const title = text && !propsTitle ? text : propsTitle;
+const validationSchemaCreator = (inputName) => {
+  return yup.object().shape({
+    imgPath: yup
+      .string()
+      // .required("Обязательное поле!")
+      .min(15)
+      .max(200, "Ошибка длины! Строка должна содержать 15-50 знаков"),
+    [inputName]: yup
+      .string()
+      .required("Обязательное поле!")
+      .min(15)
+      .max(600, "Ошибка длины! Строка должна содержать 15-600 знаков"),
+  });
+};
+
+const FormItemAboutUs = ({
+  sourceObj,
+  isNew,
+  children,
+  put,
+  post,
+  uploadToS3,
+  file,
+}) => {
+  const { imgPath, title, text, isMain } = sourceObj;
   const dispatch = useDispatch();
-  const [isUpdated, setIsUpdated] = useState(false);
-  const timeOut = useUpdateTimeout(setIsUpdated);
 
-  useEffect(() => {
-    return () => clearTimeout(timeOut);
-  }, [timeOut]);
+  const updateFeatureTexts = async (values) => {
+    const updatedObj = {
+      ...sourceObj,
+      ...values,
+    };
 
-  const onSubmit = async (values) => {
-    const updatedObj = isMain
-      ? { ...obj, imgPath: values.imgPath, text: values.title }
-      : { ...obj, ...values };
+    const updatedFeature = await put(updatedObj);
 
-    const featureToServer = await axios({
-      method: "PUT",
-      url: `/api/features/${id}`,
-      data: updatedObj,
-    }).catch((err) => {
-      dispatch(saveErrObjAction(err));
-      dispatch(openErrModal);
-    });
+    if (updatedFeature.status === 200) {
+      dispatch(updateFeaturesByNewObject(updatedFeature.data, sourceObj._id));
+      toastr.success("Успешно", "Преимущество изменено в базе данных");
+    } else {
+      toastr.warning("Хм...", "Что-то пошло не так");
+    }
+  };
 
-    if (featureToServer.status === 200) {
-      setIsUpdated(true);
+  const handleUpdate = (values) => {
+    if (file && checkIsInputNotChanges(values, sourceObj)) {
+      uploadToS3(values, sourceObj._id);
+    } else if (!file && !checkIsInputNotChanges(values, sourceObj)) {
+      updateFeatureTexts(values);
+    } else if (file && !checkIsInputNotChanges(values, sourceObj)) {
+      uploadToS3(values, sourceObj._id).then(() => updateFeatureTexts(values));
+    } else {
+      toastr.warning("Сообщение", "Ничего не изменилось");
+    }
+  };
+
+  const handlePostToDB = async (values) => {
+    if (values.imgPath || file) {
+      const newObj = { ...values, isMain: false };
+      const newFeature = await post(newObj);
+
+      if (newFeature.status === 200) {
+        if (file) {
+          await uploadToS3(values, newFeature.data._id);
+        }
+
+        toastr.success("Успешно", "Преимущество добавлено в базу данных");
+        dispatch(
+          addNewFeature({ ...newFeature.data, imgPath: values.imgPath })
+        );
+      } else {
+        toastr.warning("Хм...", "Что-то пошло не так");
+      }
+    } else {
+      toastr.warning("Warning", "Не добавлено изображение или путь к нему");
     }
   };
 
   return (
     <Formik
-      initialValues={{ imgPath, title }}
-      validationSchema={validationSchema}
-      validateOnChange={false}
+      initialValues={isMain ? { imgPath, text } : { imgPath, title }}
+      validationSchema={validationSchemaCreator(isMain ? "text" : "title")}
       validateOnBlur={false}
-      onSubmit={onSubmit}
+      validateOnChange={false}
+      onSubmit={isNew ? handlePostToDB : handleUpdate}
     >
       {({ errors, touched }) => (
-        <Form className="admin__form-item">
+        <Form
+          className={
+            isMain
+              ? "admin-about-us__form-main-item"
+              : "admin-about-us__form-item"
+          }
+        >
           <AdminFormField
-            className="admin__form-label"
-            type="input"
+            labelClassName="admin-about-us__form-label"
+            fieldClassName="admin-about-us__form-input"
+            errorClassName="admin-about-us__form-error"
             name="imgPath"
             errors={errors}
             labelName="Путь к картинке"
           />
           <AdminFormField
+            labelClassName="admin-about-us__form-label"
+            fieldClassName={
+              isMain
+                ? "admin-about-us__form-textarea"
+                : "admin-about-us__form-input"
+            }
+            errorClassName="admin-about-us__form-error"
             as={isMain ? "textarea" : "input"}
-            type={isMain ? "textarea" : "input"}
-            fieldClassName={isMain ? "admin__form-textarea" : ""}
-            name="title"
+            name={isMain ? "text" : "title"}
             errors={errors}
             labelName={isMain ? "Текстовый контент" : "Подпись к картинке"}
           />
-
-          <div className="admin__buttons-box">
-            <Button
-              className="admin__delete-btn"
-              text="Delete item"
-              onClick={(event) => {
-                event.preventDefault();
-              }}
-            />
-            <Field
-              type="submit"
-              disabled={isUpdated}
-              name="submit"
-              className="admin__submit-btn"
-              value="Submit changes"
-            />
-            {isUpdated && <UpdateConfirmation />}
-          </div>
+          {children}
+          <Field
+            type="submit"
+            name="submit"
+            className="admin-about-us__submit-btn"
+            value={isNew ? "Создать преимущество" : "Подтвердить изменения"}
+          />
         </Form>
       )}
     </Formik>
   );
 };
 
-export default FormItemWorkStages;
+export default FormItemAboutUs;
