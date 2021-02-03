@@ -106,7 +106,6 @@ const FormItemAboutUs = ({
             labelClassName="admin-about-us__form-label"
             fieldClassName="admin-about-us__form-input"
             errorClassName="admin-about-us__form-error"
-            type="input"
             name="imgPath"
             errors={errors}
             labelName="Путь к картинке"
@@ -120,7 +119,6 @@ const FormItemAboutUs = ({
             }
             errorClassName="admin-about-us__form-error"
             as={isMain ? "textarea" : "input"}
-            type={isMain ? "textarea" : "input"}
             name={isMain ? "text" : "title"}
             errors={errors}
             labelName={isMain ? "Текстовый контент" : "Подпись к картинке"}
