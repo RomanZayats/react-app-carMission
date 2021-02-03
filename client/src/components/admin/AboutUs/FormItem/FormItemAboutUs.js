@@ -32,52 +32,17 @@ const validationSchemaCreator = (inputName) => {
   });
 };
 
-const FormItemAboutUs = ({ sourceObj, isNew }) => {
+const FormItemAboutUs = ({
+  sourceObj,
+  isNew,
+  children,
+  put,
+  post,
+  uploadToS3,
+  file,
+}) => {
   const { imgPath, title, text, isMain } = sourceObj;
   const dispatch = useDispatch();
-  const [isDeleted, setIsDeleted] = useState(false);
-  const [fileReady, setFileReady] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleDeleteFromDB = async (e) => {
-    e.preventDefault();
-
-    const deleted = await axios
-      .delete(`/api/features/delete/${sourceObj._id}`)
-      .catch((err) => {
-        toastr.error(err.message);
-      });
-
-    if (deleted.status === 200) {
-      toastr.success("Успешно", "Преимущество удалено из базы данных");
-      dispatch(filterAboutUs(sourceObj._id));
-    } else {
-      toastr.warning("Хм...", "Что-то пошло не так");
-    }
-  };
-
-  const handleDeleteNew = (e) => {
-    e.preventDefault();
-    setIsDeleted(true);
-    toastr.success("Успешно", "Преимущество удалено до внесения в базу данных");
-  };
-
-  const uploadImgAndUpdateStore = async (values, id) => {
-    const res = await axios
-      .post(`/api/features/upload/${id}`, fileReady, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .catch((err) => {
-        toastr.error(err.message);
-      });
-
-    dispatch(updateFeaturesByNewSrc(res.data.location, id));
-    setFileReady(null);
-    values.imgPath = res.data.location;
-    toastr.success("Успешно", "Изображение загружено");
-  };
 
   const updateFeatureTexts = async (values) => {
     const updatedObj = {
@@ -85,11 +50,7 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
       ...values,
     };
 
-    const updatedFeature = await axios
-      .put(`/api/features/${sourceObj._id}`, updatedObj)
-      .catch((err) => {
-        toastr.error(err.message);
-      });
+    const updatedFeature = await put(updatedObj);
 
     if (updatedFeature.status === 200) {
       dispatch(updateFeaturesByNewObject(updatedFeature.data, sourceObj._id));
@@ -100,31 +61,25 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
   };
 
   const handleUpdate = (values) => {
-    if (fileReady && checkIsInputChanges(values, sourceObj)) {
-      uploadImgAndUpdateStore(values, sourceObj._id);
-    } else if (!fileReady && !checkIsInputChanges(values, sourceObj)) {
+    if (file && checkIsInputChanges(values, sourceObj)) {
+      uploadToS3(values, sourceObj._id);
+    } else if (!file && !checkIsInputChanges(values, sourceObj)) {
       updateFeatureTexts(values);
-    } else if (fileReady && !checkIsInputChanges(values, sourceObj)) {
-      uploadImgAndUpdateStore(values, sourceObj._id).then(() =>
-        updateFeatureTexts(values)
-      );
+    } else if (file && !checkIsInputChanges(values, sourceObj)) {
+      uploadToS3(values, sourceObj._id).then(() => updateFeatureTexts(values));
     } else {
       toastr.warning("Сообщение", "Ничего не изменилось");
     }
   };
 
   const handlePostToDB = async (values) => {
-    if (values.imgPath || fileReady) {
+    if (values.imgPath || file) {
       const newObj = { ...values, isMain: false };
-      const newFeature = await axios
-        .post("/api/features/", newObj)
-        .catch((err) => {
-          toastr.error(err.message);
-        });
+      const newFeature = await post(newObj);
 
       if (newFeature.status === 200) {
-        if (fileReady) {
-          await uploadImgAndUpdateStore(values, newFeature.data._id);
+        if (file) {
+          await uploadToS3(values, newFeature.data._id);
         }
 
         toastr.success("Успешно", "Преимущество добавлено в базу данных");
@@ -138,15 +93,6 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
       toastr.warning("Warning", "Не добавлено изображение или путь к нему");
     }
   };
-
-  const openConfirmModal = (e) => {
-    e.preventDefault();
-    setIsModalOpen(true);
-  };
-
-  if (isDeleted) {
-    return null;
-  }
 
   return (
     <Formik
@@ -187,26 +133,12 @@ const FormItemAboutUs = ({ sourceObj, isNew }) => {
             errors={errors}
             labelName={isMain ? "Текстовый контент" : "Подпись к картинке"}
           />
-          <AdminDropZone
-            imgURL={imgPath}
-            setFile={setFileReady}
-            file={fileReady}
-          />
+          {children}
           <Field
             type="submit"
             name="submit"
             className="admin-about-us__submit-btn"
             value={isNew ? "Создать преимущество" : "Подтвердить изменения"}
-          />
-          <Button
-            className="admin-about-us__delete-btn"
-            text="&#10005;"
-            onClick={openConfirmModal}
-          />
-          <ModalDeleteConfirmation
-            isOpen={isModalOpen}
-            setIsOpen={setIsModalOpen}
-            deleteHandler={isNew ? handleDeleteNew : handleDeleteFromDB}
           />
         </Form>
       )}
