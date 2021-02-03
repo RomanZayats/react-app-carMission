@@ -5,7 +5,11 @@ import FormItemBlogs from "../FormItem/FormItemBlogs";
 import SectionHeading from "../../../generalComponents/SectionHeading/SectionHeading";
 import "./FormContainerBlogs.scss";
 import Button from "../../../generalComponents/Button/Button";
-import {filterBlogs, updateBlogByNewSrc} from "../../../../store/Blogs/operations";
+import {
+  filterBlogs,
+  updateBlogByNewSrc,
+} from "../../../../store/Blogs/operations";
+import enhanceFormItem from "../../../hoc/enhanceFromItem";
 
 const config = {
   dropZone: true,
@@ -29,10 +33,12 @@ const FormContainerBlogs = () => {
 
   useEffect(() => {
     const mapFormToRender = () => {
-      return data.map((review) => {
-        return <FormItemBlogs obj={review} key={review._id} />;
+      return data.map((blog) => {
+        const Enhanced = enhanceFormItem(FormItemBlogs, config);
+        return <Enhanced sourceObj={blog} key={blog._id} />;
       });
     };
+
     setFormList(mapFormToRender());
   }, [data]);
 
@@ -45,8 +51,8 @@ const FormContainerBlogs = () => {
       buttonText: "",
       date: "",
     };
-
-    return <FormItemBlogs obj={empty} isNew key={Date.now()} />;
+    const Enhanced = enhanceFormItem(FormItemBlogs, config);
+    return <Enhanced sourceObj={empty} isNew key={Date.now()} />;
   };
 
   const handleAddItem = () => {
