@@ -5,6 +5,23 @@ import FormItemBlogs from "../FormItem/FormItemBlogs";
 import SectionHeading from "../../../generalComponents/SectionHeading/SectionHeading";
 import "./FormContainerBlogs.scss";
 import Button from "../../../generalComponents/Button/Button";
+import {filterBlogs, updateBlogByNewSrc} from "../../../../store/Blogs/operations";
+
+const config = {
+  dropZone: true,
+  canBeDeleted: true,
+  pathProp: "photo",
+  routes: {
+    post: "/api/blogs/",
+    put: "/api/blogs/",
+    delete: "/api/blogs/delete/",
+    upload: "/api/blogs/upload/",
+  },
+  actions: {
+    filterDeleted: filterBlogs,
+    updateS3Link: updateBlogByNewSrc,
+  },
+};
 
 const FormContainerBlogs = () => {
   const [formList, setFormList] = useState([]);

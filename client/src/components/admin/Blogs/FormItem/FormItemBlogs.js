@@ -11,8 +11,8 @@ import { addNewBlog } from "../../../../store/Blogs/actions";
 import { filterBlogs } from "../../../../store/Blogs/operations";
 import ModalDeleteConfirmation from "../../ModalDeleteConfirmation/ModalDeleteConfirmation";
 
-const FormItemBlogs = ({ obj, isNew }) => {
-  const { photo, title, text, fullText, buttonText, date } = obj;
+const FormItemBlogs = ({ sourceObj, isNew }) => {
+  const { photo, title, text, fullText, buttonText, date } = sourceObj;
 
   const dispatch = useDispatch();
   const [isDeleted, setIsDeleted] = useState(false);
@@ -22,14 +22,17 @@ const FormItemBlogs = ({ obj, isNew }) => {
     e.preventDefault();
 
     const deleted = await axios
-      .delete(`/api/blogs/delete/${obj._id}`)
+      .delete(`/api/blogs/delete/${sourceObj._id}`)
       .catch((err) => {
         toastr.error(err.message);
       });
 
     if (deleted.status === 200) {
-      toastr.success("Успешно", `Блог с id "${obj._id}" удалён c базы данных`);
-      dispatch(filterBlogs(obj._id));
+      toastr.success(
+        "Успешно",
+        `Блог с id "${sourceObj._id}" удалён c базы данных`
+      );
+      dispatch(filterBlogs(sourceObj._id));
     } else {
       toastr.warning("Хм...", "Что-то пошло не так");
     }
@@ -43,17 +46,20 @@ const FormItemBlogs = ({ obj, isNew }) => {
 
   const handleUpdate = async (values) => {
     const updatedObj = {
-      ...obj,
+      ...sourceObj,
       ...values,
     };
     const updatedBlog = await axios
-      .put(`/api/blogs/${obj._id}`, updatedObj)
+      .put(`/api/blogs/${sourceObj._id}`, updatedObj)
       .catch((err) => {
         toastr.error(err.message);
       });
 
     if (updatedBlog.status === 200) {
-      toastr.success("Успешно", `Блог с id "${obj._id}" изменён в базе данных`);
+      toastr.success(
+        "Успешно",
+        `Блог с id "${sourceObj._id}" изменён в базе данных`
+      );
     } else {
       toastr.warning("Хм...", "Что-то пошло не так");
     }

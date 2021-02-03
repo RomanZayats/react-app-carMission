@@ -24,3 +24,37 @@ export const filterReviews = (id) => (dispatch, getStore) => {
   const filtered = reviews.filter((review) => review._id !== id);
   dispatch(updateReviews(filtered));
 };
+
+export const updateReviewByNewSrc = (src, id) => (dispatch, getStore) => {
+  const reviews = getReviews(getStore());
+
+  const updated = reviews.map((review) => {
+    if (review._id === id) {
+      return {
+        ...review,
+        customerPhoto: src,
+      };
+    } else {
+      return review;
+    }
+  });
+
+  dispatch(updateReviews(updated));
+};
+
+export const updateBlogsByNewObject = (newReview, id) => (
+  dispatch,
+  getStore
+) => {
+  const reviews = getReviews(getStore());
+
+  const updated = reviews.map((review) => {
+    if (review._id === id) {
+      return newReview;
+    } else {
+      return review;
+    }
+  });
+
+  dispatch(updateReviews(updated));
+};
