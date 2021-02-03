@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, Field } from "formik";
 import AdminFormField from "../../AdminFormField/AdminFormField";
 import { useDispatch } from "react-redux";
@@ -7,7 +7,7 @@ import "./FormItemBlogs.scss";
 import { toastr } from "react-redux-toastr";
 import { addNewBlog } from "../../../../store/Blogs/actions";
 import { checkIsInputNotChanges } from "../../../../utils/functions/checkIsInputNotChanges";
-import {updateBlogsByNewObject} from "../../../../store/Blogs/operations";
+import { updateBlogsByNewObject } from "../../../../store/Blogs/operations";
 
 const FormItemBlogs = ({
   sourceObj,
@@ -30,7 +30,7 @@ const FormItemBlogs = ({
     const updatedBlog = await put(updatedObj);
 
     if (updatedBlog.status === 200) {
-      dispatch(updateBlogsByNewObject(updatedBlog.data, sourceObj._id));
+      dispatch(updateBlogsByNewObject(updatedBlog.data));
       toastr.success(
         "Успешно",
         `Блог с id "${sourceObj._id}" изменён в базе данных`

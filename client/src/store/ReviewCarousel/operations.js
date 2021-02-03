@@ -42,14 +42,11 @@ export const updateReviewByNewSrc = (src, id) => (dispatch, getStore) => {
   dispatch(updateReviews(updated));
 };
 
-export const updateBlogsByNewObject = (newReview, id) => (
-  dispatch,
-  getStore
-) => {
+export const updateReviewByNewObject = (newReview) => (dispatch, getStore) => {
   const reviews = getReviews(getStore());
 
   const updated = reviews.map((review) => {
-    if (review._id === id) {
+    if (review._id === newReview._id) {
       return newReview;
     } else {
       return review;

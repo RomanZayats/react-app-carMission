@@ -42,11 +42,11 @@ export const updateBlogByNewSrc = (src, id) => (dispatch, getStore) => {
   dispatch(updateBlogs(updated));
 };
 
-export const updateBlogsByNewObject = (newBlog, id) => (dispatch, getStore) => {
+export const updateBlogsByNewObject = (newBlog) => (dispatch, getStore) => {
   const blogs = getBlogs(getStore());
 
   const updated = blogs.map((blog) => {
-    if (blog._id === id) {
+    if (blog._id === newBlog._id) {
       return newBlog;
     } else {
       return blog;
