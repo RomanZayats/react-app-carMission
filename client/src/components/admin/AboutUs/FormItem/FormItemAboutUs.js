@@ -1,21 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, Field } from "formik";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import * as yup from "yup";
 import "./FormItemAboutUs.scss";
 import AdminFormField from "../../AdminFormField/AdminFormField";
-import Button from "../../../generalComponents/Button/Button";
 import { toastr } from "react-redux-toastr";
-import {
-  filterAboutUs,
-  updateFeaturesByNewObject,
-  updateFeaturesByNewSrc,
-} from "../../../../store/aboutUs/operations";
+import { updateFeaturesByNewObject } from "../../../../store/aboutUs/operations";
 import { addNewFeature } from "../../../../store/aboutUs/actions";
-import AdminDropZone from "../../AdminDropZone/AdminDropZone";
 import { checkIsInputChanges } from "../../../../utils/functions/checkIsInputChanges";
-import ModalDeleteConfirmation from "../../ModalDeleteConfirmation/ModalDeleteConfirmation";
 
 const validationSchemaCreator = (inputName) => {
   return yup.object().shape({
