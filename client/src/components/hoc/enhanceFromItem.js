@@ -82,8 +82,8 @@ const enhanceFormItem = (Component, config) => {
       <Component
         put={createPutRequest}
         post={createPostRequest}
-        uploadToS3={uploadImgAndUpdateStore}
-        file={fileReady}
+        uploadToS3={dropZone && uploadImgAndUpdateStore}
+        file={dropZone && fileReady}
         {...props}
       >
         {dropZone && (
