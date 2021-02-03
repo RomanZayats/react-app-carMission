@@ -6,14 +6,14 @@ import "./FormItemServicePackages.scss";
 import { useDispatch } from "react-redux";
 import { addPackages } from "../../../../store/servicePackages/actions";
 import AdminServiceList from "../AdminServiceList/AdminServiceList";
-import { checkIsInputChanges } from "../../../../utils/functions/checkIsInputChanges";
+import { checkIsInputNotChanges } from "../../../../utils/functions/checkIsInputNotChanges";
 
 const FormItemServicePackages = ({ sourceObj, isNew, children, put, post }) => {
   const { name, price, currency, serviceList } = sourceObj;
   const dispatch = useDispatch();
 
   const handleUpdate = async (values) => {
-    if (!checkIsInputChanges(values, sourceObj)) {
+    if (!checkIsInputNotChanges(values, sourceObj)) {
       const updatedObj = {
         ...sourceObj,
         ...values,

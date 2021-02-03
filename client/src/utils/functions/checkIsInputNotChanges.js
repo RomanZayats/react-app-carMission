@@ -1,4 +1,4 @@
-export const checkIsInputChanges = (values, sourceObj) => {
+export const checkIsInputNotChanges = (values, sourceObj) => {
   let isNotChanged;
   for (const key in values) {
     if (sourceObj[key] === values[key]) {
