@@ -51,28 +51,9 @@ const ServicePackages = ({ heading, anchorName }) => {
     swipeToSlide: true,
     responsive: [
       {
-        breakpoint: 1281,
-        settings: {
-          dots: true,
-          infinite: true,
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 1009,
-        settings: {
-          dots: true,
-          infinite: true,
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          arrows: false,
-        },
-      },
-      {
         breakpoint: 898,
         settings: {
-          dots: true,
+          dots: false,
           infinite: true,
           slidesToShow: 2,
           slidesToScroll: 1,
