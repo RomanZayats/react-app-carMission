@@ -54,7 +54,7 @@ const FormContainerAdminUsers = () => {
 
   return (
     <div className="admin-stages">
-      <SectionHeading text="Этапы сотрудничества" />
+      <SectionHeading text="Администраторы" />
       <div className="admin-stages__form-container">{formList}</div>
       <Button
         text="+"

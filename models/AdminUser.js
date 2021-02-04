@@ -12,6 +12,14 @@ const AdminUserSchema = new Schema({
     type: String,
     required: true,
   },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  isOwner: {
+    type: Boolean,
+    default: false,
+  },
   login: {
     type: String,
     required: true,
@@ -33,4 +41,4 @@ AdminUserSchema.methods.comparePassword = function (candidatePassword, cb) {
   });
 };
 
-module.exports = Customer = mongoose.model("admin-users", AdminUserSchema);
+module.exports = AdminUser = mongoose.model("admin-users", AdminUserSchema);

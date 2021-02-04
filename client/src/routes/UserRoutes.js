@@ -24,6 +24,10 @@ const UserRoutes = () => {
         path="/catalog-in-stock/:carId"
         render={() => <p>full info for car in stock</p>}
       />
+      <Route
+        path="/users/registration/invite"
+        render={() => <p>registration form</p>}
+      />
       <Route path="*" component={Page404} />
     </Switch>
   );

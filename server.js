@@ -35,6 +35,7 @@ const logo = require("./routes/logo");
 const socialNetworks = require("./routes/socialNetworks");
 const feedbacks = require("./routes/feedbacks");
 const adminUsers = require("./routes/adminUsers");
+const invites = require("./routes/invites");
 
 const app = express();
 
@@ -92,6 +93,7 @@ app.use("/api/service-packages", servicePackages);
 app.use("/api/features", features);
 app.use("/api/social-networks", socialNetworks);
 app.use("/api/feedbacks", feedbacks);
+app.use("/api/invites", invites);
 
 // Set static folder
 app.use(express.static("client/build"));
