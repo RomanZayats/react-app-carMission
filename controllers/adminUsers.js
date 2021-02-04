@@ -105,6 +105,8 @@ exports.loginAdmin = async (req, res, next) => {
             id: admin.id,
             firstName: admin.firstName,
             lastName: admin.lastName,
+            isAdmin: admin.isAdmin,
+            isOwner: admin.isOwner,
           }; // Create JWT Payload
 
           // Sign Token

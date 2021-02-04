@@ -5,11 +5,13 @@ import "./FormContainerAdminUsers.scss";
 import Button from "../../../generalComponents/Button/Button";
 import axios from "axios";
 import { toastr } from "react-redux-toastr";
+import InviteForm from "../InviteForm/InviteForm";
+import { decodeUser } from "../../../../utils/functions/decodeUser";
 
 const FormContainerAdminUsers = () => {
   const [formList, setFormList] = useState([]);
   // const [admins, setAdmins] = useState([]);
-
+  const { decoded } = decodeUser();
   const mapFormToRender = (admins) => {
     const forms = admins.map((admin) => {
       return <FormItemAdminUsers sourceObj={admin} key={admin._id} />;
@@ -55,12 +57,15 @@ const FormContainerAdminUsers = () => {
   return (
     <div className="admin-stages">
       <SectionHeading text="Администраторы" />
+      <InviteForm />
       <div className="admin-stages__form-container">{formList}</div>
-      <Button
-        text="+"
-        className="admin-stages__add-btn"
-        onClick={handleAddItem}
-      />
+      {decoded.isOwner && (
+        <Button
+          text="+"
+          className="admin-stages__add-btn"
+          onClick={handleAddItem}
+        />
+      )}
     </div>
   );
 };
