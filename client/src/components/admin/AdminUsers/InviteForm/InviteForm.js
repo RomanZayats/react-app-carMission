@@ -4,6 +4,7 @@ import AdminFormField from "../../AdminFormField/AdminFormField";
 import * as yup from "yup";
 import axios from "axios";
 import { toastr } from "react-redux-toastr";
+import "./InviteForm.scss";
 
 const inviteSchema = yup.object().shape({
   email: yup.string("Введите текст").email("Invalid email"),
@@ -33,12 +34,12 @@ const InviteForm = () => {
       onSubmit={handleSubmit}
     >
       {({ errors }) => (
-        <Form className="admin-stages__form-item">
+        <Form className="invite-form">
           <AdminFormField
-            labelClassName="admin-stages__form-label"
-            fieldClassName="admin-stages__form-input"
-            errorClassName="admin-stages__form-error"
-            type="text"
+            labelClassName="invite-form__label"
+            fieldClassName="invite-form__input"
+            errorClassName="invite-form__error"
+            type="email"
             name="email"
             errors={errors}
             labelName="Email для приглашения"
@@ -46,7 +47,7 @@ const InviteForm = () => {
           <Field
             type="submit"
             name="submit"
-            className="admin-stages__submit-btn"
+            className="invite-form__submit-btn"
             value="Отправить приглашение"
           />
         </Form>

@@ -7,9 +7,11 @@ import axios from "axios";
 import { toastr } from "react-redux-toastr";
 import InviteForm from "../InviteForm/InviteForm";
 import { decodeUser } from "../../../../utils/functions/decodeUser";
+import AdminModal from "../../AdminModal/AdminModal";
 
 const FormContainerAdminUsers = () => {
   const [formList, setFormList] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   // const [admins, setAdmins] = useState([]);
   const { decoded } = decodeUser();
   const mapFormToRender = (admins) => {
@@ -57,15 +59,21 @@ const FormContainerAdminUsers = () => {
   return (
     <div className="admin-stages">
       <SectionHeading text="Администраторы" />
-      <InviteForm />
       <div className="admin-stages__form-container">{formList}</div>
       {decoded.isOwner && (
         <Button
           text="+"
           className="admin-stages__add-btn"
-          onClick={handleAddItem}
+          onClick={() => setIsModalOpen(true)}
         />
       )}
+      <AdminModal
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        head="Приглашение пользователя"
+      >
+        <InviteForm />
+      </AdminModal>
     </div>
   );
 };

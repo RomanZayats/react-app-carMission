@@ -14,3 +14,17 @@
   line-height: 52px;
   text-align: center;
 }
+
+@mixin admin-submit-btn {
+  padding: 10px 20px;
+  font-family: $content-font;
+  background: darkseagreen;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    background: greenyellow;
+  }
+}
