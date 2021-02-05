@@ -26,9 +26,9 @@ export const validationSchema = yup.object().shape({
     .typeError("Введите текст")
     .strict(true)
     .required("Обязательное поле"),
-  date: yup
-    .string("Введите текст")
-    .typeError("Введите текст")
-    .strict(true)
-    .required("Обязательное поле"),
+  // date: yup
+  //   .string("Введите текст")
+  //   .typeError("Введите текст")
+  //   .strict(true)
+  //   .required("Обязательное поле"),
 });

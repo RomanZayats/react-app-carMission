@@ -25,10 +25,8 @@ const BlogSchema = new Schema(
       type: String,
       required: true
     },
-
     date: {
       type: String,
-      default: Date.now
     }
   }
 );

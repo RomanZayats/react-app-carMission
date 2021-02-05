@@ -25,8 +25,7 @@ const FormContainerBlogs = () => {
       title: "",
       text: "",
       fullText: "",
-      buttonText: "",
-      date: "",
+      buttonText: "ПОДРОБНЕЕ",
     };
 
     return <FormItemBlogs obj={empty} isNew key={Date.now()} />;

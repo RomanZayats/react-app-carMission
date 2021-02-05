@@ -4,6 +4,17 @@ import "./BlogItem.scss";
 import Image from "../../Image/Image";
 
 const BlogItem = ({ src, title, text, fullText, buttonText, date, onClick }) => {
+  const correctDate = new Date(+date);
+
+  const correctNums = (day) => {
+    let num = day ? correctDate.getDate() : correctDate.getMonth() + 1;
+    if(num < 10) {
+      num = "0" + num;
+    }
+    return num
+  }
+  const dateDDMMYYY = correctNums(true) + "." + correctNums() + "." + correctDate.getFullYear();
+
   return (
     <div className="blog-item__wrapper">
       <div className="blog-item__img">
@@ -14,7 +25,7 @@ const BlogItem = ({ src, title, text, fullText, buttonText, date, onClick }) => 
         <p data-testid="blog-item__text" className="blog-item__text">{text}</p>
         <div className="blog-item__additionally">
           <button data-testid="btn" className="blog-item__btn" onClick={onClick}>{buttonText}</button>
-          <p className="blog-item__date">{date}</p>
+          <p className="blog-item__date">{dateDDMMYYY}</p>
         </div>
       </div>
 

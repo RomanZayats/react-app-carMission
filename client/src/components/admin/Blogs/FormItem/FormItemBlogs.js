@@ -10,6 +10,7 @@ import { toastr } from "react-redux-toastr";
 import { addNewBlog } from "../../../../store/Blogs/actions";
 import { filterBlogs } from "../../../../store/Blogs/operations";
 import ModalDeleteConfirmation from "../../ModalDeleteConfirmation/ModalDeleteConfirmation";
+import { now } from "mongoose";
 
 const FormItemBlogs = ({ obj, isNew }) => {
   const { photo, title, text, fullText, buttonText, date } = obj;
@@ -17,6 +18,7 @@ const FormItemBlogs = ({ obj, isNew }) => {
   const dispatch = useDispatch();
   const [isDeleted, setIsDeleted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLiftUpItem, setIsLiftUpItem] = useState(false);
 
   const handleDeleteFromDB = async (e) => {
     e.preventDefault();
@@ -42,6 +44,7 @@ const FormItemBlogs = ({ obj, isNew }) => {
   };
 
   const handleUpdate = async (values) => {
+    values.date = Date.now();
     const updatedObj = {
       ...obj,
       ...values,
@@ -60,6 +63,8 @@ const FormItemBlogs = ({ obj, isNew }) => {
   };
 
   const handleAddToDB = async (values) => {
+    values.date = Date.now();
+    console.log(values)
     const newBlog = await axios.post("/api/blogs/", values).catch((err) => {
       toastr.error(err.message);
     });
@@ -116,7 +121,7 @@ const FormItemBlogs = ({ obj, isNew }) => {
             type="textarea"
             name="text"
             errors={errors}
-            labelName="Краткий текст блога"
+            labelName="Краткое описание блога"
           />
           <AdminFormField
             as="textarea"
@@ -137,7 +142,7 @@ const FormItemBlogs = ({ obj, isNew }) => {
             errors={errors}
             labelName="Текст на кнопке"
           />
-          <AdminFormField
+          {/* <AdminFormField
             labelClassName="admin-blogs__form-label"
             fieldClassName="admin-blogs__form-input"
             errorClassName="admin-blogs__form-error"
@@ -145,7 +150,7 @@ const FormItemBlogs = ({ obj, isNew }) => {
             name="date"
             errors={errors}
             labelName="Дата"
-          />
+          /> */}
           <Field
             disabled={isSubmitting}
             type="submit"
