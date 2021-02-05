@@ -9,7 +9,6 @@ import SectionHeading from "../../components/generalComponents/SectionHeading/Se
 
 const BlogPage = () => {
   const mainClassName = "blog";
-  // const history = useHistory();
   // const path = history.pathname;
   // console.log(history)
   // const blogId =
@@ -20,10 +19,10 @@ const BlogPage = () => {
     <div className={`${mainClassName}-page`}>
       <div className={`${mainClassName}-content`}>
         <Image />
-        <SectionHeading />
+        <SectionHeading text=""/>
 
 
-        {/* <Blogs /> */}
+        {/* <Blogs heading="" anchorName="#"/> */}
       </div>
     </div>
   );

@@ -14,8 +14,8 @@ const UserRoutes = () => {
         path="/catalog-in-stock"
         render={() => <p>cars in stock</p>}
       />
-      {/* <Route exact path="/blog/:id" render={BlogPage} /> */}
-      <Route exact path="/blog" render={BlogPage} />
+      <Route exact path="/blog/1234" render={BlogPage} />
+      {/* <Route exact path="/blog" render={BlogPage} /> */}
       <Route
         exact
         path="/catalog-usa/:carId"
