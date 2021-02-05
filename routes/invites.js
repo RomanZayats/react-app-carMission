@@ -3,12 +3,12 @@ const router = express.Router();
 const passport = require("passport");
 
 //Import controllers
-const { addInvite, getInvite } = require("../controllers/invites");
+const { addInvite, validateInvite } = require("../controllers/invites");
 
-// @route   GET /navbar
+// @route   GET /invite
 // @desc    GET existing navbar items
 // @access  Public
-router.get("/:uuid", getInvite);
+router.post("/validate", validateInvite);
 
 // @route   POST /navbar
 // @desc    Create new navbar item

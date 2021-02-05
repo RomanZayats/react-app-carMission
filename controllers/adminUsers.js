@@ -7,8 +7,11 @@ const passport = require("passport");
 const uniqueRandom = require("unique-random");
 const rand = uniqueRandom(10000000, 99999999);
 
-// Load Customer model
+// Load Admin model
 const Admin = require("../models/AdminUser");
+
+// Load Invite model
+const Invite = require("../models/Invite");
 
 // Load validation helper to validate all received fields
 const validateRegistrationForm = require("../validation/validationHelper");
@@ -19,22 +22,23 @@ const queryCreator = require("../commonHelpers/queryCreator");
 // Controller for creating customer and saving to DB
 exports.createAdmin = (req, res, next) => {
   // Clone query object, because validator module mutates req.body, adding other fields to object
-  const initialQuery = _.cloneDeep(req.body);
+  const initialQuery = _.cloneDeep(req.body.user);
+  const initialQueryInvite = _.cloneDeep(req.body.invite);
   initialQuery.customerNo = rand();
 
   // Check Validation
-  const { errors, isValid } = validateRegistrationForm(req.body);
+  const { errors, isValid } = validateRegistrationForm(req.body.user);
 
   if (!isValid) {
     return res.status(400).json(errors);
   }
 
   Admin.findOne({
-    login: req.body.login,
+    login: req.body.user.login,
   })
     .then((admin) => {
       if (admin) {
-        if (admin.login === req.body.login) {
+        if (admin.login === req.body.user.login) {
           return res
             .status(400)
             .json({ message: `Login ${admin.login} already exists"` });
@@ -57,7 +61,20 @@ exports.createAdmin = (req, res, next) => {
           newAdmin.password = hash;
           newAdmin
             .save()
-            .then((admin) => res.json(admin))
+            .then((admin) => {
+              Invite.deleteOne({
+                uuid: req.body.invite.uuid,
+                email: req.body.invite.email,
+              })
+                .then(() => {
+                  res.status(200).json(admin);
+                })
+                .catch((err) =>
+                  res.status(400).json({
+                    message: `Error happened on server: "${err}" `,
+                  })
+                );
+            })
             .catch((err) =>
               res.status(400).json({
                 message: `Error happened on server: "${err}" `,

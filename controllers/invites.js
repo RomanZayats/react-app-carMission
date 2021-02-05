@@ -26,9 +26,18 @@ exports.addInvite = async (req, res, next) => {
     );
 };
 
-exports.getInvite = (req, res, next) => {
-  Invite.find()
-    .then((data) => res.send(data))
+exports.validateInvite = (req, res, next) => {
+  const { uuid, email } = req.body;
+  Invite.findOne({ uuid, email })
+    .then((invite) => {
+      if (!invite) {
+        res.status(400).json({
+          message: "Error! There is no such invite",
+        });
+      } else {
+        res.status(200).json({ message: "Invite confirmed" });
+      }
+    })
     .catch((err) =>
       res.status(400).json({
         message: `Error happened on server: "${err}" `,
