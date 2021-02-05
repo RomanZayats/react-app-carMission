@@ -12,19 +12,13 @@ import Loader from "../Loader/Loader";
 import useLiveHashPush from "../../utils/hooks/useLiveHashPush";
 
 const Blogs = ({ heading, anchorName }) => {
-  const [numOfBlogs, setNumOfBlogs] = useState(3);
-  const [sortBlogs, setSortBlogs] = useState([]);
+  const [countOfBlogs, setCountOfBlogs] = useState(3);
   const blogs = useSelector(getBlogs);
   const isLoading = useSelector(getBlogsIsLoading);
   const ref = useLiveHashPush(anchorName);
+  const numOfBlogs = blogs.length;
 
-  useEffect(() => {
-    const newBlogs = blogs.sort((a, b) => {
-      return a.date === b.date ? 0 : a.date ? -1 : 1;
-    });
-    setSortBlogs(newBlogs);
-  })
-  const allBlogs = sortBlogs.map((el) => (
+  const allBlogs = blogs.map((el) => (
     <BlogItem
       BlogCard={el}
       key={el._id}
@@ -34,22 +28,26 @@ const Blogs = ({ heading, anchorName }) => {
       fullText={el.fullText}
       buttonText={el.buttonText}
       date={el.date}
+      onClick={() => alert("Подождите еще немножко, сайт в разработке =)")}
+      // Тут нужно что-то сделать
     />
   ));
 
   return (
     <section className="blogs__section" id={anchorName} ref={ref}>
-      <SectionHeading text={heading} />
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <div className="blogs__wrapper">
-            {allBlogs.slice(0, numOfBlogs)}
-          </div>
-          <Button text="Показать больше" onClick={() => setNumOfBlogs(numOfBlogs + 3)} />
-        </>
-      )}
+      <div className="blogs__container">
+        <SectionHeading text={heading} />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <div className="blogs__wrapper">
+              {allBlogs.slice(0, countOfBlogs)}
+            </div>
+            {numOfBlogs > countOfBlogs && <Button text="Показать больше статей" onClick={() => setCountOfBlogs(countOfBlogs + 3)} className="blogs__show-more"/>}
+          </>
+        )}
+      </div>
     </section>
   );
 };

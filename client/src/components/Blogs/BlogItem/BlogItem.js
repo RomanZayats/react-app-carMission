@@ -17,8 +17,8 @@ const BlogItem = ({ src, title, text, fullText, buttonText, date, onClick }) => 
 
   return (
     <div className="blog-item__wrapper">
-      <div className="blog-item__img">
-        <Image src={src} alt="photo"/>
+      <div className="blog-item__img-block">
+        <Image src={src} alt="photo" className="blog-item__img"/>
       </div>
       <div className="blog-item__info">
         <h5 className="blog-item__title">{title}</h5>

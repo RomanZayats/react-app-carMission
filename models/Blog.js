@@ -5,7 +5,6 @@ const BlogSchema = new Schema(
   {
     photo: {
       type: String,
-      required: true
     },
 
     title: {

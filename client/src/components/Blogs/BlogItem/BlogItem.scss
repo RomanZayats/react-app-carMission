@@ -9,10 +9,15 @@
     max-width: 1004px;
     margin: 0 auto 42px auto;
     background: #383841;
+    border-radius: 3px;
   }
   &__img{
-    display: flex;
-    overflow: hidden;
+    max-width: 360px;
+    border-radius: 3px;
+    &-block {
+      display: flex;
+      overflow: hidden;
+    }
   }
   &__info{
     display: flex;
