@@ -7,7 +7,7 @@ import AdminFormField from "../../AdminFormField/AdminFormField";
 import { toastr } from "react-redux-toastr";
 import { updateFeaturesByNewObject } from "../../../../store/aboutUs/operations";
 import { addNewFeature } from "../../../../store/aboutUs/actions";
-import { checkIsInputChanges } from "../../../../utils/functions/checkIsInputChanges";
+import { checkIsInputNotChanges } from "../../../../utils/functions/checkIsInputNotChanges";
 
 const validationSchemaCreator = (inputName) => {
   return yup.object().shape({
@@ -45,7 +45,7 @@ const FormItemAboutUs = ({
     const updatedFeature = await put(updatedObj);
 
     if (updatedFeature.status === 200) {
-      dispatch(updateFeaturesByNewObject(updatedFeature.data, sourceObj._id));
+      dispatch(updateFeaturesByNewObject(updatedFeature.data));
       toastr.success("Успешно", "Преимущество изменено в базе данных");
     } else {
       toastr.warning("Хм...", "Что-то пошло не так");
@@ -53,11 +53,11 @@ const FormItemAboutUs = ({
   };
 
   const handleUpdate = (values) => {
-    if (file && checkIsInputChanges(values, sourceObj)) {
+    if (file && checkIsInputNotChanges(values, sourceObj)) {
       uploadToS3(values, sourceObj._id);
-    } else if (!file && !checkIsInputChanges(values, sourceObj)) {
+    } else if (!file && !checkIsInputNotChanges(values, sourceObj)) {
       updateFeatureTexts(values);
-    } else if (file && !checkIsInputChanges(values, sourceObj)) {
+    } else if (file && !checkIsInputNotChanges(values, sourceObj)) {
       uploadToS3(values, sourceObj._id).then(() => updateFeatureTexts(values));
     } else {
       toastr.warning("Сообщение", "Ничего не изменилось");
