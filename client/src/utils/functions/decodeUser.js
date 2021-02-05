@@ -1,10 +1,14 @@
 import jwtDecode from "jwt-decode";
 
-export const decodeUser = () => {
-  const token = localStorage.getItem("token");
+export const decodeUser = (token) => {
   if (token) {
-    return { decoded: jwtDecode(token), token };
+    return jwtDecode(token);
   } else {
-    return {};
+    const tokenLocal = localStorage.getItem("token");
+    if (tokenLocal) {
+      return { decoded: jwtDecode(tokenLocal), token: tokenLocal };
+    } else {
+      return {};
+    }
   }
 };

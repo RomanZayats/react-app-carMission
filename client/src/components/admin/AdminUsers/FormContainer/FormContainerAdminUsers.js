@@ -38,24 +38,6 @@ const FormContainerAdminUsers = () => {
     getAdmins();
   }, []);
 
-  const createNewFormItem = () => {
-    const empty = {
-      num: "",
-      name: "",
-      iconSrc: "",
-    };
-
-    return <FormItemAdminUsers sourceObj={empty} isNew key={Date.now()} />;
-  };
-
-  const handleAddItem = () => {
-    const form = createNewFormItem();
-
-    const updated = formList.map((i) => i);
-    updated.push(form);
-    setFormList(updated);
-  };
-
   return (
     <div className="admin-stages">
       <SectionHeading text="Администраторы" />
