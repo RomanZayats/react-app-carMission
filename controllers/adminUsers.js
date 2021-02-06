@@ -120,6 +120,7 @@ exports.loginAdmin = async (req, res, next) => {
           // Customer Matched
           const payload = {
             id: admin.id,
+            login: admin.login,
             firstName: admin.firstName,
             lastName: admin.lastName,
             isAdmin: admin.isAdmin,
