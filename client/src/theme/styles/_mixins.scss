@@ -28,3 +28,9 @@
     background: greenyellow;
   }
 }
+
+@mixin form-error {
+  position: absolute;
+  top: 100%;
+  color: red;
+}

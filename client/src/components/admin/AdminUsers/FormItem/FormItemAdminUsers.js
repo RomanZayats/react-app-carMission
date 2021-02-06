@@ -1,7 +1,7 @@
 import React from "react";
 import "./FormItemAdminUsers.scss";
 
-import ChangePassForm from "../ChangePassForm/ChangePassForm";
+import ChangeCredForm from "../../AdminHeader/DropDownMenu/ChangeCredForm/ChangeCredForm";
 
 const FormItemAdminUsers = ({ sourceObj, isNew }) => {
   const { firstName, lastName, login } = sourceObj;
@@ -11,7 +11,7 @@ const FormItemAdminUsers = ({ sourceObj, isNew }) => {
       <p>{firstName}</p>
       <p>{lastName}</p>
       <p>{login}</p>
-      <ChangePassForm />
+      <ChangeCredForm />
     </div>
   );
 };

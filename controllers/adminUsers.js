@@ -120,7 +120,6 @@ exports.loginAdmin = async (req, res, next) => {
           // Customer Matched
           const payload = {
             id: admin.id,
-            login: admin.login,
             firstName: admin.firstName,
             lastName: admin.lastName,
             isAdmin: admin.isAdmin,
@@ -239,10 +238,10 @@ exports.editAdminInfo = (req, res) => {
 
       Admin.findOneAndUpdate(
         { _id: req.user.id },
-        { $set: updatedAdmin },
+        { $set: { login: updatedAdmin.login } },
         { new: true }
       )
-        .then((admin) => res.json(admin))
+        .then((admin) => res.status(200).json(admin))
         .catch((err) =>
           res.status(400).json({
             message: `Error happened on server: "${err}" `,
@@ -290,7 +289,7 @@ exports.updatePassword = (req, res) => {
               { new: true }
             )
               .then((admin) => {
-                res.json({
+                res.status(200).json({
                   message: "Password successfully changed",
                   customer: admin,
                 });

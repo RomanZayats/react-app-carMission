@@ -1,34 +1,17 @@
 import React from "react";
 import "./DropDownMenu.scss";
-import Button from "../../../generalComponents/Button/Button";
 import { decodeUser } from "../../../../utils/functions/decodeUser";
+import ChangeCredForm from "./ChangeCredForm/ChangeCredForm";
 
-const DropDownMenu = ({ setDropdown }) => {
-  const { firstName, lastName, login, id } = decodeUser().decoded;
-  console.log(login);
-  const triggerChangeLogin = () => {
-    setDropdown(false);
-    console.log("change login");
-  };
-  const triggerChangePass = () => {
-    setDropdown(false);
-    console.log("change password");
-  };
+const DropDownMenu = () => {
+  const { firstName, lastName, id } = decodeUser().decoded;
 
   return (
     <div className="dropdown-wrap">
       <span className="dropdown-wrap__name">{firstName}</span>
       <span className="dropdown-wrap__name">{lastName}</span>
-      <Button
-        className="dropdown-wrap__btn"
-        text="Изменить логин"
-        onClick={triggerChangeLogin}
-      />
-      <Button
-        className="dropdown-wrap__btn"
-        text="Изменить пароль"
-        onClick={triggerChangePass}
-      />
+      <ChangeCredForm id={id} isLogin />
+      <ChangeCredForm id={id} isPass />
     </div>
   );
 };
