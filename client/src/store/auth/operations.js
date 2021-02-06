@@ -10,6 +10,7 @@ export const checkToken = () => (dispatch) => {
       dispatch(setIsAuth(true));
     } else {
       dispatch(setIsAuth(false));
+      localStorage.removeItem("token");
     }
   } else {
     dispatch(setIsAuth(false));
