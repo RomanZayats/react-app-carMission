@@ -21,6 +21,9 @@ const AdminNavbar = () => {
     const allNumbersInNavbar = (arr) => arr.map((e) => ({ value: e.numberInNavbar, label: e.numberInNavbar}));
     const sectionsLink = (arr) => arr.map((e) => ({ value: e.name, label: e.name})).filter(e => e.value !== undefined);
 
+    const newSectionsData = sectionsData.map(e => ({sectionId: e.name, disabled: e.disabled}))
+    const newNavbarData = navbarData.map(e => ({sectionId: e.sectionId, disabled: e.disabled}))
+
 
     const createNewFormItem = () => {
         const newItemNumber = { value: nextNum, label: nextNum};
