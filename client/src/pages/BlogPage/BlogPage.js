@@ -11,8 +11,7 @@ const BlogPage = ({ match }) => {
   const blogsData = useSelector(getBlogs)
   const mainClassName = "blog-page";
   const blogId = match.params.id;
-  const filterBlogs = blogsData.filter(e => e._id === blogId);
-  const blog = filterBlogs.length === 1 ? filterBlogs[0] : false;
+  const blog = blogsData.find(e => e._id === blogId);
   const { fullText, date, photo, title } = blog;
   const correctDate = new Date(+date);
   const correctNums = (day) => {
