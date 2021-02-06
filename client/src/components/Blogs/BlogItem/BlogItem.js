@@ -2,8 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./BlogItem.scss";
 import Image from "../../Image/Image";
+import { Link } from "react-router-dom";
 
-const BlogItem = ({ src, title, text, fullText, buttonText, date, onClick }) => {
+const BlogItem = ({ src, title, text, linkText, date, id }) => {
   const correctDate = new Date(+date);
 
   const correctNums = (day) => {
@@ -24,7 +25,7 @@ const BlogItem = ({ src, title, text, fullText, buttonText, date, onClick }) => 
         <h5 className="blog-item__title">{title}</h5>
         <p data-testid="blog-item__text" className="blog-item__text">{text}</p>
         <div className="blog-item__additionally">
-          <button data-testid="btn" className="blog-item__btn" onClick={onClick}>{buttonText}</button>
+          <Link to={`/blog/${id}`} data-testid="link" className="blog-item__link">{linkText}</Link>
           <p className="blog-item__date">{dateDDMMYYY}</p>
         </div>
       </div>
@@ -38,7 +39,7 @@ BlogItem.propTypes = {
   src: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  buttonText: PropTypes.string.isRequired,
+  linkText: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
+  id: PropTypes.string.isRequired
 };

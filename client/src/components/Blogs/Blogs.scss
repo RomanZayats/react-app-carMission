@@ -3,10 +3,11 @@
 .blogs {
   &__container {
     @include content-block();
+    padding-bottom: 50px;
   }
   &__section {
     margin: 0 auto;
-    padding-bottom: 116px;
+    padding-bottom: 60px;
     background: #282832;
   }
 
