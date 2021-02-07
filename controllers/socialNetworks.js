@@ -91,4 +91,50 @@ exports.deleteSocialNetworksItem = (req, res, next) => {
   });
 };
 
+exports.uploadSocialNetworksIcon = async (req, res, next) => {
+  await updateS3Credentials();
+
+  const { id } = req.params;
+  uploadS3(req, res, (error) => {
+    if (error) {
+      res.status(400).json({
+        message: `Error happened on server: "${error}" `,
+      });
+    } else {
+      // If File not found
+      if (!req.file) {
+        res.status(400).json({ message: "No File Selected" });
+      } else {
+        // If Success
+        const imageName = req.file.key;
+        const imageLocation = req.file.location;
+
+        SocialNetworks.findOne({ _id: id }).then(async (item) => {
+          if (!item) {
+            return res.status(400).json({
+              message: `Social networks with id "${id}" is not found.`,
+            });
+          } else {
+            SocialNetworks.findOneAndUpdate(
+              { _id: id },
+              { $set: { iconSrc: imageLocation } },
+              { new: true }
+            )
+              .then(() =>
+                res.json({
+                  image: imageName,
+                  location: imageLocation,
+                })
+              )
+              .catch((err) =>
+                res.status(400).json({
+                  message: `Error happened on server: "${err}" `,
+                })
+              );
+          }
+        });
+      }
+    }
+  });
+};
 

@@ -7,7 +7,8 @@ const {
     addLogo,
     getLogo,
     deleteLogo,
-    updateLogoData
+    updateLogoData,
+    uploadLogoIcon,
 } = require("../controllers/logo");
 
 // @route   GET /logo
@@ -23,6 +24,15 @@ router.post(
     // passport.authenticate("jwt-admin", { session: false }),
     addLogo
 );
+
+// @route   POST /work-stages
+// @desc    Upload img to Amazon S3 and update url in DB
+// @access  Private
+router.post(
+    "/upload/:id",
+    passport.authenticate("jwt", { session: false }),
+    uploadLogoIcon
+);  
 
 // @route   PUT /logo/:id
 // @desc    Update existing logo data

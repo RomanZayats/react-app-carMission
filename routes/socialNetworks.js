@@ -8,7 +8,8 @@ const {
     getSocialNetworksData,
     getSocialNetworksItem,
     updateSocialNetworksItem,
-    deleteSocialNetworksItem
+    deleteSocialNetworksItem,
+    uploadSocialNetworksIcon,
 } = require("../controllers/socialNetworks");
 
 // @route   GET /social-networks
@@ -28,6 +29,15 @@ router.post(
     "/", 
     passport.authenticate("jwt", { session: false }),
     addSocialNetworksData
+);
+
+// @route   POST /social-networks
+// @desc    Upload img to Amazon S3 and update url in DB
+// @access  Private
+router.post(
+    "/upload/:id",
+    passport.authenticate("jwt", { session: false }),
+    uploadSocialNetworksIcon
 );
 
 // @route   PUT /social-networks/:id
