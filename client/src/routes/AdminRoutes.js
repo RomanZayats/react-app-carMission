@@ -10,7 +10,7 @@ import AdminNavbar from "../components/admin/AdminNavbar/AdminNavbar";
 import AdminLogo from "../components/admin/AdminLogo/AdminLogo";
 import AdminSocialNetworks from "../components/admin/AdminSocialNetworks/AdminSocialNetworks";
 import FormContainerBlogs from "../components/admin/Blogs/FormContainer/FormContainerBlogs";
-import FormContainerAdminUsers from "../components/admin/AdminUsers/FormContainer/FormContainerAdminUsers";
+import AdminsWrapper from "../components/admin/AdminUsers/AdminsWrapper/AdminsWrapper";
 import { decodeUser } from "../utils/functions/decodeUser";
 
 const AdminRoutes = () => {
@@ -58,9 +58,7 @@ const AdminRoutes = () => {
         path="/admin/calculator"
         component={FormContainerWorkStages}
       />
-      {isOwner && (
-        <Route exact path="/admin/users" component={FormContainerAdminUsers} />
-      )}
+      {isOwner && <Route exact path="/admin/users" component={AdminsWrapper} />}
       <Route path="*" component={Page404} />
     </Switch>
   );

@@ -28,6 +28,10 @@ const AdminUserSchema = new Schema({
     type: String,
     required: true,
   },
+  hidden: {
+    type: Boolean,
+    default: false,
+  },
   date: {
     type: Date,
     default: Date.now,

@@ -209,7 +209,7 @@ exports.editAdminInfo = (req, res) => {
     return res.status(400).json(errors);
   }
 
-  Admin.findOne({ _id: req.user.id })
+  Admin.findOne({ _id: req.params.id })
     .then((admin) => {
       if (!admin) {
         errors.id = "Customer not found";
@@ -237,11 +237,14 @@ exports.editAdminInfo = (req, res) => {
       const updatedAdmin = queryCreator(initialQuery);
 
       Admin.findOneAndUpdate(
-        { _id: req.user.id },
-        { $set: { login: updatedAdmin.login } },
+        { _id: req.params.id },
+        { $set: updatedAdmin },
         { new: true }
       )
-        .then((admin) => res.status(200).json(admin))
+        .then((admin) => {
+          const { password, ...rest } = admin._doc;
+          res.status(200).json(rest);
+        })
         .catch((err) =>
           res.status(400).json({
             message: `Error happened on server: "${err}" `,

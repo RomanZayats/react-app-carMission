@@ -34,3 +34,21 @@
   top: 100%;
   color: red;
 }
+
+@mixin add-form-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 60px;
+  height: 60px;
+  color: white;
+  font-size: 40px;
+  background: darkseagreen;
+  border: none;
+  border-radius: 30px;
+  transition: .3s;
+
+  &:hover {
+    background: greenyellow;
+  }
+}
