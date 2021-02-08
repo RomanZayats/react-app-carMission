@@ -17,13 +17,18 @@ const AdminNavbar = () => {
     const mainClassName = "admin-navbar";
     const nextNum = navbarData.length + 1;
     const sortByNumberInNavbar = (arr) => arr.sort((a, b) => +a.numberInNavbar > +b.numberInNavbar ? 1 : -1);
-
     const allNumbersInNavbar = (arr) => arr.map((e) => ({ value: e.numberInNavbar, label: e.numberInNavbar}));
     const sectionsLink = (arr) => arr.map((e) => ({ value: e.name, label: e.name})).filter(e => e.value !== undefined);
 
-    const newSectionsData = sectionsData.map(e => ({sectionId: e.name, disabled: e.disabled}))
-    const newNavbarData = navbarData.map(e => ({sectionId: e.sectionId, disabled: e.disabled}))
-
+    navbarData.map(e => {
+        if(e.sectionId) {
+            const isDisabled = sectionsData.find((i) => e.sectionId === i.name);
+            if(isDisabled !== undefined) {
+                e.disabled = isDisabled.disabled
+            }
+        }
+        return e;
+    })
 
     const createNewFormItem = () => {
         const newItemNumber = { value: nextNum, label: nextNum};
@@ -37,7 +42,7 @@ const AdminNavbar = () => {
                 footerLocationPlaceholder="Выберите расположение"
                 footerLocation=""
                 numberInNavbar={nextNum}
-                sectionIdPlaceholder="Выберите секцию"
+                sectionIdPlaceholder="Если не выбрано, при нажатии откроется модальное окно обратной связи"
                 sectionId=""
                 sectionsArr={sectionsLinkArr}
                 sectionsNumberInNavbar={sectionsNumberInNavbar}
@@ -76,7 +81,7 @@ const AdminNavbar = () => {
         setSectionsLinkArr(links)
         setSectionsNumberInNavbar(numbers);
         setNavbarList(mapFormToRender());
-    }, [navbarData]);
+    }, [navbarData, sectionsData]);
     
     const handleAddItem = () => {
         const form = createNewFormItem();
