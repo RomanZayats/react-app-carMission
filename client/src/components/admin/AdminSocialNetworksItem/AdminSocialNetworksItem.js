@@ -10,7 +10,6 @@ import { addNewSocialNetworks } from "../../../store/socialNetworks/actions";
 import PropTypes from "prop-types";
 import { checkIsInputNotChanges } from "../../../utils/functions/checkIsInputNotChanges";
 
-
 const socialNetworksSchema = yup.object().shape({
   name: yup
     .string("Введите текст")
