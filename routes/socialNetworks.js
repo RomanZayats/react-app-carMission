@@ -53,7 +53,7 @@ router.put(
 // @desc    DELETE existing social network item
 // @access  Private
 router.delete(
-    "/:id",
+    "/delete/:id",
     passport.authenticate("jwt", { session: false }),
     deleteSocialNetworksItem
 );

@@ -1,6 +1,12 @@
 const SocialNetworks = require("../models/SocialNetworks");
 const _ = require("lodash");
 const queryCreator = require("../commonHelpers/queryCreator");
+const {
+  updateS3Credentials,
+  upload,
+} = require("../commonHelpers/amazon-s3-upload");
+const uploadS3 = upload("social-networks");
+
 
 exports.addSocialNetworksData = (req, res, next) => {
     const newSocialNetworks = new SocialNetworks(req.body);

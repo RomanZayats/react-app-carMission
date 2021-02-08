@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, Field } from "formik";
 import { useDispatch } from "react-redux";
 import AdminFormField from "../AdminFormField/AdminFormField";
-import { filterSocialNetworks } from "../../../store/socialNetworks/operations";
+import { updateSocialNetworkNewObject } from "../../../store/socialNetworks/operations";
 import * as yup from "yup";
-import axios from "axios";
 import { toastr } from "react-redux-toastr";
-import Button from "../../generalComponents/Button/Button";
 import "./AdminSocialNetworksItem.scss";
 import { addNewSocialNetworks } from "../../../store/socialNetworks/actions";
 import PropTypes from "prop-types";
-import ModalDeleteConfirmation from "../ModalDeleteConfirmation/ModalDeleteConfirmation";
+import { checkIsInputNotChanges } from "../../../utils/functions/checkIsInputNotChanges";
+
 
 const socialNetworksSchema = yup.object().shape({
   name: yup
@@ -31,48 +30,51 @@ const socialNetworksSchema = yup.object().shape({
 });
 
 const AdminSocialNetworksItem = ({
-  isEnabled,
-  name,
-  id,
-  url,
-  iconSrc,
+  sourceObj,
   isNew,
+  children,
+  put,
+  post,
+  uploadToS3,
+  file,
   className,
-  namePlaceholder,
-  urlPlaceholder,
-  iconSrcPlaceholder,
 }) => {
-  const [isDeleted, setIsDeleted] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
+  const { isEnabled, name, id, url, iconSrc, namePlaceholder, urlPlaceholder, iconSrcPlaceholder } = sourceObj;
 
   const postItemToDB = async (values) => {
-    console.log(values);
-    const newItem = await axios
-      .post("/api/social-networks/", values)
-      .catch((err) => {
-        toastr.error(err.message);
-      });
+    if (values.iconSrc || file) {
+      const newItem = await post(values);
 
-    if (newItem.status === 200) {
-      toastr.success(
-        "Успешно",
-        `В базу данны добавлена новая соцсеть - "${values.name}"`
-      );
-      dispatch(addNewSocialNetworks(newItem.data));
+      console.log("File in post - ", file)
+
+      if (newItem.status === 200) {
+        if (file) {
+          await uploadToS3(values, newItem.data._id);
+        }
+
+        dispatch(addNewSocialNetworks({ ...newItem.data, iconSrc: values.iconSrc }));
+        toastr.success(
+          "Успешно",
+          `В базу данны добавлена новая соцсеть - "${values.name}`
+        );
+      } else {
+        toastr.warning("Хм...", "Что-то пошло не так");
+      }
     } else {
-      toastr.warning("Хм...", "Что-то пошло не так");
+      toastr.warning("Warning", "Не добавлено изображение или путь к нему");
     }
   };
+
   const updateItem = async (values) => {
-    console.log(values);
-    const updatedItem = await axios
-      .put(`/api/social-networks/${id}`, values)
-      .catch((err) => {
-        toastr.error(err.message);
-      });
+    const updatedObj = {
+      ...sourceObj,
+      ...values,
+    };
+    const updatedItem = await put(updatedObj);
 
     if (updatedItem.status === 200) {
+      dispatch(updateSocialNetworkNewObject(updatedItem.data));
       toastr.success(
         "Успешно",
         `Внесены изменения соцсети "${values.name}" в базе данных`
@@ -81,43 +83,26 @@ const AdminSocialNetworksItem = ({
       toastr.warning("Хм...", "Что-то пошло не так");
     }
   };
-  const deleteNewItem = (e) => {
-    e.preventDefault();
-    setIsDeleted(true);
-    toastr.success("Успешно", "Соцсеть удалёнa до внесения в базу данных");
-  };
-  const deleteItemFromDB = async (e) => {
-    e.preventDefault();
-    const deleted = await axios
-      .delete(`/api/social-networks/${id}`)
-      .catch((err) => {
-        toastr.error(err.message);
-      });
-
-    if (deleted.status === 200) {
-      toastr.success("Успешно", `Соцсеть "${name}" удалёнa из базы данных`);
-      dispatch(filterSocialNetworks(id));
+  
+  const update = (values) => {
+    if (file && checkIsInputNotChanges(values, sourceObj)) {
+      uploadToS3(values, sourceObj._id);
+    } else if (!file && !checkIsInputNotChanges(values, sourceObj)) {
+      updateItem(values);
+    } else if (file && !checkIsInputNotChanges(values, sourceObj)) {
+      uploadToS3(values, sourceObj._id).then(() => updateItem(values));
     } else {
-      toastr.warning("Хм...", "Что-то пошло не так");
+      toastr.warning("Сообщение", "Ничего не изменилось");
     }
   };
-
-  const openConfirmModal = (e) => {
-    e.preventDefault();
-    setIsModalOpen(true);
-  };
-
-  if (isDeleted) {
-    return null;
-  }
-
+  
   return (
     <Formik
       initialValues={{ name, url, iconSrc, isEnabled: isEnabled }}
       validationSchema={socialNetworksSchema}
       validateOnBlur={false}
       validateOnChange={false}
-      onSubmit={isNew ? postItemToDB : updateItem}
+      onSubmit={isNew ? postItemToDB : update}
     >
       {({ errors, touched, values }) => (
         <Form className={`${className}__form-item`}>
@@ -169,24 +154,15 @@ const AdminSocialNetworksItem = ({
               </span>
             )}
           </div>
+          {children}
 
           <Field
             type="submit"
             name="submit"
             className={`${className}__submit-btn`}
             value={
-              isNew ? "Создать новый пункт меню?" : "Подтвердить изменения"
+              isNew ? "Создать новую соц-сеть?" : "Подтвердить изменения"
             }
-          />
-          <Button
-            className={`${className}__delete-btn`}
-            text="&#10005;"
-            onClick={openConfirmModal}
-          />
-          <ModalDeleteConfirmation
-            isOpen={isModalOpen}
-            setIsOpen={setIsModalOpen}
-            deleteHandler={isNew ? deleteNewItem : deleteItemFromDB}
           />
         </Form>
       )}

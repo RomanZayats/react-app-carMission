@@ -5,44 +5,57 @@ import Button from "../../generalComponents/Button/Button";
 import "./AdminSocialNetworks.scss";
 import { getSocialNetworks } from "../../../store/socialNetworks/selectors";
 import AdminSocialNetworksItem from "../AdminSocialNetworksItem/AdminSocialNetworksItem";
+import { filterSocialNetworks, updateSocialNetwroksByNewSrc } from "../../../store/socialNetworks/operations";
+import enhanceFormItem from "../../hoc/enhanceFromItem";
 
+
+const config = {
+    dropZone: true,
+    canBeDeleted: true,
+    pathProp: "iconSrc",
+    routes: {
+      post: "/api/social-networks/",
+      put: "/api/social-networks/",
+      delete: "/api/social-networks/delete/",
+      upload: "/api/social-networks/upload/",
+    },
+    actions: {
+      filterDeleted: filterSocialNetworks,
+      updateS3Link: updateSocialNetwroksByNewSrc,
+    },
+  };
+  
 
 const AdminSocialNetworks = () => {
     const [items, setItems] = useState([]);
     const data = useSelector(getSocialNetworks);
     const mainClassName = "admin-networks";
 
-    const createNewItem = () => (
-        <AdminSocialNetworksItem
-            isEnabled={true}
-            name=""
-            namePlaceholder="Введите название соцсети"
-            url=""
-            urlPlaceholder="Введите ссылку на соцсеть"
-            iconSrc=""
-            iconSrcPlaceholder="Укажите адрес к иконке соцсети"
-            className={mainClassName}
-            isNew
-            key={Date.now()}
-        />
-    )
+
+    const createNewItem = () => {
+        const empty = {
+            isEnabled: true,
+            name: "",
+            namePlaceholder: "Введите название соцсети",
+            url: "",
+            urlPlaceholder: "Введите ссылку на соцсеть",
+            iconSrc: "",
+            iconSrcPlaceholder: "Укажите адрес к иконке соцсети",
+            className: {mainClassName},
+        };
+        const Enhanced = enhanceFormItem(AdminSocialNetworksItem, config);
+        return <Enhanced sourceObj={empty} isNew key={Date.now()} className={mainClassName}/>;
+    
+    }
 
     useEffect(() => {
-    
-        const socNetList = () => data.map((i, index) => (
-            <AdminSocialNetworksItem
-                isEnabled = {i.isEnabled}
-                name = {i.name}
-                id = {i.id || i._id}
-                url = {i.url}
-                iconSrc = {i.iconSrc}
-                className={mainClassName}
-                key = {index}
-            />
-        ))
-
-        setItems(socNetList());
-    
+        const mapFormToRender = () => {
+            return data.map((item) => {
+              const Enhanced = enhanceFormItem(AdminSocialNetworksItem, config);
+              return <Enhanced sourceObj={item} key={item._id} className={mainClassName}/>;
+            });
+          };
+          setItems(mapFormToRender());
     }, [data])
 
     const addNewItem = () => {
