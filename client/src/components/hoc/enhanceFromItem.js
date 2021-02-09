@@ -40,7 +40,7 @@ const enhanceFormItem = (Component, config) => {
 
     const uploadImgAndUpdateStore = async (values, id) => {
       const res = await axios
-      .post(`${routes.upload}${id}`, fileReady, {
+        .post(`${routes.upload}${id}`, fileReady, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -49,10 +49,10 @@ const enhanceFormItem = (Component, config) => {
           toastr.error(err.message);
         });
         
-        dispatch(actions.updateS3Link(res.data.location, id));
-        setFileReady(null);
-        values[pathProp] = res.data.location;
-        toastr.success("Успешно", "Изображение загружено");
+      dispatch(actions.updateS3Link(res.data.location, id));
+      setFileReady(null);
+      values[pathProp] = res.data.location;
+      toastr.success("Успешно", "Изображение загружено");
       };
 
     const createPutRequest = (updatedObj) => {
