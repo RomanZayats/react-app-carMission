@@ -2,69 +2,87 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 import { toastr } from "react-redux-toastr";
-import { useSelector } from "react-redux";
 import "./FormItemLogo.scss";
-import { getLogoData } from "../../../../store/logo/selectors";
 import AdminFormField from "../../AdminFormField/AdminFormField";
-import axios from "axios";
+import { checkIsInputNotChanges } from "../../../../utils/functions/checkIsInputNotChanges";
+import { updateLogoData } from "../../../../store/logo/actions";
+import { useDispatch } from "react-redux";
 
 
 const logoSchema = yup.object().shape({
-    path: yup
+    iconSrc: yup
         .string("Введите текст")
         .strict(true)
         .typeError("Введите текст")
         .required("Обязательное поле"),
 })
 
-const FormItemLogo = () => {
-    const mainClassName = "admin-logo";
-    const data = useSelector(getLogoData);
-    const path = data.path;
-    const id = data._id;
+const FormItemLogo = ({
+    sourceObj,
+    children,
+    put,
+    uploadToS3,
+    file,
+    className,
+  
+}) => {
+    const { iconSrc } = sourceObj;
+    const dispatch = useDispatch();
 
-    const updateLogoData = async (values) => {
-        const updatedItem = await axios
-            .put(`/api/logo/${id}`, values)
-            .catch((err) => {
-            toastr.error(err.message);
-        });
-    
-        if (updatedItem.status === 200) {
+    const updateLogoState = async (values) => {
+        const updatedObj = {
+            ...sourceObj,
+            ...values,
+          };
+          const updatedItem = await put(updatedObj);
+      
+          if (updatedItem.status === 200) {
+            dispatch(updateLogoData(updatedItem.data));
             toastr.success(
                 "Успешно",
                 "Лого изменёно"
-            );
-        } else {
+        );
+          } else {
             toastr.warning("Хм...", "Что-то пошло не так");
-        }
-
+          }
     }
+
+    const update = (values) => {
+        if (file && checkIsInputNotChanges(values, sourceObj) || file && !checkIsInputNotChanges(values, sourceObj)) {
+            uploadToS3(values, sourceObj._id).then(() => updateLogoState(values));
+        } else if (!file && !checkIsInputNotChanges(values, sourceObj)) {
+          updateLogoState(values);
+        } else {
+          toastr.warning("Сообщение", "Ничего не изменилось");
+        }
+      };
+    
 
     return (
         <Formik
-            initialValues={{path}}
+            initialValues={{iconSrc}}
             validationSchema={logoSchema}
             validateOnChange={false}
             validateOnBlur={false}
-            onSubmit={updateLogoData}
+            onSubmit={update}
         >
-            {({ errors, touched, values }) => (
-                <Form className={`${mainClassName}__form-item`}>
+            {({ errors }) => (
+                <Form className={`${className}__form-item`}>
                     <AdminFormField
-                        labelClassName={`${mainClassName}__form-label`}
-                        fieldClassName={`${mainClassName}__form-input`}
-                        errorClassName={`${mainClassName}__form-error`}
+                        labelClassName={`${className}__form-label`}
+                        fieldClassName={`${className}__form-input`}
+                        errorClassName={`${className}__form-error`}
                         labelName="Путь к лого компании"
                         type="input"
-                        name="path"
-                        placeholder={path}
+                        name="iconSrc"
+                        placeholder={iconSrc}
                         errors={errors}
                     />
+                    {children}
                     <Field
                         type="submit"
                         name="submit"
-                        className={`${mainClassName}__submit-btn`}
+                        className={`${className}__submit-btn`}
                         value="Подтвердить изменения"
                     />
 

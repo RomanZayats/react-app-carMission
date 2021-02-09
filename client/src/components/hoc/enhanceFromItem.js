@@ -39,7 +39,6 @@ const enhanceFormItem = (Component, config) => {
     };
 
     const uploadImgAndUpdateStore = async (values, id) => {
-      
       const res = await axios
       .post(`${routes.upload}${id}`, fileReady, {
           headers: {
@@ -49,9 +48,6 @@ const enhanceFormItem = (Component, config) => {
         .catch((err) => {
           toastr.error(err.message);
         });
-
-        console.log("Data", res.data)
-        console.log("id", id)
         
         dispatch(actions.updateS3Link(res.data.location, id));
         setFileReady(null);

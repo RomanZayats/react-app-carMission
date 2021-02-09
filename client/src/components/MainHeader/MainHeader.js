@@ -30,7 +30,7 @@ const MainHeader = () => {
         <Link to="/">
           <Logo
             className="logo"
-            src={logoInfo.path}
+            src={logoInfo.iconSrc}
             id={logoInfo.id}
             alt={logoInfo.alt}
           />
@@ -44,7 +44,7 @@ const MainHeader = () => {
         <Link to="/">
           <Logo
             className="logo"
-            src={logoInfo.path}
+            src={logoInfo.iconSrc}
             id={logoInfo.id}
             alt={logoInfo.alt}
           />

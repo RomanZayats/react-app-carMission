@@ -34,13 +34,11 @@ const FormItemSocialNetworks = ({
   className,
 }) => {
   const dispatch = useDispatch();
-  const { isEnabled, name, id, url, iconSrc, namePlaceholder, urlPlaceholder, iconSrcPlaceholder } = sourceObj;
+  const { isEnabled, name, url, iconSrc, namePlaceholder, urlPlaceholder, iconSrcPlaceholder } = sourceObj;
 
   const postItemToDB = async (values) => {
     if (values.iconSrc || file) {
       const newItem = await post(values);
-
-      console.log("File in post - ", file)
 
       if (newItem.status === 200) {
         if (file) {
@@ -165,29 +163,27 @@ const FormItemSocialNetworks = ({
 };
 
 FormItemSocialNetworks.propTypes = {
-  isEnabled: PropTypes.bool,
-  name: PropTypes.string,
-  id: PropTypes.string,
-  url: PropTypes.string,
-  iconSrc: PropTypes.string,
-  isNew: PropTypes.bool,
   className: PropTypes.string,
-  namePlaceholder: PropTypes.string,
-  urlPlaceholder: PropTypes.string,
-  iconSrcPlaceholder: PropTypes.string,
+  sourceObj: PropTypes.object,
+  isNew: PropTypes.bool,
+  // children,
+  // put,
+  // post,
+  // uploadToS3,
+  // file,
+
 };
 
 FormItemSocialNetworks.defaultTypes = {
-  isEnabled: true,
-  name: "",
-  id: "",
-  url: "",
-  iconSrc: "",
   isNew: false,
   className: "",
-  namePlaceholder: "",
-  urlPlaceholder: "",
-  iconSrcPlaceholder: "",
+  sourceObj: {},
+  // children,
+  // put,
+  // post,
+  // uploadToS3,
+  // file,
+
 };
 
 export default FormItemSocialNetworks;

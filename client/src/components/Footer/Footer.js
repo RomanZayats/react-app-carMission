@@ -32,7 +32,7 @@ const Footer = () => {
           <div className="footer__logo-bg">
             <Logo
               className="logo footer__logo"
-              src={logoInfo.path}
+              src={logoInfo.iconSrc}
               id={logoInfo.id}
               alt={logoInfo.alt}
             />
@@ -45,7 +45,7 @@ const Footer = () => {
           <Link to="/" className="footer__logo-link">
             <Logo
               className="logo"
-              src={logoInfo.path}
+              src={logoInfo.iconSrc}
               id={logoInfo.id}
               alt={logoInfo.alt}
             />

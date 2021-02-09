@@ -7,11 +7,11 @@ import FormContainerServicePakages from "../components/admin/ServicePakages/Form
 import Page404 from "../pages/Page404/Page404";
 import FormContainerReviewCarousel from "../components/admin/ReviewCarousel/FormContainer/FormContainerReviewCarousel";
 import AdminNavbar from "../components/admin/AdminNavbar/AdminNavbar";
-import FormItemLogo from "../components/admin/Logo/FormItem/FormItemLogo";
 import FormContainerSocialNetworks from "../components/admin/SocialNetworks/FormContainer/FormContainerSocialNetworks";
 import FormContainerBlogs from "../components/admin/Blogs/FormContainer/FormContainerBlogs";
 import AdminsWrapper from "../components/admin/AdminUsers/AdminsWrapper/AdminsWrapper";
 import { decodeUser } from "../utils/functions/decodeUser";
+import FormContainerLogo from "../components/admin/Logo/FormConatiner/FormContainerLogo";
 
 const AdminRoutes = () => {
   const { isOwner } = decodeUser().decoded;
@@ -20,7 +20,7 @@ const AdminRoutes = () => {
     <Switch>
       <Route exact path="/admin/" />
       <Route exact path="/admin/navbar" component={AdminNavbar} />
-      <Route exact path="/admin/logo" component={FormItemLogo} />
+      <Route exact path="/admin/logo" component={FormContainerLogo} />
       <Route
         exact
         path="/admin/main-page-sections"

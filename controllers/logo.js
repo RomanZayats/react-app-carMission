@@ -1,21 +1,27 @@
 const Logo = require("../models/Logo");
 const _ = require("lodash");
 const queryCreator = require("../commonHelpers/queryCreator");
+const {
+  updateS3Credentials,
+  upload,
+} = require("../commonHelpers/amazon-s3-upload");
+const uploadS3 = upload("social-networks");
 
-exports.addLogo = (req, res, next) => {
+// Контроллеры Post & Delete сохранены на случай изменения структуры данной коллекции 
 
-    const newLogo = new Logo(req.body);
+// exports.addLogo = (req, res, next) => {
+//     const newLogo = new Logo(req.body);
 
-    newLogo
-        .save()
-        .then(data => res.json(data))
-        .catch(err =>
-            res.status(400).json({
-            message: `Error happened on server: "${err}" `
-        })
-        );
+//     newLogo
+//         .save()
+//         .then(data => res.json(data))
+//         .catch(err =>
+//             res.status(400).json({
+//             message: `Error happened on server: "${err}" `
+//         })
+//         );
 
-};
+// };
 
 exports.getLogo = (req, res, next) => {
     Logo.find()
@@ -27,27 +33,27 @@ exports.getLogo = (req, res, next) => {
     );
 };
 
-exports.deleteLogo = (req, res, next) => {
-    Logo.findOne({ _id: req.params.id }).then(async logo => {
-      if (!logo) {
-        return res
-          .status(400)
-          .json({ message: `Logo with _id "${req.params.id}" is not found.` });
-      } else { 
-        Logo.deleteOne({ _id: req.params.id })
-          .then(deletedCount =>
-            res.status(200).json({
-              message: `Logo is successfully deletes from DB. `
-            })
-          )
-          .catch(err =>
-            res.status(400).json({
-              message: `Error happened on server: "${err}" `
-            })
-          );
-      }
-    });
-};
+// exports.deleteLogo = (req, res, next) => {
+//     Logo.findOne({ _id: req.params.id }).then(async logo => {
+//       if (!logo) {
+//         return res
+//           .status(400)
+//           .json({ message: `Logo with _id "${req.params.id}" is not found.` });
+//       } else { 
+//         Logo.deleteOne({ _id: req.params.id })
+//           .then(deletedCount =>
+//             res.status(200).json({
+//               message: `Logo is successfully deletes from DB. `
+//             })
+//           )
+//           .catch(err =>
+//             res.status(400).json({
+//               message: `Error happened on server: "${err}" `
+//             })
+//           );
+//       }
+//     });
+// };
 
 exports.updateLogoData = (req, res, next) => {
     Logo.findOne({ _id: req.params.id })
