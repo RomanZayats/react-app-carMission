@@ -24,10 +24,6 @@ const Footer = () => {
     return e;
 })
   const { width: winWidth } = useWinSize();
-  const sortByNumberInNavbar = (arr) => {
-    arr.sort((a, b) => +a.numberInNavbar > +b.numberInNavbar ? 1 : -1);
-  }
-  sortByNumberInNavbar(navbarItems);
   const leftSideItems = navbarItems.filter((e) => e.footerLocation === "left-side");
   const rightSideItems = navbarItems.filter((e) => e.footerLocation === "right-side");
   const firstMobileSize = 640;
