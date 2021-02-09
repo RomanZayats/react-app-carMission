@@ -9,7 +9,6 @@ import { loadNavbarData } from "./store/navbar/operations";
 import { loadMainSection } from "./store/appMainSections/operations";
 import "./theme/styles/App.scss";
 import FeedbackForm from "./components/FeedbackForm/Main/FeedbackForm";
-import ErrorModal from "./components/ErrorModal/ErrorModal";
 import { loadFeatures } from "./store/aboutUs/operations";
 import { loadPackages } from "./store/servicePackages/operations";
 import { loadWorkStages } from "./store/workStages/operations";
@@ -55,7 +54,6 @@ const App = () => {
     <div className="App">
       <div className={isMainPage ? "App__main-page" : "App__bg"}>
         <FeedbackForm />
-        <ErrorModal />
         <AppRoutes />
         <ReduxToastr
           timeOut={5000}

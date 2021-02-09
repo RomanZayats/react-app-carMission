@@ -1,7 +1,6 @@
 import axios from "axios";
 import { setMainSections, setIsLoading } from "./actions";
-import { saveErrObjAction } from "../errorObject/saveErrObjAction";
-import { openErrModal } from "../ErrorModal/openErrModal";
+import { toastr } from "react-redux-toastr";
 
 export const loadMainSection = () => async (dispatch) => {
   dispatch(setIsLoading(true));
@@ -10,8 +9,7 @@ export const loadMainSection = () => async (dispatch) => {
     .get("/api/sections-main/")
     .then((r) => r.data)
     .catch((err) => {
-      dispatch(saveErrObjAction(err));
-      dispatch(openErrModal);
+      toastr.error(err.message);
     });
 
   sectionsFromServer.sort((a, b) => a.index - b.index);

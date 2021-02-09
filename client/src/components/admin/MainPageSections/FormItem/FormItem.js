@@ -3,8 +3,6 @@ import { Formik, Form, Field } from "formik";
 import "./FormItem.scss";
 import AdminFormField from "../../AdminFormField/AdminFormField";
 import axios from "axios";
-import { saveErrObjAction } from "../../../../store/errorObject/saveErrObjAction";
-import { openErrModal } from "../../../../store/ErrorModal/openErrModal";
 import { useDispatch } from "react-redux";
 import Button from "../../../generalComponents/Button/Button";
 import { validationSchema } from "../validationSchema";
@@ -28,10 +26,9 @@ const FormItem = ({ obj, sectionCreationStatus, setSectionCreationStatus }) => {
       const sectionToServer = await axios({
         method: "POST",
         url: "/api/sections-main/",
-        data: { ...values, reactComponent:"newSectionComponent" },
+        data: { ...values, reactComponent: "newSectionComponent" },
       }).catch((err) => {
-        dispatch(saveErrObjAction(err));
-        dispatch(openErrModal);
+        toastr.error(err.message);
       });
 
       if (sectionToServer.status === 200) {
@@ -41,7 +38,6 @@ const FormItem = ({ obj, sectionCreationStatus, setSectionCreationStatus }) => {
           "Успешно",
           `Секция "${values.name}" создана в базе данных`
         );
-
       } else {
         toastr.warning("Хм...", "Что-то пошло не так");
       }
@@ -53,8 +49,7 @@ const FormItem = ({ obj, sectionCreationStatus, setSectionCreationStatus }) => {
         url: `/api/sections-main/${_id}`,
         data: updatedObj,
       }).catch((err) => {
-        dispatch(saveErrObjAction(err));
-        dispatch(openErrModal);
+        toastr.error(err.message);
       });
 
       if (sectionToServer.status === 200) {
@@ -74,8 +69,7 @@ const FormItem = ({ obj, sectionCreationStatus, setSectionCreationStatus }) => {
       method: "DELETE",
       url: `/api/sections-main/${_id}`,
     }).catch((err) => {
-      dispatch(saveErrObjAction(err));
-      dispatch(openErrModal);
+      toastr.error(err.message);
     });
     if (delSectionFromServer.status === 200) {
       dispatch(loadMainSection());
@@ -134,10 +128,15 @@ const FormItem = ({ obj, sectionCreationStatus, setSectionCreationStatus }) => {
             labelName="Название секции"
           />
 
-
           <label className="admin__label admin__checkbox-label">
-            <Field className="admin__input admin__checkbox-input" type="checkbox" name="disabled" />
-           <span className="admin__label-name admin__checkbox-label-name">&nbsp;Скрыть секцию на странице</span>
+            <Field
+              className="admin__input admin__checkbox-input"
+              type="checkbox"
+              name="disabled"
+            />
+            <span className="admin__label-name admin__checkbox-label-name">
+              &nbsp;Скрыть секцию на странице
+            </span>
           </label>
 
           {sectionCreationStatus === "creating" ||
@@ -174,7 +173,6 @@ const FormItem = ({ obj, sectionCreationStatus, setSectionCreationStatus }) => {
                 className="admin__submit-btn"
                 value="Submit changes"
               />
-
             </div>
           )}
         </Form>
@@ -184,4 +182,3 @@ const FormItem = ({ obj, sectionCreationStatus, setSectionCreationStatus }) => {
 };
 
 export default FormItem;
-
