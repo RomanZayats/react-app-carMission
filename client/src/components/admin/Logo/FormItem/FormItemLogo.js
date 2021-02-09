@@ -3,9 +3,9 @@ import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 import { toastr } from "react-redux-toastr";
 import { useSelector } from "react-redux";
-import "./AdminLogo.scss";
-import { getLogoData } from "../../../store/logo/selectors";
-import AdminFormField from "../AdminFormField/AdminFormField";
+import "./FormItemLogo.scss";
+import { getLogoData } from "../../../../store/logo/selectors";
+import AdminFormField from "../../AdminFormField/AdminFormField";
 import axios from "axios";
 
 
@@ -17,7 +17,7 @@ const logoSchema = yup.object().shape({
         .required("Обязательное поле"),
 })
 
-const AdminLogo = () => {
+const FormItemLogo = () => {
     const mainClassName = "admin-logo";
     const data = useSelector(getLogoData);
     const path = data.path;
@@ -74,4 +74,4 @@ const AdminLogo = () => {
     );
 };
 
-export default AdminLogo;
+export default FormItemLogo;

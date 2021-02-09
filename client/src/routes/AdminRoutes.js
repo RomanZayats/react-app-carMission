@@ -7,8 +7,8 @@ import FormContainerServicePakages from "../components/admin/ServicePakages/Form
 import Page404 from "../pages/Page404/Page404";
 import FormContainerReviewCarousel from "../components/admin/ReviewCarousel/FormContainer/FormContainerReviewCarousel";
 import AdminNavbar from "../components/admin/AdminNavbar/AdminNavbar";
-import AdminLogo from "../components/admin/AdminLogo/AdminLogo";
-import AdminSocialNetworks from "../components/admin/AdminSocialNetworks/AdminSocialNetworks";
+import FormItemLogo from "../components/admin/Logo/FormItem/FormItemLogo";
+import FormContainerSocialNetworks from "../components/admin/SocialNetworks/FormContainer/FormContainerSocialNetworks";
 import FormContainerBlogs from "../components/admin/Blogs/FormContainer/FormContainerBlogs";
 import AdminsWrapper from "../components/admin/AdminUsers/AdminsWrapper/AdminsWrapper";
 import { decodeUser } from "../utils/functions/decodeUser";
@@ -20,7 +20,7 @@ const AdminRoutes = () => {
     <Switch>
       <Route exact path="/admin/" />
       <Route exact path="/admin/navbar" component={AdminNavbar} />
-      <Route exact path="/admin/logo" component={AdminLogo} />
+      <Route exact path="/admin/logo" component={FormItemLogo} />
       <Route
         exact
         path="/admin/main-page-sections"
@@ -35,7 +35,7 @@ const AdminRoutes = () => {
       <Route
         exact
         path="/admin/social-networks"
-        component={AdminSocialNetworks}
+        component={FormContainerSocialNetworks}
       />
       <Route
         exact

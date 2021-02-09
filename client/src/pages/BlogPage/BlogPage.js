@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import Blogs from "../../components/Blogs/Blogs";
 import Image from "../../components/Image/Image";
 import { useSelector } from "react-redux";

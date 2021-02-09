@@ -1,14 +1,14 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import { useDispatch } from "react-redux";
-import AdminFormField from "../AdminFormField/AdminFormField";
-import { updateSocialNetworkNewObject } from "../../../store/socialNetworks/operations";
+import AdminFormField from "../../AdminFormField/AdminFormField";
+import { updateSocialNetworkNewObject } from "../../../../store/socialNetworks/operations";
 import * as yup from "yup";
 import { toastr } from "react-redux-toastr";
-import "./AdminSocialNetworksItem.scss";
-import { addNewSocialNetworks } from "../../../store/socialNetworks/actions";
+import "./FormItemSocialNetworks.scss";
+import { addNewSocialNetworks } from "../../../../store/socialNetworks/actions";
 import PropTypes from "prop-types";
-import { checkIsInputNotChanges } from "../../../utils/functions/checkIsInputNotChanges";
+import { checkIsInputNotChanges } from "../../../../utils/functions/checkIsInputNotChanges";
 
 const socialNetworksSchema = yup.object().shape({
   name: yup
@@ -21,14 +21,9 @@ const socialNetworksSchema = yup.object().shape({
     .strict(true)
     .typeError("Введите текст")
     .required("Обязательное поле"),
-  iconSrc: yup
-    .string("Введите текст")
-    .strict(true)
-    .typeError("Введите текст")
-    .required("Обязательное поле"),
 });
 
-const AdminSocialNetworksItem = ({
+const FormItemSocialNetworks = ({
   sourceObj,
   isNew,
   children,
@@ -169,7 +164,7 @@ const AdminSocialNetworksItem = ({
   );
 };
 
-AdminSocialNetworksItem.propTypes = {
+FormItemSocialNetworks.propTypes = {
   isEnabled: PropTypes.bool,
   name: PropTypes.string,
   id: PropTypes.string,
@@ -182,7 +177,7 @@ AdminSocialNetworksItem.propTypes = {
   iconSrcPlaceholder: PropTypes.string,
 };
 
-AdminSocialNetworksItem.defaultTypes = {
+FormItemSocialNetworks.defaultTypes = {
   isEnabled: true,
   name: "",
   id: "",
@@ -195,4 +190,4 @@ AdminSocialNetworksItem.defaultTypes = {
   iconSrcPlaceholder: "",
 };
 
-export default AdminSocialNetworksItem;
+export default FormItemSocialNetworks;

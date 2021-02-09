@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import SectionHeading from "../../generalComponents/SectionHeading/SectionHeading";
-import Button from "../../generalComponents/Button/Button";
-import "./AdminSocialNetworks.scss";
-import { getSocialNetworks } from "../../../store/socialNetworks/selectors";
-import AdminSocialNetworksItem from "../AdminSocialNetworksItem/AdminSocialNetworksItem";
-import { filterSocialNetworks, updateSocialNetwroksByNewSrc } from "../../../store/socialNetworks/operations";
-import enhanceFormItem from "../../hoc/enhanceFromItem";
+import SectionHeading from "../../../../components/generalComponents/SectionHeading/SectionHeading";
+import Button from "../../../../components/generalComponents/Button/Button";
+import "./FormContainerSocialNetworks.scss";
+import { getSocialNetworks } from "../../../../store/socialNetworks/selectors";
+import FormItemSocialNetworks from "../FormItem/FormItemSocialNetworks";
+import { filterSocialNetworks, updateSocialNetwroksByNewSrc } from "../../../../store/socialNetworks/operations";
+import enhanceFormItem from "../../../../components/hoc/enhanceFromItem";
 
 
 const config = {
@@ -26,7 +26,7 @@ const config = {
   };
   
 
-const AdminSocialNetworks = () => {
+const FormContainerSocialNetworks = () => {
     const [items, setItems] = useState([]);
     const data = useSelector(getSocialNetworks);
     const mainClassName = "admin-networks";
@@ -40,10 +40,10 @@ const AdminSocialNetworks = () => {
             url: "",
             urlPlaceholder: "Введите ссылку на соцсеть",
             iconSrc: "",
-            iconSrcPlaceholder: "Укажите адрес к иконке соцсети",
+            iconSrcPlaceholder: "Заполнится автоматически после загрузки",
             className: {mainClassName},
         };
-        const Enhanced = enhanceFormItem(AdminSocialNetworksItem, config);
+        const Enhanced = enhanceFormItem(FormItemSocialNetworks, config);
         return <Enhanced sourceObj={empty} isNew key={Date.now()} className={mainClassName}/>;
     
     }
@@ -51,7 +51,7 @@ const AdminSocialNetworks = () => {
     useEffect(() => {
         const mapFormToRender = () => {
             return data.map((item) => {
-              const Enhanced = enhanceFormItem(AdminSocialNetworksItem, config);
+              const Enhanced = enhanceFormItem(FormItemSocialNetworks, config);
               return <Enhanced sourceObj={item} key={item._id} className={mainClassName}/>;
             });
           };
@@ -76,4 +76,4 @@ const AdminSocialNetworks = () => {
     );
 };
 
-export default AdminSocialNetworks;
+export default FormContainerSocialNetworks;
