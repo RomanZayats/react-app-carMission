@@ -48,12 +48,11 @@ const enhanceFormItem = (Component, config) => {
         .catch((err) => {
           toastr.error(err.message);
         });
-        
       dispatch(actions.updateS3Link(res.data.location, id));
       setFileReady(null);
       values[pathProp] = res.data.location;
       toastr.success("Успешно", "Изображение загружено");
-      };
+    };
 
     const createPutRequest = (updatedObj) => {
       return axios
