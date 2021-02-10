@@ -14,10 +14,6 @@ const MainHeader = () => {
   const navbarData = useSelector(getNavbarData);
   const { width: winWidth } = useWinSize();
   const [isMobileNavbar, setIsMobileNavbar] = useState(false);
-  const sortByNumberInNavbar = (arr) => {
-    arr.sort((a, b) => +a.numberInNavbar > +b.numberInNavbar ? 1 : -1);
-  }
-  sortByNumberInNavbar(navbarData);
   const firstMobileSize = 768;
   const isMobileWindowSize = winWidth <= firstMobileSize;
   const leftSideItems = navbarData.filter((e) => e.headerLocation === "left-side");
@@ -30,7 +26,7 @@ const MainHeader = () => {
         <Link to="/">
           <Logo
             className="logo"
-            src={logoInfo.path}
+            src={logoInfo.iconSrc}
             id={logoInfo.id}
             alt={logoInfo.alt}
           />
@@ -44,7 +40,7 @@ const MainHeader = () => {
         <Link to="/">
           <Logo
             className="logo"
-            src={logoInfo.path}
+            src={logoInfo.iconSrc}
             id={logoInfo.id}
             alt={logoInfo.alt}
           />
