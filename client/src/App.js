@@ -51,21 +51,19 @@ const App = () => {
   }
 
   return (
-    <div className="App">
-      <div className={isMainPage ? "App__main-page" : "App__bg"}>
-        <FeedbackForm />
-        <AppRoutes />
-        <ReduxToastr
-          timeOut={5000}
-          newestOnTop
-          preventDuplicates
-          position="top-right"
-          getState={(state) => state.toastr}
-          transitionIn="fadeIn"
-          transitionOut="fadeOut"
-          progressBar
-        />
-      </div>
+    <div className={isMainPage ? "App" : "App__bg"}>
+      <FeedbackForm />
+      <AppRoutes />
+      <ReduxToastr
+        timeOut={5000}
+        newestOnTop
+        preventDuplicates
+        position="top-right"
+        getState={(state) => state.toastr}
+        transitionIn="fadeIn"
+        transitionOut="fadeOut"
+        progressBar
+      />
     </div>
   );
 };
