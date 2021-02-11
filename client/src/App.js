@@ -25,6 +25,7 @@ const App = () => {
   const location = useLocation();
 
   useEffect(() => {
+    dispatch(loadBlogs());
     dispatch(loadMainSection());
     dispatch(loadSocialNetworks());
     dispatch(loadNavbarData());
@@ -33,7 +34,6 @@ const App = () => {
     dispatch(loadPackages());
     dispatch(loadWorkStages());
     dispatch(loadReviews());
-    dispatch(loadBlogs());
     dispatch(checkToken());
   }, [dispatch]);
 
