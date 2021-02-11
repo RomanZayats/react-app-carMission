@@ -2,37 +2,10 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import "./FormItem.scss";
 import AdminFormField from "../../AdminFormField/AdminFormField";
-import axios from "axios";
-import { useDispatch } from "react-redux";
 import { validationSchema } from "../validationSchema";
-import { loadMainSection } from "../../../../store/appMainSections/operations";
-import { toastr } from "react-redux-toastr";
 
-const FormItem = ({ obj }) => {
-  const { heading, description, index, disabled, name, _id } = obj;
-  const dispatch = useDispatch();
-
-  const onSubmit = async (values) => {
-    const updatedObj = { ...obj, ...values };
-
-    const sectionToServer = await axios({
-      method: "PUT",
-      url: `/api/sections-main/${_id}`,
-      data: updatedObj,
-    }).catch((err) => {
-      toastr.error(err.message);
-    });
-
-    if (sectionToServer.status === 200) {
-      dispatch(loadMainSection());
-      toastr.success(
-        "Успешно",
-        `Секция "${values.name}" изменена в базе данных`
-      );
-    } else {
-      toastr.warning("Хм...", "Что-то пошло не так");
-    }
-  };
+const FormItem = ({ sourceObj, children, handleUpdate }) => {
+  const { heading, description, index, disabled, name, imgPath } = sourceObj;
 
   return (
     <Formik
@@ -42,11 +15,12 @@ const FormItem = ({ obj }) => {
         index,
         disabled,
         name,
+        imgPath,
       }}
       validationSchema={validationSchema}
       validateOnChange={false}
       validateOnBlur={false}
-      onSubmit={onSubmit}
+      onSubmit={handleUpdate}
     >
       {({ errors }) => (
         <Form className="admin__form-item">
@@ -77,9 +51,17 @@ const FormItem = ({ obj }) => {
             type="text"
             name="name"
             errors={errors}
-            labelName="Название секции"
+            labelName="Имя ссылки якоря"
           />
-
+          {imgPath && (
+            <AdminFormField
+              className="admin__form-label"
+              type="text"
+              name="imgPath"
+              errors={errors}
+              labelName="Ссылка на изображение"
+            />
+          )}
           <label className="admin__label admin__checkbox-label">
             <Field
               className="admin__input admin__checkbox-input"
@@ -90,12 +72,12 @@ const FormItem = ({ obj }) => {
               &nbsp;Скрыть секцию на странице
             </span>
           </label>
-
+          {children}
           <Field
             type="submit"
             name="submit"
             className="admin__submit-btn"
-            value="Submit changes"
+            value="Подтвердить изменения"
           />
         </Form>
       )}

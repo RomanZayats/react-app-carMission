@@ -30,8 +30,8 @@
 
   &__remove-option {
     position: absolute;
-    top: 42%;
-    left: 90%;
+    top: calc(100% - 15px);
+    right: 30%;
     color: $palette-secondary;
     font-size: 12px;
     background: none;
@@ -46,12 +46,11 @@
   &__add-option {
     position: absolute;
     top: calc(100% - 15px);
-    left: 50%;
+    left: 30%;
     color: $palette-secondary;
     font-size: 13px;
     background: none;
     border: none;
-    transform: translateX(-50%);
     transition: .3s;
 
     &:hover {
