@@ -32,3 +32,11 @@ test("Is BlogPageItem receive correct title", () => {
   getByText(testData.title);
 })
 
+test("Is function correctNums return correct result", () => {
+  testData.date = "1513550152581"
+  const { getByText } = render(<BlogPageItem className={testClassName} data={testData}/>)
+
+  getByText("18.12.2017");
+})
+
+
