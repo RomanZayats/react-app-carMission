@@ -35,10 +35,10 @@ const FormContainerNavbar = () => {
   const navbarData = useSelector(getNavbarData);
   const sectionsData = useSelector(getMainSections);
   const mainClassName = "admin-navbar";
-  const nextNum = navbarData.length + 1;
-
+  
   const createNewFormItem = () => {
-    const countsNums = navbarData.map((e) => e.numberInNavbar);
+    const nextNum = navbarList.length + 1;
+    const countsNums = navbarList.map((e) => e.numberInNavbar);
     const newCountsNums = [...countsNums, nextNum.toString()];
     const newNumbersInNavbar = newCountsNums.map((e) => ({
       value: e,

@@ -90,7 +90,7 @@ const enhanceFormItem = (Component, config) => {
     };
 
     const handlePostToDB = async (values) => {
-      if (values[pathProp] || fileReady) {
+      if (dropZone || values[pathProp] || fileReady) {
         const newObj = await axios.post(routes.post, values).catch((err) => {
           toastr.error(err.message);
         });
