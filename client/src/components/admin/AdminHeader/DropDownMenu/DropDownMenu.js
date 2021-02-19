@@ -15,7 +15,6 @@ const DropDownMenu = () => {
         .catch((err) => toastr.error(err.message));
 
       if (user.status === 200) {
-        console.log(user.data);
         const { login } = user.data;
         setLogin(login);
       }
