@@ -14,10 +14,9 @@ const InviteForm = () => {
   const handleSubmit = async (values) => {
     const { email } = values;
 
-    const res = await axios.post("/api/invites/", { email }).catch((err) => {
-      console.log(err.response.data.message);
-      toastr.error(err.response.data.message);
-    });
+    const res = await axios
+      .post("/api/invites/", { email })
+      .catch((err) => toastr.error(err.response.data.message));
 
     if (res.status === 200) {
       toastr.success("Success", res.data.message);
