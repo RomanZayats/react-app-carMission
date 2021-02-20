@@ -16,7 +16,7 @@ const FormItemBlogs = ({
   const [blogText, setBlogText] = useState(fullText);
 
   const myUpdate = (values) => {
-    values.fullText = blogText;
+    // values.fullText = blogText;
     handleUpdate(values);
   };
 
@@ -58,11 +58,18 @@ const FormItemBlogs = ({
             errors={errors}
             labelName="Краткое описание блога"
           />
-          <p>Полный текст блога</p>
-          <Editor
+          <AdminFormField
+            as={Editor}
+            labelClassName="admin-blogs__form-label"
+            errorClassName="admin-blogs__form-error"
+            type="text"
+            name="fullText"
+            errors={errors}
+            labelName="Полный текст блога"
             apiKey="nd49ra86ih41ltzuer5300ddq50zkffzx917inp5k032md2m"
             value={fullText}
             onEditorChange={(val) => setBlogText(val)}
+            textareaName="fullText"
           />
           <AdminFormField
             labelClassName="admin-blogs__form-label"
