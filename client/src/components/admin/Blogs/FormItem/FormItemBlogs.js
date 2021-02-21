@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import AdminFormField from "../../AdminFormField/AdminFormField";
 import { validationSchema } from "../ValidationSchema";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./FormItemBlogs.scss";
+import { Editor } from "@tinymce/tinymce-react";
 
 const FormItemBlogs = ({
   sourceObj,
@@ -14,10 +15,14 @@ const FormItemBlogs = ({
   handleUpdate,
 }) => {
   const { photo, title, text, fullText, buttonText, date } = sourceObj;
-
+  const [blogText, setBlogText] = useState(fullText);
+  
   const submitItem = (values) => {
     const {blogDate, ...rest} = values;
+
+    rest.fullText = blogText;
     rest.date = blogDate.getTime();
+    
     isNew ? handlePost(rest) : handleUpdate(rest);
   }
 
@@ -60,14 +65,17 @@ const FormItemBlogs = ({
             labelName="Краткое описание блога"
           />
           <AdminFormField
-            as="textarea"
+            as={Editor}
             labelClassName="admin-blogs__form-label"
             fieldClassName="admin-blogs__form-textarea"
             errorClassName="admin-blogs__form-error"
-            type="textarea"
+            type="text"
             name="fullText"
             errors={errors}
-            labelName="Текст блога"
+            labelName="Полный текст блога"
+            apiKey="nd49ra86ih41ltzuer5300ddq50zkffzx917inp5k032md2m"
+            value={fullText}
+            onEditorChange={(val) => setBlogText(val)}
           />
           <AdminFormField
             labelClassName="admin-blogs__form-label"
@@ -78,8 +86,14 @@ const FormItemBlogs = ({
             errors={errors}
             labelName="Текст на кнопке"
           />
-          <label className="admin-blogs__form-label">Дата блога</label>
-          <DatePicker
+          <AdminFormField
+            as={DatePicker}
+            labelClassName="admin-blogs__form-label"
+            fieldClassName="admin-blogs__form-textarea"
+            errorClassName="admin-blogs__form-error"
+            type="text"
+            errors={errors}
+            labelName="Дата блога"
             selected={values.blogDate}
             dateFormat="dd.MM.yyyy"
             className="admin-blogs__form-date"
